@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.leanon.ui.theme.LeanOnTheme
-import com.example.leanon.ui.theme.MainScreen
+import com.example.leanon.ui.theme.pages.MainScreen
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -33,32 +33,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-//@Composable
-//fun BottomBar(navController: NavHostController) {
-//    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically){
-//        BottomAppBar(contentColor = Color.White,
-//            containerColor = PrimePink,
-//            actions = {
-//                IconButton(onClick = { navController.navigate(ROUTE_HOME) }) {
-//                    Icon(Icons.Filled.Home, contentDescription = "Home")
-//                }
-//                Spacer(modifier = Modifier.width(50.dp))
-//                IconButton(onClick = { navController.navigate(ROUTE_BIBLE) }) {
-//                    Icon(Icons.Filled.Book, contentDescription = "Bible")
-//                }
-//                Spacer(modifier = Modifier.width(50.dp))
-//                IconButton(onClick = { navController.navigate(ROUTE_NOTEPAD)}) {
-//                    Icon(Icons.Filled.Padding, contentDescription = "Notepad")
-//                }
-//                Spacer(modifier = Modifier.width(50.dp))
-//                IconButton(onClick = { navController.navigate(ROUTE_CHURCH) }) {
-//                    Icon(Icons.Filled.Church, contentDescription = "Church")
-//                }
-//            })
-//
-//    }
-//
-//}
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {

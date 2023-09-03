@@ -29,7 +29,7 @@ fun ChurchScreen() {
             .height(80.dp)
             .background(PrimePink)) {
             Text(
-                text = "LEAN ON church",
+                text = "LEAN ON ",
                 fontSize = 30.sp,
                 color = Color.White,
                 modifier = Modifier.padding(20.dp),

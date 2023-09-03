@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -50,18 +51,23 @@ fun SermonNotepadScreen(navController: NavHostController) {
                 fontWeight = FontWeight.Bold
             )
         }
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(text = "My Sermons")
-        Spacer(modifier = Modifier.weight(1f))
-        ExtendedFloatingActionButton(
-            onClick = {
-                      navController.navigate(ROUTE_ADD_SERMON)
-            },
-            containerColor = PrimePink,
-            contentColor = Color.White,
-            icon = { Icon(Icons.Filled.Edit, "Extended floating action button.") },
-            text = { Text(text = "Add Sermon")}
-        )
+       Row(modifier = Modifier
+           .fillMaxWidth()
+           .padding(20.dp),
+           verticalAlignment = Alignment.CenterVertically) {
+           Text(text = "My Sermons")
+           Spacer(modifier = Modifier.width(70.dp))
+           ExtendedFloatingActionButton(
+               onClick = {
+                   navController.navigate(ROUTE_ADD_SERMON)
+               },
+               containerColor = PrimePink,
+               contentColor = Color.White,
+               icon = { Icon(Icons.Filled.Edit, "Extended floating action button.") },
+               text = { Text(text = "Add Sermon")}
+           )
+       }
+
     }
 }
 

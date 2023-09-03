@@ -57,21 +57,6 @@ fun HomeScreen(navController: NavHostController) {
         ){
             Icon(Icons.Filled.Add, contentDescription ="Add")
         }
-//        Spacer(modifier = Modifier.height(20.dp))
-//        Scaffold (bottomBar = { BottomBar(rememberNavController()) })
-//        {
-//                innerPadding->
-//            Column(modifier = Modifier.padding(innerPadding),
-//                verticalArrangement = Arrangement.Center) {
-//                Text(
-//                    text = "Posts",
-//                    fontSize = 20.sp,
-//                    color = Color.Gray,
-//                    fontFamily = FontFamily.Monospace,
-//                    fontWeight = FontWeight.Bold)
-//
-//            }
-//        }
     }
 }
 

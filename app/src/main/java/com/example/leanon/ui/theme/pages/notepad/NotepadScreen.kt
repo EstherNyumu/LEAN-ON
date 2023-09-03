@@ -75,7 +75,7 @@ fun NotepadScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
-                      navController.navigate(ROUTE_PRAYER_NOTEPAD)
+                navController.navigate(ROUTE_PRAYER_NOTEPAD)
             },
             colors = ButtonDefaults.buttonColors(Color.White),
             shape = RoundedCornerShape(20.dp),
@@ -86,7 +86,7 @@ fun NotepadScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
-                      navController.navigate(ROUTE_SERMON_NOTEPAD)
+                navController.navigate(ROUTE_SERMON_NOTEPAD)
             },
             colors = ButtonDefaults.buttonColors(Color.White),
             shape = RoundedCornerShape(20.dp),
@@ -96,7 +96,7 @@ fun NotepadScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
-                      navController.navigate(ROUTE_BIBLE_STUDY_NOTEPAD)
+                navController.navigate(ROUTE_BIBLE_STUDY_NOTEPAD)
             },
             colors = ButtonDefaults.buttonColors(Color.White),
             shape = RoundedCornerShape(20.dp),

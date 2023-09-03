@@ -50,18 +50,23 @@ fun BibleStudyNotepadScreen(navController: NavHostController) {
                 fontWeight = FontWeight.Bold
             )
         }
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(text = "Bible Study Sessions")
-        Spacer(modifier = Modifier.weight(1f))
-        ExtendedFloatingActionButton(
-            onClick = {
-                      navController.navigate(ROUTE_ADD_BIBLE_STUDY)
-            },
-            containerColor = PrimePink,
-            contentColor = Color.White,
-            icon = { Icon(Icons.Filled.Edit, "Extended floating action button.")},
-            text = { Text(text = "Add Bible Study")}
-        )
+        Row (modifier = Modifier
+            .fillMaxWidth()
+            .padding(20.dp),
+            verticalAlignment = Alignment.CenterVertically){
+            Text(text = "Bible Study Sessions")
+            Spacer(modifier = Modifier.height(70.dp))
+            ExtendedFloatingActionButton(
+                onClick = {
+                    navController.navigate(ROUTE_ADD_BIBLE_STUDY)
+                },
+                containerColor = PrimePink,
+                contentColor = Color.White,
+                icon = { Icon(Icons.Filled.Edit, "Extended floating action button.") },
+                text = { Text(text = "Add Bible Study")}
+            )
+        }
+
 
     }
 }

@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.leanon.navigation.ROUTE_HOME
+import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.ui.theme.LeanOnTheme
 import com.example.leanon.ui.theme.PrimePink
 
@@ -74,7 +74,7 @@ fun AddPostsScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(20.dp))
 
         Button(onClick = {
-                         navController.navigate(ROUTE_HOME)
+            navController.navigate(BottomBarScreen.Home.route)
         },
             colors = ButtonDefaults.buttonColors(PrimePink)) {
             Text( text = "Post")
