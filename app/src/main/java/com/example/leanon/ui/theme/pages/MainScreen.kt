@@ -19,7 +19,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.leanon.models.BottomBarScreen
-import com.example.leanon.navigation.BottomNavGraph
+import com.example.leanon.navigation.AppNavHost
 import com.example.leanon.ui.theme.PrimePink
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,7 +29,7 @@ fun MainScreen() {
     Scaffold(
         bottomBar = { BottomBar(navController = navController) }
     ){paddingValues->
-        BottomNavGraph(navController = navController)
+        AppNavHost(navController = navController)
         val modifier = Modifier.padding(paddingValues)
     }
 }

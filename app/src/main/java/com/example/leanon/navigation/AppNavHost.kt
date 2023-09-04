@@ -4,11 +4,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.ui.theme.pages.bible.BibleScreen
 import com.example.leanon.ui.theme.pages.church.ChurchScreen
 import com.example.leanon.ui.theme.pages.home.AddPostsScreen
 import com.example.leanon.ui.theme.pages.home.HomeScreen
+import com.example.leanon.ui.theme.pages.login.LoginScreen
 import com.example.leanon.ui.theme.pages.notepad.AddBibleStudyScreen
 import com.example.leanon.ui.theme.pages.notepad.AddPrayerScreen
 import com.example.leanon.ui.theme.pages.notepad.AddSermonScreen
@@ -16,9 +18,10 @@ import com.example.leanon.ui.theme.pages.notepad.BibleStudyNotepadScreen
 import com.example.leanon.ui.theme.pages.notepad.NotepadScreen
 import com.example.leanon.ui.theme.pages.notepad.PrayerNotepadScreen
 import com.example.leanon.ui.theme.pages.notepad.SermonNotepadScreen
+import com.example.leanon.ui.theme.pages.signup.SignUpScreen
 
 @Composable
-fun BottomNavGraph(navController: NavHostController) {
+fun AppNavHost(navController: NavHostController) {
     NavHost(navController = navController,
         startDestination = BottomBarScreen.Home.route){
         composable(route = BottomBarScreen.Home.route){
@@ -53,6 +56,12 @@ fun BottomNavGraph(navController: NavHostController) {
         }
         composable(route = ROUTE_ADD_BIBLE_STUDY){
             AddBibleStudyScreen(navController)
+        }
+        composable(route = ROUTE_LOGIN){
+            LoginScreen(rememberNavController())
+        }
+        composable(route = ROUTE_SIGNUP){
+            SignUpScreen(navController)
         }
 
     }
