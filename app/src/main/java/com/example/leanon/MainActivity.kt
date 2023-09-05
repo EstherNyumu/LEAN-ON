@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.leanon.ui.theme.LeanOnTheme
-import com.example.leanon.ui.theme.pages.MainScreen
+import com.example.leanon.ui.theme.pages.main.MainScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

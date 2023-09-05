@@ -3,13 +3,12 @@ package com.example.leanon.ui.theme.pages.notepad
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -41,23 +40,11 @@ fun AddSermonScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White),
+            .background(Color.White)
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(80.dp)
-                .background(PrimePink)
-        ) {
-            Text(
-                text = "LEAN ON",
-                fontSize = 30.sp,
-                color = Color.White,
-                modifier = Modifier.padding(20.dp),
-                fontWeight = FontWeight.Bold
-            )
-        }
+
         Spacer(modifier = Modifier.height(30.dp))
         Text(
             text = "Sermon of the Day",
