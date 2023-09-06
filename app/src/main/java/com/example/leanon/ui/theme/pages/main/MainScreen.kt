@@ -6,9 +6,13 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -28,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -40,8 +45,11 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.leanon.data.AuthRepository
 import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.navigation.AppNavHost
+import com.example.leanon.navigation.ROUTE_LOGIN
+import com.example.leanon.navigation.ROUTE_PROFILE
 import com.example.leanon.ui.theme.PrimePink
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -61,7 +69,7 @@ fun MainScreen() {
             height = bottomBarHeight, offsetHeightPx = bottomBarOffsetHeightPx
         ),
         bottomBar = { BottomBar(navController = navController, state = buttonsVisible,modifier = Modifier)},
-        topBar = { TopAppBar(modifier = Modifier)}
+        topBar = { TopAppBar(modifier = Modifier,navController = navController)}
     ){paddingValues->
         Box(modifier = Modifier.padding(paddingValues)){
             AppNavHost(navController = navController)
@@ -95,7 +103,8 @@ fun Modifier.bottomBarAnimatedScroll(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBar( modifier:Modifier) {
+fun TopAppBar( modifier:Modifier,navController: NavHostController) {
+    var context = LocalContext.current
 //    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 //      Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
     CenterAlignedTopAppBar(
@@ -104,13 +113,28 @@ fun TopAppBar( modifier:Modifier) {
             titleContentColor = Color.White
         ) ,
         title = {
-        Text(
-            text = "LEAN ON",
-            fontSize = 30.sp,
-            modifier = Modifier.padding(20.dp),
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Monospace)
-    },
+            Text(
+                text = "LEAN ON",
+                fontSize = 30.sp,
+                modifier = Modifier.padding(20.dp),
+                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily.Monospace)
+        },
+        actions = {
+            IconButton(onClick = {
+                var authRepository = AuthRepository(navController,context)
+                if(!(authRepository.isLoggedIn())){
+                    navController.navigate(ROUTE_LOGIN)
+                }
+                else{
+                    navController.navigate(ROUTE_PROFILE)
+                }
+            },
+                colors = IconButtonDefaults.iconButtonColors(containerColor = PrimePink, contentColor = Color.White)
+            ) {
+                Icon(imageVector = Icons.Default.Person, contentDescription = "Profile Icon")
+            }
+        }
 //        scrollBehavior = scrollBehavior
     )
 
@@ -157,12 +181,12 @@ fun RowScope.AddItem(
         onClick = {
             navController.navigate(screen.route){
                 popUpTo(navController.graph.findStartDestination().id){
-                    saveState = true
+//                    saveState = true
                 }
                 launchSingleTop = true
-                restoreState = true
+//                restoreState = true
             }
-                  },
+        },
         colors = NavigationBarItemDefaults.colors(
             unselectedIconColor = Color.LightGray,
             unselectedTextColor = Color.LightGray,

@@ -22,18 +22,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.leanon.data.AuthRepository
 import com.example.leanon.navigation.ROUTE_BIBLE_STUDY_NOTEPAD
+import com.example.leanon.navigation.ROUTE_LOGIN
 import com.example.leanon.navigation.ROUTE_PRAYER_NOTEPAD
 import com.example.leanon.navigation.ROUTE_SERMON_NOTEPAD
 import com.example.leanon.ui.theme.LeanOnTheme
 import com.example.leanon.ui.theme.PrimePink
 
 @Composable
-fun NotepadScreen(navController: NavController) {
+fun NotepadScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -41,6 +44,7 @@ fun NotepadScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        var context = LocalContext.current
         Spacer(modifier = Modifier.height(20.dp))
         Spacer(modifier = Modifier.height(20.dp))
         IconButton(onClick = { /*TODO*/ },
@@ -58,8 +62,15 @@ fun NotepadScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
+                var authRepository = AuthRepository(navController,context)
+                if(!(authRepository.isLoggedIn())){
+                    navController.navigate(ROUTE_LOGIN)
+                }
+                else{
+                    navController.navigate(ROUTE_PRAYER_NOTEPAD)
+                }
 
-                navController.navigate(ROUTE_PRAYER_NOTEPAD)
+
             },
             colors = ButtonDefaults.buttonColors(Color.White),
             shape = RoundedCornerShape(20.dp),
@@ -70,7 +81,14 @@ fun NotepadScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
-                navController.navigate(ROUTE_SERMON_NOTEPAD)
+                var authRepository = AuthRepository(navController,context)
+                if(!(authRepository.isLoggedIn())){
+                    navController.navigate(ROUTE_LOGIN)
+                }
+                else{
+                    navController.navigate(ROUTE_SERMON_NOTEPAD)
+                }
+
             },
             colors = ButtonDefaults.buttonColors(Color.White),
             shape = RoundedCornerShape(20.dp),
@@ -80,7 +98,14 @@ fun NotepadScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
-                navController.navigate(ROUTE_BIBLE_STUDY_NOTEPAD)
+                var authRepository = AuthRepository(navController,context)
+                if(!(authRepository.isLoggedIn())){
+                    navController.navigate(ROUTE_LOGIN)
+                }
+                else{
+                    navController.navigate(ROUTE_BIBLE_STUDY_NOTEPAD)
+                }
+
             },
             colors = ButtonDefaults.buttonColors(Color.White),
             shape = RoundedCornerShape(20.dp),

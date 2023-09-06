@@ -1,5 +1,6 @@
 package com.example.leanon.ui.theme.pages.signup
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -80,6 +81,7 @@ fun SignUpScreen(navController: NavHostController) {
         Button(onClick = {
             var authRepository = AuthRepository(navController, context)
             authRepository.signup(username.text.trim(),email.text.trim(),password.text.trim())
+            navController.navigate(ROUTE_LOGIN)
         },colors = ButtonDefaults.buttonColors(PrimePink)) {
             Text(text = "Sign Up")
         }
@@ -94,7 +96,7 @@ fun SignUpScreen(navController: NavHostController) {
     }
 }
 
-@Preview
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun SignUpScreenPreview() {
     LeanOnTheme {
