@@ -2,6 +2,7 @@ package com.example.leanon.ui.theme.pages.notepad
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -31,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.leanon.data.PrayersRepository
 import com.example.leanon.navigation.ROUTE_PRAYER_NOTEPAD
 import com.example.leanon.ui.theme.LeanOnTheme
 import com.example.leanon.ui.theme.PrimePink
@@ -38,12 +41,14 @@ import com.example.leanon.ui.theme.PrimePink
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddPrayerScreen(navController: NavHostController) {
+    var context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
             .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Spacer(modifier = Modifier.height(40.dp))
         Text(
@@ -73,6 +78,8 @@ fun AddPrayerScreen(navController: NavHostController) {
         )
         Spacer(modifier = Modifier.height(20.dp))
         Button(onClick = {
+            var prayersRepository = PrayersRepository(navController,context)
+            prayersRepository.savePrayer(prayerDate,prayerText)
             navController.navigate(ROUTE_PRAYER_NOTEPAD)
         },
             colors = ButtonDefaults.buttonColors(PrimePink)) {

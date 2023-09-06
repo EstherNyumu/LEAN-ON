@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.ui.theme.pages.bible.BibleScreen
 import com.example.leanon.ui.theme.pages.church.ChurchScreen
@@ -58,7 +57,7 @@ fun AppNavHost(navController: NavHostController) {
             AddBibleStudyScreen(navController)
         }
         composable(route = ROUTE_LOGIN){
-            LoginScreen(rememberNavController())
+            LoginScreen(navController)
         }
         composable(route = ROUTE_SIGNUP){
             SignUpScreen(navController)

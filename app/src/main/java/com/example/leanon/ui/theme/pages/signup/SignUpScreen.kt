@@ -1,5 +1,6 @@
 package com.example.leanon.ui.theme.pages.signup
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -37,7 +38,8 @@ import com.example.leanon.ui.theme.PrimePink
 @Composable
 fun SignUpScreen(navController: NavHostController) {
     Column (modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally){
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center){
         var context  = LocalContext.current
         Text(text = "Sign up Here",
             fontSize = 30.sp,

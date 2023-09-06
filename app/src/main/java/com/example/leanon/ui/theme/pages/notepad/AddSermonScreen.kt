@@ -2,6 +2,7 @@ package com.example.leanon.ui.theme.pages.notepad
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -30,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.leanon.data.SermonsRepository
 import com.example.leanon.navigation.ROUTE_SERMON_NOTEPAD
 import com.example.leanon.ui.theme.LeanOnTheme
 import com.example.leanon.ui.theme.PrimePink
@@ -42,9 +45,10 @@ fun AddSermonScreen(navController: NavHostController) {
             .fillMaxSize()
             .background(Color.White)
             .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-
+        var context = LocalContext.current
         Spacer(modifier = Modifier.height(30.dp))
         Text(
             text = "Sermon of the Day",
@@ -97,6 +101,8 @@ fun AddSermonScreen(navController: NavHostController) {
         )
         Spacer(modifier = Modifier.height(20.dp))
         Button(onClick = {
+            var sermonsRepository = SermonsRepository(navController, context)
+            sermonsRepository.saveSermon(sermonDate, preacher, sermonScripture, sermonTopic, sermonNotes)
             navController.navigate(ROUTE_SERMON_NOTEPAD)
         },
             colors = ButtonDefaults.buttonColors(PrimePink)) {

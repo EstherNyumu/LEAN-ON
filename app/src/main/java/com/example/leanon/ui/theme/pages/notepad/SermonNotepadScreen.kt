@@ -3,11 +3,8 @@ package com.example.leanon.ui.theme.pages.notepad
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -38,12 +35,8 @@ fun SermonNotepadScreen(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-       Row(modifier = Modifier
-           .fillMaxWidth()
-           .padding(20.dp),
-           verticalAlignment = Alignment.CenterVertically) {
            Text(text = "My Sermons")
-           Spacer(modifier = Modifier.width(70.dp))
+           Spacer(modifier = Modifier.weight(1f))
            ExtendedFloatingActionButton(
                onClick = {
                    navController.navigate(ROUTE_ADD_SERMON)
@@ -53,7 +46,6 @@ fun SermonNotepadScreen(navController: NavHostController) {
                icon = { Icon(Icons.Filled.Edit, "Extended floating action button.") },
                text = { Text(text = "Add Sermon")}
            )
-       }
 
     }
 }

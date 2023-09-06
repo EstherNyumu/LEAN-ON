@@ -3,6 +3,7 @@ package com.example.leanon.ui.theme.pages.notepad
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -37,7 +38,8 @@ fun NotepadScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Spacer(modifier = Modifier.height(20.dp))
         Spacer(modifier = Modifier.height(20.dp))
@@ -56,6 +58,7 @@ fun NotepadScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
+
                 navController.navigate(ROUTE_PRAYER_NOTEPAD)
             },
             colors = ButtonDefaults.buttonColors(Color.White),

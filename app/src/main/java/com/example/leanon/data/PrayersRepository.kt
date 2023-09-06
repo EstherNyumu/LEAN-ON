@@ -24,7 +24,7 @@ class PrayersRepository(var navController: NavHostController, var context: Conte
         progress.setMessage("Please wait...")
         prayers = mutableListOf<Prayers>()as ArrayList<Prayers>
     }
-    fun savePosts(prayerDate: String,prayerText:String){
+    fun savePrayer(prayerDate: String,prayerText:String){
         var id = System.currentTimeMillis().toString()
         var prayerData = Prayers(prayerDate,prayerText,id)
         var prayerRef = FirebaseDatabase.getInstance().getReference().child("Prayers/$id")
@@ -42,10 +42,10 @@ class PrayersRepository(var navController: NavHostController, var context: Conte
             }
         }
     }
-    fun viewPosts(){
+    fun viewPrayers(){
 
     }
-    fun deletePost(id:String){
+    fun deletePrayer(id:String){
         var delRef = FirebaseDatabase.getInstance().getReference().child("Prayers/$id")
         progress.show()
         delRef.removeValue().addOnCompleteListener {
@@ -58,7 +58,7 @@ class PrayersRepository(var navController: NavHostController, var context: Conte
             }
         }
     }
-    fun editPost(){
+    fun editPrayer(){
 
     }
 }

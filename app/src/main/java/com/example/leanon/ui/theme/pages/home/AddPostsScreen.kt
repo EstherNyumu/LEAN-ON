@@ -1,6 +1,7 @@
 package com.example.leanon.ui.theme.pages.home
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -27,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.leanon.data.PostsRepository
 import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.ui.theme.LeanOnTheme
 import com.example.leanon.ui.theme.PrimePink
@@ -36,7 +39,9 @@ import com.example.leanon.ui.theme.PrimePink
 fun AddPostsScreen(navController: NavHostController) {
     Column(modifier = Modifier
         .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally) {
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center) {
+        var context = LocalContext.current
         Text(
             text = "New Post",
             fontSize = 30.sp,
@@ -49,7 +54,7 @@ fun AddPostsScreen(navController: NavHostController) {
         var postText by remember { mutableStateOf("") }
         OutlinedTextField(value = postText,
             onValueChange = {postText=it},
-            label = { Text(text = "What's on your mind today...")},
+            label = { Text(text = "What's on your mind today..")},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier.height(300.dp)
         )
@@ -57,6 +62,8 @@ fun AddPostsScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(20.dp))
 
         Button(onClick = {
+            var postsRepository = PostsRepository(navController, context)
+            postsRepository.savePosts(postText)
             navController.navigate(BottomBarScreen.Home.route)
         },
             colors = ButtonDefaults.buttonColors(PrimePink)) {
