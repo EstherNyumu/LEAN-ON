@@ -1,6 +1,5 @@
 package com.example.leanon.ui.theme.pages.notepad
 
-import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -115,7 +114,7 @@ fun NotepadScreen(navController: NavHostController) {
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview
 @Composable
 fun NotepadScreenPreview() {
     LeanOnTheme {

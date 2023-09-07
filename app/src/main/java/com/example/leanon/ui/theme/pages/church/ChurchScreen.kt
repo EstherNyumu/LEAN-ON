@@ -21,7 +21,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.leanon.ui.theme.LeanOnTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,10 +83,10 @@ fun ChurchScreen() {
     }
 }
 
-//@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
-//@Composable
-//fun ChurchScreenPreview() {
-//    LeanOnTheme {
-//        ChurchScreen(rememberNavController())
-//    }
-//}
+@Preview()
+@Composable
+fun ChurchScreenPreview() {
+    LeanOnTheme {
+        ChurchScreen()
+    }
+}
