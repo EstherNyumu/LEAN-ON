@@ -9,25 +9,24 @@ import androidx.navigation.NavHostController
 import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.models.Prayers
 import com.example.leanon.navigation.ROUTE_ADD_PRAYER
-import com.example.leanon.navigation.ROUTE_LOGIN
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class PrayersRepository(var navController: NavHostController, var context: Context) {
-    var authRepository:AuthRepository
+//    var authRepository:AuthRepository
     var progress: ProgressDialog
-    var prayers:ArrayList<Prayers>
+//    var prayers:ArrayList<Prayers>
     init {
-        authRepository = AuthRepository(navController,context)
-        if(!authRepository.isLoggedIn()){
-            navController.navigate(ROUTE_LOGIN)
-        }
+//        authRepository = AuthRepository(navController,context)
+//        if(!authRepository.isLoggedIn()){
+//            navController.navigate(ROUTE_LOGIN)
+//        }
         progress= ProgressDialog(context)
         progress.setTitle("Loading")
         progress.setMessage("Please wait...")
-        prayers = mutableListOf<Prayers>()as ArrayList<Prayers>
+//        prayers = mutableListOf<Prayers>()as ArrayList<Prayers>
     }
     fun savePrayer(prayerDate: String,prayerText:String){
         var id = System.currentTimeMillis().toString()

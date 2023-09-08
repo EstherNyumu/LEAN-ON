@@ -31,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -131,10 +130,15 @@ fun PrayerItem(prayerDate:String,prayerText:String, prayerId:String,
             ),
             elevation = CardDefaults.elevatedCardElevation(4.dp),
         ){
-            Text(text = "Date:"+ prayerDate, modifier = Modifier.padding(10.dp),
-                textAlign = TextAlign.Center)
-            Text(text = "Prayer: "+prayerText, modifier = Modifier.padding(10.dp),
-                textAlign = TextAlign.Center)
+            Row {
+                Text(text = "Date", color = PrimePink, modifier = Modifier.padding(5.dp))
+                Text(text = prayerDate, modifier = Modifier.padding(5.dp))
+            }
+            Row {
+                Text(text = "Prayer", color = PrimePink, modifier = Modifier.padding(5.dp))
+                Text(text = prayerText, modifier = Modifier.padding(5.dp))
+            }
+
             Row {
                 IconButton(
                     onClick = {
@@ -176,6 +180,7 @@ fun PrayerItem(prayerDate:String,prayerText:String, prayerId:String,
 //            Text(text = "Update")
 //        }
         }
+        Spacer(modifier = Modifier.height(20.dp))
     }
 }
 

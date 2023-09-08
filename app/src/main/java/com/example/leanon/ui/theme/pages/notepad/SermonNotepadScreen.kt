@@ -32,7 +32,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -138,16 +137,30 @@ fun SermonsItem(sermonDate:String,preacher:String, sermonScripture:String,sermon
             ),
             elevation = CardDefaults.elevatedCardElevation(4.dp),
         ){
-            Text(text ="Date: "+ sermonDate, modifier = Modifier.padding(10.dp),
-                textAlign = TextAlign.Center,fontWeight = FontWeight.Bold)
-            Text(text = "Preacher: "+preacher, modifier = Modifier.padding(10.dp),
-                textAlign = TextAlign.Center,fontWeight = FontWeight.SemiBold)
-            Text(text ="Scripture: "+ sermonScripture, modifier = Modifier.padding(10.dp),
-                textAlign = TextAlign.Center, fontWeight = FontWeight.SemiBold)
-            Text(text ="Topic: "+ sermonTopic, modifier = Modifier.padding(10.dp),
-                textAlign = TextAlign.Center, fontWeight = FontWeight.ExtraBold)
-            Text(text ="Notes: "+ sermonNotes, modifier = Modifier.padding(10.dp),
-                textAlign = TextAlign.Center)
+            Row {
+                Text(text = "Date",modifier = Modifier.padding(5.dp), color = PrimePink)
+                Text(text = sermonDate, modifier = Modifier.padding(5.dp),
+                   fontWeight = FontWeight.Bold)
+            }
+            Row {
+                Text(text = "Preacher",modifier = Modifier.padding(5.dp),color = PrimePink)
+                Text(text = preacher, modifier = Modifier.padding(5.dp),
+                   fontWeight = FontWeight.SemiBold)
+            }
+            Row {
+                Text(text = "Scripture",modifier = Modifier.padding(5.dp),color = PrimePink)
+                Text(text = sermonScripture, modifier = Modifier.padding(5.dp),
+                    fontWeight = FontWeight.SemiBold)
+            }
+            Row {
+                Text(text = "Topic",modifier = Modifier.padding(5.dp),color = PrimePink)
+                Text(text = sermonTopic, modifier = Modifier.padding(5.dp),
+                    fontWeight = FontWeight.ExtraBold)
+            }
+            Row {
+                Text(text = "Notes",modifier = Modifier.padding(5.dp),color = PrimePink)
+                Text(text = sermonNotes, modifier = Modifier.padding(5.dp))
+            }
             Row {
                 IconButton(
                     onClick = {
@@ -189,6 +202,7 @@ fun SermonsItem(sermonDate:String,preacher:String, sermonScripture:String,sermon
 //            Text(text = "Update")
 //        }
         }
+        Spacer(modifier = Modifier.height(20.dp))
     }
 }
 

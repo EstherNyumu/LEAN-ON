@@ -135,7 +135,6 @@ fun HomeScreen(navController:NavHostController) {
 fun PostItem(postText:String,postId:String,navController:NavHostController,
              postsRepository: PostsRepository
 ) {
-
     Column(modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally) {
         var  context = LocalContext.current
@@ -200,6 +199,7 @@ fun PostItem(postText:String,postId:String,navController:NavHostController,
                 }
             }
         }
+        Spacer(modifier = Modifier.height(20.dp))
 
 //        Button(onClick = {
 //            postsRepository.deletePost(postId)

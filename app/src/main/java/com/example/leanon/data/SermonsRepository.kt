@@ -9,25 +9,24 @@ import androidx.navigation.NavHostController
 import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.models.Sermons
 import com.example.leanon.navigation.ROUTE_ADD_POST
-import com.example.leanon.navigation.ROUTE_LOGIN
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class SermonsRepository(var navController: NavHostController,var context: Context) {
-    var authRepository:AuthRepository
+//    var authRepository:AuthRepository
     var progress: ProgressDialog
-    var sermons:ArrayList<Sermons>
+//    var sermons:ArrayList<Sermons>
     init {
-        authRepository = AuthRepository(navController,context)
-        if(!authRepository.isLoggedIn()){
-            navController.navigate(ROUTE_LOGIN)
-        }
+//        authRepository = AuthRepository(navController,context)
+//        if(!authRepository.isLoggedIn()){
+//            navController.navigate(ROUTE_LOGIN)
+//        }
         progress= ProgressDialog(context)
         progress.setTitle("Loading")
         progress.setMessage("Please wait...")
-        sermons = mutableListOf<Sermons>()as ArrayList<Sermons>
+//        sermons = mutableListOf<Sermons>()as ArrayList<Sermons>
     }
     fun saveSermon(sermonDate:String,preacher:String,sermonScripture:String,sermonTopic:String,sermonNotes:String){
         var id = System.currentTimeMillis().toString()

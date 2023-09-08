@@ -31,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -134,16 +133,26 @@ fun StudyItem(studyDate:String, studyScripture:String, observation:String, appli
             ),
             elevation = CardDefaults.elevatedCardElevation(4.dp),
         ){
-            Text(text = "Date: " + studyDate, modifier = Modifier.padding(10.dp),
-                textAlign = TextAlign.Center)
-            Text(text = "Scripture: "+studyScripture, modifier = Modifier.padding(10.dp),
-                textAlign = TextAlign.Center)
-            Text(text = "Observation: "+observation, modifier = Modifier.padding(10.dp),
-                textAlign = TextAlign.Center)
-            Text(text = "Application: "+application, modifier = Modifier.padding(10.dp),
-                textAlign = TextAlign.Center)
-            Text(text = "Study Prayer: "+studyPrayer, modifier = Modifier.padding(10.dp),
-                textAlign = TextAlign.Center)
+            Row {
+                Text(text = "Date", color = PrimePink)
+                Text(text = studyDate, modifier = Modifier.padding(10.dp))
+            }
+            Row {
+                Text(text = "Scripture",color = PrimePink)
+                Text(text = studyScripture, modifier = Modifier.padding(10.dp))
+            }
+            Row {
+                Text(text = "Observation",color = PrimePink)
+                Text(text = observation, modifier = Modifier.padding(10.dp))
+            }
+            Row {
+                Text(text = "Application",color = PrimePink)
+                Text(text = application, modifier = Modifier.padding(10.dp))
+            }
+            Row {
+                Text(text = "Prayer",color = PrimePink)
+                Text(text = studyPrayer, modifier = Modifier.padding(10.dp))
+            }
             Row {
                 IconButton(
                     onClick = {
@@ -175,6 +184,7 @@ fun StudyItem(studyDate:String, studyScripture:String, observation:String, appli
                 }
             }
         }
+        Spacer(modifier = Modifier.height(20.dp))
 //        Button(onClick = {
 //            bibleStudyRepository.deleteStudy(studyId)
 //        }) {
@@ -193,6 +203,7 @@ fun StudyItem(studyDate:String, studyScripture:String, observation:String, appli
 fun BibleStudyNotepadScreenPreview() {
     LeanOnTheme {
         BibleStudyNotepadScreen(rememberNavController())
+
 
     }
 }
