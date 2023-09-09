@@ -43,6 +43,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.leanon.data.AuthRepository
 import com.example.leanon.data.PostsRepository
 import com.example.leanon.models.Posts
+import com.example.leanon.models.User
 import com.example.leanon.navigation.ROUTE_ADD_POST
 import com.example.leanon.navigation.ROUTE_LOGIN
 import com.example.leanon.ui.theme.LeanOnTheme
@@ -80,10 +81,12 @@ fun HomeScreen(navController:NavHostController) {
 
         var context = LocalContext.current
         var postsRepository = PostsRepository(navController, context)
-
+        var authRepository = AuthRepository(navController, context)
 
         val emptyPostState = remember { mutableStateOf(Posts("","")) }
         var emptyPostsListState = remember { mutableStateListOf<Posts>() }
+        val emptyAuthState = remember { mutableStateOf(User("","","","")) }
+        var emptyAuthsListState = remember { mutableStateListOf<User>() }
 
         var posts = postsRepository.viewPosts(emptyPostState, emptyPostsListState)
 
@@ -186,7 +189,14 @@ fun PostItem(postText:String,postId:String,navController:NavHostController,
                 }
                 IconButton(
                     onClick = {
-                        postsRepository.deletePost(postId)
+                        var authRepository = AuthRepository(navController,context)
+                        if(!(authRepository.isLoggedIn())){
+                            navController.navigate(ROUTE_LOGIN)
+                        }
+                        else{
+                            postsRepository.deletePost(postId)
+                        }
+
                     }, colors = IconButtonDefaults.iconButtonColors(
                         containerColor = Color.White,
                         contentColor = PrimePink

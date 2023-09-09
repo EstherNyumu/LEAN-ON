@@ -138,27 +138,23 @@ fun SermonsItem(sermonDate:String,preacher:String, sermonScripture:String,sermon
             elevation = CardDefaults.elevatedCardElevation(4.dp),
         ){
             Row {
-                Text(text = "Date",modifier = Modifier.padding(5.dp), color = PrimePink)
-                Text(text = sermonDate, modifier = Modifier.padding(5.dp),
-                   fontWeight = FontWeight.Bold)
+                Text(text = "Date:",modifier = Modifier.padding(5.dp), color = PrimePink, fontWeight = FontWeight.SemiBold)
+                Text(text = sermonDate, modifier = Modifier.padding(5.dp))
             }
             Row {
-                Text(text = "Preacher",modifier = Modifier.padding(5.dp),color = PrimePink)
-                Text(text = preacher, modifier = Modifier.padding(5.dp),
-                   fontWeight = FontWeight.SemiBold)
+                Text(text = "Preacher:",modifier = Modifier.padding(5.dp),color = PrimePink,fontWeight = FontWeight.SemiBold)
+                Text(text = preacher, modifier = Modifier.padding(5.dp))
             }
             Row {
-                Text(text = "Scripture",modifier = Modifier.padding(5.dp),color = PrimePink)
-                Text(text = sermonScripture, modifier = Modifier.padding(5.dp),
-                    fontWeight = FontWeight.SemiBold)
+                Text(text = "Scripture:",modifier = Modifier.padding(5.dp),color = PrimePink,fontWeight = FontWeight.SemiBold)
+                Text(text = sermonScripture, modifier = Modifier.padding(5.dp))
             }
             Row {
-                Text(text = "Topic",modifier = Modifier.padding(5.dp),color = PrimePink)
-                Text(text = sermonTopic, modifier = Modifier.padding(5.dp),
-                    fontWeight = FontWeight.ExtraBold)
+                Text(text = "Topic:",modifier = Modifier.padding(5.dp),color = PrimePink,fontWeight = FontWeight.SemiBold)
+                Text(text = sermonTopic, modifier = Modifier.padding(5.dp))
             }
             Row {
-                Text(text = "Notes",modifier = Modifier.padding(5.dp),color = PrimePink)
+                Text(text = "Notes:",modifier = Modifier.padding(5.dp),color = PrimePink,fontWeight = FontWeight.SemiBold)
                 Text(text = sermonNotes, modifier = Modifier.padding(5.dp))
             }
             Row {

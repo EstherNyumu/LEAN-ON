@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -134,24 +135,24 @@ fun StudyItem(studyDate:String, studyScripture:String, observation:String, appli
             elevation = CardDefaults.elevatedCardElevation(4.dp),
         ){
             Row {
-                Text(text = "Date", color = PrimePink)
-                Text(text = studyDate, modifier = Modifier.padding(10.dp))
+                Text(text = "Date:", color = PrimePink,modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
+                Text(text = studyDate, modifier = Modifier.padding(5.dp))
             }
             Row {
-                Text(text = "Scripture",color = PrimePink)
-                Text(text = studyScripture, modifier = Modifier.padding(10.dp))
+                Text(text = "Scripture:",color = PrimePink,modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
+                Text(text = studyScripture, modifier = Modifier.padding(5.dp))
             }
             Row {
-                Text(text = "Observation",color = PrimePink)
-                Text(text = observation, modifier = Modifier.padding(10.dp))
+                Text(text = "Observation:",color = PrimePink,modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
+                Text(text = observation, modifier = Modifier.padding(5.dp))
             }
             Row {
-                Text(text = "Application",color = PrimePink)
-                Text(text = application, modifier = Modifier.padding(10.dp))
+                Text(text = "Application:",color = PrimePink,modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
+                Text(text = application, modifier = Modifier.padding(5.dp))
             }
             Row {
-                Text(text = "Prayer",color = PrimePink)
-                Text(text = studyPrayer, modifier = Modifier.padding(10.dp))
+                Text(text = "Prayer:",color = PrimePink,modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
+                Text(text = studyPrayer, modifier = Modifier.padding(5.dp))
             }
             Row {
                 IconButton(

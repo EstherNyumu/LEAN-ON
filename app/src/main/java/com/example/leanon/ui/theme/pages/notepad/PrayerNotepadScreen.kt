@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -131,11 +132,11 @@ fun PrayerItem(prayerDate:String,prayerText:String, prayerId:String,
             elevation = CardDefaults.elevatedCardElevation(4.dp),
         ){
             Row {
-                Text(text = "Date", color = PrimePink, modifier = Modifier.padding(5.dp))
+                Text(text = "Date:", color = PrimePink, modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
                 Text(text = prayerDate, modifier = Modifier.padding(5.dp))
             }
             Row {
-                Text(text = "Prayer", color = PrimePink, modifier = Modifier.padding(5.dp))
+                Text(text = "Prayer:", color = PrimePink, modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
                 Text(text = prayerText, modifier = Modifier.padding(5.dp))
             }
 
