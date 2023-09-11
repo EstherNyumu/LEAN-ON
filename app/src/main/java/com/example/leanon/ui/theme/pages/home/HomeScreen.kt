@@ -1,7 +1,6 @@
 package com.example.leanon.ui.theme.pages.home
 
 import android.content.Intent
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -35,18 +34,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.leanon.data.AuthRepository
 import com.example.leanon.data.PostsRepository
 import com.example.leanon.models.Posts
-import com.example.leanon.models.User
 import com.example.leanon.navigation.ROUTE_ADD_POST
 import com.example.leanon.navigation.ROUTE_LOGIN
-import com.example.leanon.ui.theme.LeanOnTheme
 import com.example.leanon.ui.theme.PrimePink
 
 
@@ -81,12 +76,10 @@ fun HomeScreen(navController:NavHostController) {
 
         var context = LocalContext.current
         var postsRepository = PostsRepository(navController, context)
-        var authRepository = AuthRepository(navController, context)
+
 
         val emptyPostState = remember { mutableStateOf(Posts("","")) }
         var emptyPostsListState = remember { mutableStateListOf<Posts>() }
-        val emptyAuthState = remember { mutableStateOf(User("","","","")) }
-        var emptyAuthsListState = remember { mutableStateListOf<User>() }
 
         var posts = postsRepository.viewPosts(emptyPostState, emptyPostsListState)
 
@@ -145,7 +138,7 @@ fun PostItem(postText:String,postId:String,navController:NavHostController,
             colors = CardDefaults.cardColors(
                 containerColor = Color.White
             ),
-            elevation = CardDefaults.elevatedCardElevation(4.dp),
+            elevation = CardDefaults.elevatedCardElevation(4.dp)
         ){
             Text(text = postText,
                 modifier = Modifier.padding(10.dp),
@@ -227,11 +220,11 @@ fun PostItem(postText:String,postId:String,navController:NavHostController,
 
 
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Composable
-fun HomeScreenPreview() {
-    LeanOnTheme {
-        HomeScreen(rememberNavController())
-    }
-}
+//@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+//@Composable
+//fun HomeScreenPreview() {
+//    LeanOnTheme {
+//        HomeScreen(rememberNavController())
+//    }
+//}
 

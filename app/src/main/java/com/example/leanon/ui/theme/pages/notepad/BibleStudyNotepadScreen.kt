@@ -1,7 +1,6 @@
 package com.example.leanon.ui.theme.pages.notepad
 
 import android.content.Intent
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -32,15 +31,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.leanon.data.BibleStudyRepository
 import com.example.leanon.models.BibleStudy
 import com.example.leanon.navigation.ROUTE_ADD_BIBLE_STUDY
-import com.example.leanon.ui.theme.LeanOnTheme
 import com.example.leanon.ui.theme.PrimePink
 
 //@Composable
@@ -199,12 +195,12 @@ fun StudyItem(studyDate:String, studyScripture:String, observation:String, appli
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Composable
-fun BibleStudyNotepadScreenPreview() {
-    LeanOnTheme {
-        BibleStudyNotepadScreen(rememberNavController())
-
-
-    }
-}
+//@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+//@Composable
+//fun BibleStudyNotepadScreenPreview() {
+//    LeanOnTheme {
+//        BibleStudyNotepadScreen(rememberNavController())
+//
+//
+//    }
+//}

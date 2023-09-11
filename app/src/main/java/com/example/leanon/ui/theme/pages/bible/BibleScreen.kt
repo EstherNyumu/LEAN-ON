@@ -16,7 +16,6 @@ fun BibleScreen() {
     Column(modifier = Modifier
         .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally) {
-
     }
 }
 
