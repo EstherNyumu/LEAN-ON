@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -132,26 +133,27 @@ fun SermonsItem(sermonDate:String,preacher:String, sermonScripture:String,sermon
                 containerColor = Color.White
             ),
             elevation = CardDefaults.elevatedCardElevation(4.dp),
+            modifier = Modifier.width(240.dp)
         ){
             Row {
                 Text(text = "Date:",modifier = Modifier.padding(5.dp), color = PrimePink, fontWeight = FontWeight.SemiBold)
-                Text(text = sermonDate, modifier = Modifier.padding(5.dp))
+                Text(text = sermonDate, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
             }
             Row {
                 Text(text = "Preacher:",modifier = Modifier.padding(5.dp),color = PrimePink,fontWeight = FontWeight.SemiBold)
-                Text(text = preacher, modifier = Modifier.padding(5.dp))
+                Text(text = preacher, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
             }
             Row {
                 Text(text = "Scripture:",modifier = Modifier.padding(5.dp),color = PrimePink,fontWeight = FontWeight.SemiBold)
-                Text(text = sermonScripture, modifier = Modifier.padding(5.dp))
+                Text(text = sermonScripture, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
             }
             Row {
                 Text(text = "Topic:",modifier = Modifier.padding(5.dp),color = PrimePink,fontWeight = FontWeight.SemiBold)
-                Text(text = sermonTopic, modifier = Modifier.padding(5.dp))
+                Text(text = sermonTopic, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
             }
             Row {
                 Text(text = "Notes:",modifier = Modifier.padding(5.dp),color = PrimePink,fontWeight = FontWeight.SemiBold)
-                Text(text = sermonNotes, modifier = Modifier.padding(5.dp))
+                Text(text = sermonNotes, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
             }
             Row {
                 IconButton(

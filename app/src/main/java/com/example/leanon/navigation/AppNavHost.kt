@@ -17,7 +17,6 @@ import com.example.leanon.ui.theme.pages.notepad.BibleStudyNotepadScreen
 import com.example.leanon.ui.theme.pages.notepad.NotepadScreen
 import com.example.leanon.ui.theme.pages.notepad.PrayerNotepadScreen
 import com.example.leanon.ui.theme.pages.notepad.SermonNotepadScreen
-import com.example.leanon.ui.theme.pages.profile.ProfileScreen
 import com.example.leanon.ui.theme.pages.signup.SignUpScreen
 
 @Composable
@@ -63,9 +62,5 @@ fun AppNavHost(navController: NavHostController) {
         composable(route = ROUTE_SIGNUP){
             SignUpScreen(navController)
         }
-        composable(route = ROUTE_PROFILE){
-            ProfileScreen(navController)
-        }
-
     }
 }

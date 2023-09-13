@@ -1,5 +1,8 @@
 package com.example.leanon.ui.theme.pages.church
 
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,17 +20,13 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,77 +42,30 @@ fun ChurchScreen() {
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var text by rememberSaveable { mutableStateOf("") }
-        var active by rememberSaveable { mutableStateOf(false) }
-        var items = remember {
-            mutableStateListOf(
-                "Redeemed Gospel",
-                "Deliverance Church"
-            )
-        }
-//        Scaffold { paddingValues ->
-//            var modifier = Modifier.padding(paddingValues)
-//            SearchBar(
-//                modifier = Modifier.fillMaxWidth(),
-//                query = text,
-//                onQueryChange = {
-//                    text = it
-//                },
-//                onSearch = {
-//                    items.add(text)
-//                    active = false
-//                },
-//                active = active,
-//                onActiveChange = {
-//                    active = it
-//                },
-//                placeholder = {
-//                    Text(text = "Search")
-//                },
-//                leadingIcon = {
-//                    Icon(imageVector = Icons.Default.Search, contentDescription = "Search Icon")
-//                },
-//                trailingIcon = {
-//                    if (active) {
-//                        Icon(
-//                            modifier = Modifier.clickable {
-//                                if (text.isNotEmpty()) {
-//                                    text = ""
-//                                } else {
-//                                    active = false
-//                                }
-//                            },
-//                            imageVector = Icons.Default.Close,
-//                            contentDescription = "Close Icon"
-//                        )
-//                    }
-//                }) {
-//                items.forEach {
-//                    Row(modifier = Modifier.padding(all = 14.dp)) {
-//                        Icon(
-//                            modifier = Modifier.padding(end = 10.dp),
-//                            imageVector = Icons.Default.History,
-//                            contentDescription = "History Icon"
-//                        )
-//                        Text(text = it)
-//                    }
-//                }
-//            }
-//        }
+        var context = LocalContext.current
         Spacer(modifier = Modifier.height(20.dp))
         ElevatedCard(
             colors = CardDefaults.cardColors(
                 containerColor = Color.White
             ),
             elevation = CardDefaults.elevatedCardElevation(4.dp),
-            onClick = {/*clickable func*/ }
+            onClick = {
+                Log.e("tag","URL IS "+ "https://www.google.com/maps/search/redeemed+gospel+church/@-1.2570238,36.8362672,13z/data=!3m1!4b1?entry=ttu")
+                val urlIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.google.com/maps/search/redeemed+gospel+church/@-1.2570238,36.8362672,13z/data=!3m1!4b1?entry=ttu")
+                )
+                context.startActivity(urlIntent)
+            }
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Image(
-                    modifier = Modifier.width(100.dp).height(100.dp),
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
                     painter = painterResource(id = R.drawable.redeemed),
                     contentDescription = "redeemed_image"
                 )
@@ -126,7 +78,8 @@ fun ChurchScreen() {
                     text = "Redeemed Gospel Church",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(10.dp)
+                    modifier = Modifier.padding(10.dp),
+                    color = Color.DarkGray
                 )
             }
         }
@@ -136,14 +89,23 @@ fun ChurchScreen() {
                 containerColor = Color.White
             ),
             elevation = CardDefaults.elevatedCardElevation(4.dp),
-            onClick = {/*clickable func*/ }
+            onClick = {
+                Log.e("tag","URL IS "+ "https://www.google.com/maps/search/anglican+church+of+Kenya/@-1.2315549,36.750807,12z/data=!3m1!4b1?entry=ttu")
+                val urlIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.google.com/maps/search/anglican+church+of+Kenya/@-1.2315549,36.750807,12z/data=!3m1!4b1?entry=ttu")
+                )
+                context.startActivity(urlIntent)
+            }
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Image(
-                    modifier = Modifier.width(100.dp).height(100.dp),
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
                     painter = painterResource(id = R.drawable.ack),
                     contentDescription = "ack"
                 )
@@ -156,7 +118,8 @@ fun ChurchScreen() {
                     text = "Anglican Church of Kenya(ACK)",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(10.dp)
+                    modifier = Modifier.padding(10.dp),
+                    color = Color.DarkGray
                 )
             }
 
@@ -167,14 +130,23 @@ fun ChurchScreen() {
                 containerColor = Color.White
             ),
             elevation = CardDefaults.elevatedCardElevation(4.dp),
-            onClick = {/*clickable func*/ }
+            onClick = {
+                Log.e("tag","URL IS "+ "https://www.google.com/maps/search/african+inland+church/@-1.246946,36.7468251,11z/data=!3m1!4b1?entry=ttu")
+                val urlIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.google.com/maps/search/african+inland+church/@-1.246946,36.7468251,11z/data=!3m1!4b1?entry=ttu")
+                )
+                context.startActivity(urlIntent)
+            }
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Image(
-                    modifier = Modifier.width(100.dp).height(100.dp),
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
                     painter = painterResource(id = R.drawable.aic),
                     contentDescription = "aic"
                 )
@@ -187,7 +159,8 @@ fun ChurchScreen() {
                     text = "African Inland Church(AIC)",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(10.dp)
+                    modifier = Modifier.padding(10.dp),
+                    color = Color.DarkGray
                 )
             }
         }
@@ -197,14 +170,23 @@ fun ChurchScreen() {
                 containerColor = Color.White
             ),
             elevation = CardDefaults.elevatedCardElevation(4.dp),
-            onClick = {/*clickable func*/ }
+            onClick = {
+                Log.e("tag","URL IS "+ "https://www.google.com/maps/search/citam/@-1.2462491,36.7468241,11z/data=!3m1!4b1?entry=ttu")
+                val urlIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.google.com/maps/search/citam/@-1.2462491,36.7468241,11z/data=!3m1!4b1?entry=ttu")
+                )
+                context.startActivity(urlIntent)
+            }
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Image(
-                    modifier = Modifier.width(100.dp).height(100.dp),
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
                     painter = painterResource(id = R.drawable.citam),
                     contentDescription = "citam"
                 )
@@ -217,7 +199,9 @@ fun ChurchScreen() {
                     text = "Christ is the Answer Ministries(CITAM)",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(10.dp)
+                    modifier = Modifier.padding(10.dp),
+                    color = Color.DarkGray,
+                    textAlign = TextAlign.Center
                 )
             }
         }
@@ -227,14 +211,23 @@ fun ChurchScreen() {
                 containerColor = Color.White
             ),
             elevation = CardDefaults.elevatedCardElevation(4.dp),
-            onClick = {/*clickable func*/ }
+            onClick = {
+                Log.e("tag","URL IS "+ "https://www.google.com/maps/search/deliverance+Church/@-1.2455522,36.7468231,11z/data=!3m1!4b1?entry=ttu")
+                val urlIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.google.com/maps/search/deliverance+Church/@-1.2455522,36.7468231,11z/data=!3m1!4b1?entry=ttu")
+                )
+                context.startActivity(urlIntent)
+            }
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Image(
-                    modifier = Modifier.width(100.dp).height(100.dp),
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
                     painter = painterResource(id = R.drawable.deliverance),
                     contentDescription = "deliverance"
                 )
@@ -247,7 +240,8 @@ fun ChurchScreen() {
                     text = "Deliverance Church",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(10.dp)
+                    modifier = Modifier.padding(10.dp),
+                    color = Color.DarkGray
                 )
             }
         }
@@ -257,25 +251,37 @@ fun ChurchScreen() {
                 containerColor = Color.White
             ),
             elevation = CardDefaults.elevatedCardElevation(4.dp),
-            onClick = {/*clickable func*/ }
+            onClick = {
+                Log.e("tag","URL IS "+ "https://www.google.com/maps/search/jubilee+Christian+Church/@-1.2448554,36.7468221,11z/data=!3m1!4b1?entry=ttu")
+                val urlIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.google.com/maps/search/jubilee+Christian+Church/@-1.2448554,36.7468221,11z/data=!3m1!4b1?entry=ttu")
+                )
+                context.startActivity(urlIntent) }
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Image(
-                    modifier = Modifier.width(100.dp).height(100.dp),
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
                     painter = painterResource(id = R.drawable.jubilee),
                     contentDescription = "jubilee"
                 )
             }
+            Row( modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center) {
+                Text(
+                    text = "Jubilee Christian Church",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(10.dp),
+                    color = Color.DarkGray
+                )
+            }
 
-            Text(
-                text = "Jubilee Christian Center",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(10.dp)
-            )
         }
         Spacer(modifier = Modifier.height(20.dp))
         ElevatedCard(
@@ -283,25 +289,39 @@ fun ChurchScreen() {
                 containerColor = Color.White
             ),
             elevation = CardDefaults.elevatedCardElevation(4.dp),
-            onClick = {/*clickable func*/ }
+            onClick = {
+                Log.e("tag","URL IS "+ "https://www.google.com/maps/search/pcea/@-1.2441585,36.7468211,11z/data=!3m1!4b1?entry=ttu")
+                val urlIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.google.com/maps/search/pcea/@-1.2441585,36.7468211,11z/data=!3m1!4b1?entry=ttu")
+                )
+                context.startActivity(urlIntent)
+            }
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Image(
-                    modifier = Modifier.width(100.dp).height(100.dp),
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
                     painter = painterResource(id = R.drawable.pcea),
                     contentDescription = "pcea"
                 )
             }
+            Row( modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center) {
+                Text(
+                    text = "Presbyterian Church of East Africa(PCEA)",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(10.dp),
+                    color = Color.DarkGray,
+                    textAlign = TextAlign.Center
+                )
+            }
 
-            Text(
-                text = "Presbyterian Church of East Africa",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(10.dp)
-            )
         }
         Spacer(modifier = Modifier.height(20.dp))
         ElevatedCard(
@@ -309,25 +329,38 @@ fun ChurchScreen() {
                 containerColor = Color.White
             ),
             elevation = CardDefaults.elevatedCardElevation(4.dp),
-            onClick = {/*clickable func*/ }
+            onClick = {
+                Log.e("tag","URL IS "+ "https://www.google.com/maps/search/winner's+chapel/@-1.2434617,36.7468201,11z/data=!3m1!4b1?entry=ttu")
+                val urlIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.google.com/maps/search/winner's+chapel/@-1.2434617,36.7468201,11z/data=!3m1!4b1?entry=ttu")
+                )
+                context.startActivity(urlIntent)
+            }
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
                 Image(
-                    modifier = Modifier.width(100.dp).height(100.dp),
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(100.dp),
                     painter = painterResource(id = R.drawable.winnerschapel),
                     contentDescription = "winners"
                 )
             }
+            Row( modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center) {
+                Text(
+                    text = "Winners Chapel Kenya",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(10.dp),
+                    color = Color.DarkGray
+                )
+            }
 
-            Text(
-                text = "Winners Chapel Kenya",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(10.dp)
-            )
         }
     }
 }

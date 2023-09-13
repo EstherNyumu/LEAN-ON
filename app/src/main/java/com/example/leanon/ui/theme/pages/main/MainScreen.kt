@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -48,8 +48,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.leanon.data.AuthRepository
 import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.navigation.AppNavHost
-import com.example.leanon.navigation.ROUTE_LOGIN
-import com.example.leanon.navigation.ROUTE_PROFILE
 import com.example.leanon.ui.theme.PrimePink
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -121,19 +119,18 @@ fun TopAppBar( modifier:Modifier,navController: NavHostController) {
                 fontFamily = FontFamily.Monospace)
         },
         actions = {
-            IconButton(onClick = {
-                var authRepository = AuthRepository(navController,context)
-                if(!(authRepository.isLoggedIn())){
-                    navController.navigate(ROUTE_LOGIN)
+            var authRepository = AuthRepository(navController,context)
+            if(authRepository.isLoggedIn()){
+                IconButton(onClick = {
+                    authRepository.logout()
+                },
+                    colors = IconButtonDefaults.iconButtonColors(containerColor = PrimePink, contentColor = Color.White)
+                ) {
+                    Icon(imageVector = Icons.Default.Logout, contentDescription = "logout")
                 }
-                else{
-                    navController.navigate(ROUTE_PROFILE)
-                }
-            },
-                colors = IconButtonDefaults.iconButtonColors(containerColor = PrimePink, contentColor = Color.White)
-            ) {
-                Icon(imageVector = Icons.Default.Person, contentDescription = "Profile Icon")
             }
+
+
         }
 //        scrollBehavior = scrollBehavior
     )

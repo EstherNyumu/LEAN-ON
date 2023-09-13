@@ -28,9 +28,9 @@ class PostsRepository(var navController: NavHostController, var context: Context
         progress.setMessage("Please wait...")
 //        posts = mutableListOf<Posts>()as ArrayList<Posts>
     }
-    fun savePosts(postText: String){
+    fun savePosts(anonymousName:String,postText: String){
         var id = System.currentTimeMillis().toString()
-        var postData = Posts(postText,id)
+        var postData = Posts(anonymousName,postText,id)
         var postRef = FirebaseDatabase.getInstance().getReference().child("Posts/$id")
         progress.show()
 

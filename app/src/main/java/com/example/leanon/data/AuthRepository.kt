@@ -75,11 +75,9 @@ class AuthRepository(var navController: NavHostController, var context: Context)
             override fun onDataChange(snapshot: DataSnapshot) {
                 progress.dismiss()
                 auths.clear()
-                for (snap in snapshot.children){
-                    val value = snap.getValue(User::class.java)
-                    auth.value = value!!
-                    auths.add(value)
-                }
+                val value = snapshot.getValue(User::class.java)
+                auth.value = value!!
+                auths.add(value)
             }
 
             override fun onCancelled(error: DatabaseError) {

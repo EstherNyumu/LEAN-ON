@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -126,14 +127,15 @@ fun PrayerItem(prayerDate:String,prayerText:String, prayerId:String,
                 containerColor = Color.White
             ),
             elevation = CardDefaults.elevatedCardElevation(4.dp),
+            modifier = Modifier.width(240.dp)
         ){
             Row {
                 Text(text = "Date:", color = PrimePink, modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
-                Text(text = prayerDate, modifier = Modifier.padding(5.dp))
+                Text(text = prayerDate, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
             }
             Row {
                 Text(text = "Prayer:", color = PrimePink, modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
-                Text(text = prayerText, modifier = Modifier.padding(5.dp))
+                Text(text = prayerText, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
             }
 
             Row {

@@ -1,6 +1,5 @@
 package com.example.leanon.ui.theme.pages.notepad
 
-import android.content.Intent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -8,12 +7,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DeleteForever
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -129,43 +128,44 @@ fun StudyItem(studyDate:String, studyScripture:String, observation:String, appli
                 containerColor = Color.White
             ),
             elevation = CardDefaults.elevatedCardElevation(4.dp),
+            modifier = Modifier.width(240.dp)
         ){
             Row {
                 Text(text = "Date:", color = PrimePink,modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
-                Text(text = studyDate, modifier = Modifier.padding(5.dp))
+                Text(text = studyDate, modifier = Modifier.padding(5.dp), color = Color.DarkGray)
             }
             Row {
                 Text(text = "Scripture:",color = PrimePink,modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
-                Text(text = studyScripture, modifier = Modifier.padding(5.dp))
+                Text(text = studyScripture, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
             }
             Row {
                 Text(text = "Observation:",color = PrimePink,modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
-                Text(text = observation, modifier = Modifier.padding(5.dp))
+                Text(text = observation, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
             }
             Row {
                 Text(text = "Application:",color = PrimePink,modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
-                Text(text = application, modifier = Modifier.padding(5.dp))
+                Text(text = application, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
             }
             Row {
                 Text(text = "Prayer:",color = PrimePink,modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
-                Text(text = studyPrayer, modifier = Modifier.padding(5.dp))
+                Text(text = studyPrayer, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
             }
             Row {
-                IconButton(
-                    onClick = {
-                        val shareIntent = Intent(Intent.ACTION_SEND)
-                        shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        shareIntent.type = "text/plain"
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, "Hey download this app from...")
-                        context.startActivity(shareIntent)
-                    },
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = Color.White,
-                        contentColor = PrimePink
-                    )
-                ) {
-                    Icon(imageVector = Icons.Default.Share, contentDescription = "Share Icon")
-                }
+//                IconButton(
+//                    onClick = {
+//                        val shareIntent = Intent(Intent.ACTION_SEND)
+//                        shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//                        shareIntent.type = "text/plain"
+//                        shareIntent.putExtra(Intent.EXTRA_TEXT, "Hey download this app from...")
+//                        context.startActivity(shareIntent)
+//                    },
+//                    colors = IconButtonDefaults.iconButtonColors(
+//                        containerColor = Color.White,
+//                        contentColor = PrimePink
+//                    )
+//                ) {
+//                    Icon(imageVector = Icons.Default.Share, contentDescription = "Share Icon")
+//                }
                 IconButton(
                     onClick = {
                         bibleStudyRepository.deleteStudy(studyId)

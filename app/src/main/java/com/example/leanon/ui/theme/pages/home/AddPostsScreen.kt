@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -38,7 +40,8 @@ import com.example.leanon.ui.theme.PrimePink
 @Composable
 fun AddPostsScreen(navController: NavHostController) {
     Column(modifier = Modifier
-        .fillMaxSize(),
+        .fillMaxSize()
+        .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center) {
         var context = LocalContext.current
@@ -51,19 +54,25 @@ fun AddPostsScreen(navController: NavHostController) {
             fontFamily = FontFamily.Monospace
         )
 
+        var anonymousName by remember { mutableStateOf("") }
         var postText by remember { mutableStateOf("") }
+        Spacer(modifier = Modifier.height(20.dp))
+        OutlinedTextField(value = anonymousName,
+            onValueChange = {anonymousName=it},
+            label = { Text(text = "Anonymous Name")},
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+        )
         OutlinedTextField(value = postText,
             onValueChange = {postText=it},
             label = { Text(text = "What's on your mind today..")},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier.height(300.dp)
         )
-
         Spacer(modifier = Modifier.height(20.dp))
 
         Button(onClick = {
             var postsRepository = PostsRepository(navController, context)
-            postsRepository.savePosts(postText)
+            postsRepository.savePosts(anonymousName,postText)
             navController.navigate(BottomBarScreen.Home.route)
         },
             colors = ButtonDefaults.buttonColors(PrimePink)) {
