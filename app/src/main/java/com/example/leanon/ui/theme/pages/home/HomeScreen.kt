@@ -124,7 +124,7 @@ fun HomeScreen(navController:NavHostController) {
             },
                 containerColor = PrimePink,
                 contentColor = Color.White,
-                shape = CircleShape
+                shape = CircleShape,
             ){
                 Icon(Icons.Filled.Add, contentDescription ="Add")
             }

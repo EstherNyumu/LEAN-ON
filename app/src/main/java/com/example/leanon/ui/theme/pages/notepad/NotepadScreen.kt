@@ -22,6 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -44,8 +46,6 @@ fun NotepadScreen(navController: NavHostController) {
         verticalArrangement = Arrangement.Center
     ) {
         var context = LocalContext.current
-        Spacer(modifier = Modifier.height(20.dp))
-        Spacer(modifier = Modifier.height(20.dp))
         IconButton(onClick = { /*TODO*/ },
             colors = IconButtonDefaults.filledIconButtonColors(containerColor = Color.White,
                 contentColor = PrimePink)) {
@@ -57,7 +57,10 @@ fun NotepadScreen(navController: NavHostController) {
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
-        Text(text = "I want to write: ")
+        Text(text = "I want to write: ",
+            color = Color.DarkGray,
+            fontFamily = FontFamily.Monospace,
+            fontWeight = FontWeight.SemiBold)
         Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
