@@ -72,64 +72,71 @@ import com.example.leanon.ui.theme.PrimePink
 //}
 @Composable
 fun HomeScreen(navController:NavHostController) {
-    Column(modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally) {
 
-        var context = LocalContext.current
-        var postsRepository = PostsRepository(navController, context)
+    var context = LocalContext.current
+    var postsRepository = PostsRepository(navController, context)
 
 
-        val emptyPostState = remember { mutableStateOf(Posts("","","")) }
-        var emptyPostsListState = remember { mutableStateListOf<Posts>() }
+    val emptyPostState = remember { mutableStateOf(Posts("","","")) }
+    var emptyPostsListState = remember { mutableStateListOf<Posts>() }
 
 
 
 
-        var posts = postsRepository.viewPosts(emptyPostState, emptyPostsListState)
+    var posts = postsRepository.viewPosts(emptyPostState, emptyPostsListState)
 
 
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(text = "My Posts",
-                fontSize = 30.sp,
-                fontFamily = FontFamily.Monospace,
-                color = PrimePink)
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "My Posts",
+            fontSize = 30.sp,
+            fontFamily = FontFamily.Monospace,
+            color = PrimePink
+        )
 
-            Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
-            LazyColumn{
-                items(posts){
-                   PostItem(
-                       anonymousName = it.anonymousName,
-                       postText = it.postText,
-                       postId = it.postId,
-                       navController = navController,
-                       postsRepository = postsRepository
-                   )
-                }
+        LazyColumn {
+            items(posts) {
+                PostItem(
+                    anonymousName = it.anonymousName,
+                    postText = it.postText,
+                    postId = it.postId,
+                    navController = navController,
+                    postsRepository = postsRepository
+                )
             }
+        }
+
+
+    }
+    Column {
+        Spacer(modifier = Modifier.weight(1f))
+        Row {
             Spacer(modifier = Modifier.weight(1f))
-            FloatingActionButton(onClick = {
-                var authRepository = AuthRepository(navController,context)
-                if(!(authRepository.isLoggedIn())){
-                    navController.navigate(ROUTE_LOGIN)
-                }
-                else{
-                    navController.navigate(ROUTE_ADD_POST)
-                }
-            },
+            FloatingActionButton(
+                onClick = {
+                    var authRepository = AuthRepository(navController, context)
+                    if (!(authRepository.isLoggedIn())) {
+                        navController.navigate(ROUTE_LOGIN)
+                    } else {
+                        navController.navigate(ROUTE_ADD_POST)
+                    }
+                },
                 containerColor = PrimePink,
                 contentColor = Color.White,
                 shape = CircleShape,
-            ){
-                Icon(Icons.Filled.Add, contentDescription ="Add")
+            ) {
+                Icon(Icons.Filled.Add, contentDescription = "Add")
             }
         }
     }
+
 }
 
 
@@ -149,7 +156,7 @@ fun PostItem(anonymousName:String,postText:String,postId:String,navController:Na
             modifier = Modifier
                 .width(240.dp)
         ){
-            Text(text = anonymousName,
+            Text(text ="@" + anonymousName,
                 modifier = Modifier.padding(10.dp),
                 color = PrimePink,
                 fontFamily = FontFamily.Monospace,
@@ -160,7 +167,7 @@ fun PostItem(anonymousName:String,postText:String,postId:String,navController:Na
             Row{
                 IconButton(
                     onClick = {
-                              count = count+1
+                        count = count+1
                     },
                     colors = IconButtonDefaults.iconButtonColors(
                         containerColor = Color.White,

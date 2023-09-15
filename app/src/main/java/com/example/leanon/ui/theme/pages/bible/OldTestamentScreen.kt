@@ -14,10 +14,13 @@ import com.example.leanon.ui.theme.LeanOnTheme
 
 @Composable
 fun OldTestamentScreen(navController: NavHostController) {
-    Column (modifier = Modifier
-        .fillMaxWidth()
-        .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally){
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
 
     }
 }

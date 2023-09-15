@@ -66,9 +66,6 @@ import com.example.leanon.ui.theme.PrimePink
 //}
 @Composable
 fun SermonNotepadScreen(navController:NavHostController) {
-    Column(modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally) {
-
         var context = LocalContext.current
         var sermonsRepository = SermonsRepository(navController, context)
 
@@ -84,27 +81,33 @@ fun SermonNotepadScreen(navController:NavHostController) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "My Sermons",
+            Text(
+                text = "My Sermons",
                 fontSize = 30.sp,
                 fontFamily = FontFamily.Monospace,
-                color = PrimePink)
+                color = PrimePink
+            )
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            LazyColumn(){
-                items(sermons){
+            LazyColumn() {
+                items(sermons) {
                     SermonsItem(
                         sermonDate = it.sermonDate,
                         preacher = it.preacher,
-                        sermonScripture =it.sermonScripture ,
+                        sermonScripture = it.sermonScripture,
                         sermonTopic = it.sermonTopic,
                         sermonNotes = it.sermonNotes,
                         sermonId = it.sermonId,
-                        navController = navController ,
+                        navController = navController,
                         sermonsRepository = sermonsRepository
                     )
                 }
             }
+        }
+    Column {
+        Spacer(modifier = Modifier.weight(1f))
+        Row {
             Spacer(modifier = Modifier.weight(1f))
             ExtendedFloatingActionButton(
                 onClick = {
@@ -117,7 +120,10 @@ fun SermonNotepadScreen(navController:NavHostController) {
             )
         }
     }
-}
+
+
+    }
+
 
 
 @Composable

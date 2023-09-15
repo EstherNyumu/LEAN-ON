@@ -62,9 +62,6 @@ import com.example.leanon.ui.theme.PrimePink
 //}
 @Composable
 fun BibleStudyNotepadScreen(navController:NavHostController) {
-    Column(modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally) {
-
         var context = LocalContext.current
         var bibleStudyRepository = BibleStudyRepository(navController, context)
 
@@ -80,40 +77,49 @@ fun BibleStudyNotepadScreen(navController:NavHostController) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Bible Study Sessions",
+            Text(
+                text = "Bible Study Sessions",
                 fontSize = 30.sp,
                 fontFamily = FontFamily.Monospace,
-                color = PrimePink)
+                color = PrimePink
+            )
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            LazyColumn(){
-                items(studies){
-                  StudyItem(
-                      studyDate =  it.studyDate,
-                      studyScripture = it.studyScripture,
-                      observation = it.observation,
-                      application = it.application,
-                      studyPrayer =it.studyPrayer,
-                      studyId = it.studyId ,
-                      navController = navController,
-                      bibleStudyRepository = bibleStudyRepository
-                  )
+            LazyColumn() {
+                items(studies) {
+                    StudyItem(
+                        studyDate = it.studyDate,
+                        studyScripture = it.studyScripture,
+                        observation = it.observation,
+                        application = it.application,
+                        studyPrayer = it.studyPrayer,
+                        studyId = it.studyId,
+                        navController = navController,
+                        bibleStudyRepository = bibleStudyRepository
+                    )
                 }
             }
-            Spacer(modifier = Modifier.weight(1f))
-            ExtendedFloatingActionButton(
-                onClick = {
-                    navController.navigate(ROUTE_ADD_BIBLE_STUDY)
-                },
-                containerColor = PrimePink,
-                contentColor = Color.White,
-                icon = { Icon(Icons.Filled.Edit, "Extended floating action button.") },
-                text = { Text(text = "Add Bible Study") }
-            )
         }
+        Column {
+            Spacer(modifier = Modifier.weight(1f))
+            Row {
+                Spacer(modifier = Modifier.weight(1f))
+                ExtendedFloatingActionButton(
+                    onClick = {
+                        navController.navigate(ROUTE_ADD_BIBLE_STUDY)
+                    },
+                    containerColor = PrimePink,
+                    contentColor = Color.White,
+                    icon = { Icon(Icons.Filled.Edit, "Extended floating action button.") },
+                    text = { Text(text = "Add Bible Study") }
+                )
+            }
+        }
+
+
     }
-}
+
 
 
 @Composable
@@ -128,7 +134,7 @@ fun StudyItem(studyDate:String, studyScripture:String, observation:String, appli
                 containerColor = Color.White
             ),
             elevation = CardDefaults.elevatedCardElevation(4.dp),
-            modifier = Modifier.width(240.dp)
+            modifier = Modifier.width(300.dp)
         ){
             Row {
                 Text(text = "Date:", color = PrimePink,modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)

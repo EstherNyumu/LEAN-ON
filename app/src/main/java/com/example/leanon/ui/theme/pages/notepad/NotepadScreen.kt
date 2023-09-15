@@ -57,7 +57,7 @@ fun NotepadScreen(navController: NavHostController) {
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
-        Text(text = "I want to write: ",
+        Text(text = "I want to note down: ",
             color = Color.DarkGray,
             fontFamily = FontFamily.Monospace,
             fontWeight = FontWeight.SemiBold)
@@ -112,7 +112,7 @@ fun NotepadScreen(navController: NavHostController) {
             colors = ButtonDefaults.buttonColors(Color.White),
             shape = RoundedCornerShape(20.dp),
             border = BorderStroke(2.dp, color = PrimePink)) {
-            Text(text = "Your Bible Study", color = PrimePink)
+            Text(text = "A Bible Study Session", color = PrimePink)
         }
     }
 }

@@ -64,42 +64,46 @@ import com.example.leanon.ui.theme.PrimePink
 //}
 @Composable
 fun PrayerNotepadScreen(navController:NavHostController) {
-    Column(modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally) {
 
-        var context = LocalContext.current
-        var prayersRepository = PrayersRepository(navController, context)
+    var context = LocalContext.current
+    var prayersRepository = PrayersRepository(navController, context)
 
 
-        val emptyPrayerState = remember { mutableStateOf(Prayers("","","")) }
-        var emptyPrayersListState = remember { mutableStateListOf<Prayers>() }
+    val emptyPrayerState = remember { mutableStateOf(Prayers("","","")) }
+    var emptyPrayersListState = remember { mutableStateListOf<Prayers>() }
 
-        var prayers = prayersRepository.viewPrayers(emptyPrayerState, emptyPrayersListState)
+    var prayers = prayersRepository.viewPrayers(emptyPrayerState, emptyPrayersListState)
 
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(text = "My Prayers",
-                fontSize = 30.sp,
-                fontFamily = FontFamily.Monospace,
-                color = PrimePink)
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "My Prayers",
+            fontSize = 30.sp,
+            fontFamily = FontFamily.Monospace,
+            color = PrimePink
+        )
 
-            Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
-            LazyColumn(){
-                items(prayers){
-                    PrayerItem(
-                        prayerDate = it.prayerDate,
-                        prayerText = it.prayerText,
-                        prayerId = it.prayerId,
-                        navController = navController,
-                        prayersRepository = prayersRepository
-                    )
-                }
+        LazyColumn() {
+            items(prayers) {
+                PrayerItem(
+                    prayerDate = it.prayerDate,
+                    prayerText = it.prayerText,
+                    prayerId = it.prayerId,
+                    navController = navController,
+                    prayersRepository = prayersRepository
+                )
             }
+        }
+    }
+    Column {
+        Spacer(modifier = Modifier.weight(1f))
+        Row {
             Spacer(modifier = Modifier.weight(1f))
             ExtendedFloatingActionButton(
                 onClick = {
@@ -112,12 +116,15 @@ fun PrayerNotepadScreen(navController:NavHostController) {
             )
         }
     }
+
+
 }
+
 
 
 @Composable
 fun PrayerItem(prayerDate:String,prayerText:String, prayerId:String,
-                navController:NavHostController, prayersRepository:PrayersRepository) {
+               navController:NavHostController, prayersRepository:PrayersRepository) {
 
     Column(modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally) {
