@@ -6,9 +6,9 @@ import android.widget.Toast
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation.NavHostController
-import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.models.Sermons
 import com.example.leanon.navigation.ROUTE_ADD_POST
+import com.example.leanon.navigation.ROUTE_SERMON_NOTEPAD
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -38,7 +38,7 @@ class SermonsRepository(var navController: NavHostController,var context: Contex
             progress.dismiss()
             if (it.isSuccessful){
                 Toast.makeText(context,"You can go through today's sermon later", Toast.LENGTH_SHORT).show()
-                navController.navigate(BottomBarScreen.Home.route)
+                navController.navigate(ROUTE_SERMON_NOTEPAD)
             }
             else {
                 Toast.makeText(context, "ERROR: ${it.exception!!.message}", Toast.LENGTH_SHORT)

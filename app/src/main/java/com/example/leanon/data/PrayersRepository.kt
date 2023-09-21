@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.models.Prayers
 import com.example.leanon.navigation.ROUTE_ADD_PRAYER
+import com.example.leanon.navigation.ROUTE_PRAYER_NOTEPAD
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -38,7 +39,7 @@ class PrayersRepository(var navController: NavHostController, var context: Conte
             progress.dismiss()
             if (it.isSuccessful){
                 Toast.makeText(context,"Amen to your prayer!", Toast.LENGTH_SHORT).show()
-                navController.navigate(BottomBarScreen.Home.route)
+                navController.navigate(ROUTE_PRAYER_NOTEPAD)
             }
             else {
                 Toast.makeText(context, "ERROR: ${it.exception!!.message}", Toast.LENGTH_SHORT)

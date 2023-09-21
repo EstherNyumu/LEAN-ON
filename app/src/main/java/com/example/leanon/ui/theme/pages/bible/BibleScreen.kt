@@ -21,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -32,6 +33,7 @@ import com.example.leanon.navigation.ROUTE_NEW_TESTAMENT
 import com.example.leanon.navigation.ROUTE_OLD_TESTAMENT
 import com.example.leanon.ui.theme.LeanOnTheme
 import com.example.leanon.ui.theme.PrimePink
+import com.example.leanon.ui.theme.PrimePurple
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,7 +43,7 @@ fun BibleScreen(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center) {
         IconButton(onClick = { /*TODO*/ },
-            colors = IconButtonDefaults.filledIconButtonColors(containerColor = Color.White,
+            colors = IconButtonDefaults.filledIconButtonColors(containerColor = Color.Transparent,
                 contentColor = PrimePink
             )) {
             Icon(
@@ -62,22 +64,24 @@ fun BibleScreen(navController: NavHostController) {
             onClick = {
                       navController.navigate(ROUTE_OLD_TESTAMENT)
             },
-            colors = ButtonDefaults.buttonColors(Color.White),
+            colors = ButtonDefaults.buttonColors(Color.Transparent),
             shape = RoundedCornerShape(20.dp),
-            border = BorderStroke(2.dp, color = PrimePink)
+//            border = BorderStroke(2.dp, color = PrimePink)
+            border = BorderStroke(3.dp, Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0))))
         ) {
-            Text(text = "The Old Testament", color = PrimePink)
+            Text(text = "The Old Testament", color = PrimePurple)
         }
         Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
                       navController.navigate(ROUTE_NEW_TESTAMENT)
             },
-            colors = ButtonDefaults.buttonColors(Color.White),
+            colors = ButtonDefaults.buttonColors(Color.Transparent),
             shape = RoundedCornerShape(20.dp),
-            border = BorderStroke(2.dp, color = PrimePink)
+//            border = BorderStroke(2.dp, color = PrimePink)
+            border = BorderStroke(3.dp, Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0))))
         ) {
-            Text(text = "The New Testament",color = PrimePink)
+            Text(text = "The New Testament",color = PrimePurple)
         }
     }
 }

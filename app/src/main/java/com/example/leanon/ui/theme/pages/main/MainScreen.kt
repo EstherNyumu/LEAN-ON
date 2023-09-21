@@ -3,6 +3,7 @@ package com.example.leanon.ui.theme.pages.main
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
@@ -28,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
@@ -48,7 +50,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.leanon.data.AuthRepository
 import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.navigation.AppNavHost
-import com.example.leanon.ui.theme.PrimePink
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -107,16 +108,42 @@ fun TopAppBar( modifier:Modifier,navController: NavHostController) {
 //      Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = PrimePink,
+            containerColor = Color.Transparent,
             titleContentColor = Color.White
         ) ,
+        modifier = Modifier.background(
+            Brush.horizontalGradient(
+                colors = listOf(
+                    Color(0xFFFF0078),
+                    Color(0xFF9C27B0)
+                )
+            )
+        ),
         title = {
             Text(
+//                "LEAN ON",
+//                modifier = Modifier
+//                    .drawWithCache {
+//                        val brush = Brush.linearGradient(
+//                            listOf(
+//                                Color(0xFFFFA7CB),
+//                                Color(0xFFBFA1F9)
+//                            )
+//                        )
+//                        onDrawBehind {
+//                            drawRoundRect(
+//                                brush,
+//                                cornerRadius = CornerRadius(10.dp.toPx())
+//                            )
+//                        }
+//                    }
                 text = "LEAN ON",
                 fontSize = 30.sp,
                 modifier = Modifier.padding(20.dp),
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Monospace)
+
+
         },
         actions = {
             var authRepository = AuthRepository(navController,context)
@@ -124,11 +151,12 @@ fun TopAppBar( modifier:Modifier,navController: NavHostController) {
                 IconButton(onClick = {
                     authRepository.logout()
                 },
-                    colors = IconButtonDefaults.iconButtonColors(containerColor = PrimePink, contentColor = Color.White)
+                    colors = IconButtonDefaults.iconButtonColors( contentColor = Color.White)
                 ) {
                     Icon(imageVector = Icons.Default.Logout, contentDescription = "logout")
                 }
             }
+
 
 
         }
@@ -150,7 +178,17 @@ fun BottomBar(navController: NavHostController,state:MutableState<Boolean>, modi
     AnimatedVisibility(visible = state.value,
         enter = slideInVertically (initialOffsetY = {it}),
         exit = slideOutVertically (targetOffsetY = {it})) {
-        NavigationBar(containerColor = PrimePink) {
+        NavigationBar(
+            containerColor = Color.Transparent,
+            modifier = Modifier.background(
+                Brush.horizontalGradient(
+                    colors = listOf(
+                        Color(0xFFFF0078),
+                        Color(0xFF9C27B0)
+                    )
+                )
+            )
+        ) {
             screens.forEach{screen->
                 AddItem(screen = screen,
                     currentDestination = currentDestination,
@@ -185,10 +223,10 @@ fun RowScope.AddItem(
             }
         },
         colors = NavigationBarItemDefaults.colors(
-            unselectedIconColor = Color.LightGray,
-            unselectedTextColor = Color.LightGray,
-            selectedTextColor = Color.White,
-            selectedIconColor = Color.White
+            unselectedIconColor = Color.White,
+            unselectedTextColor = Color.White,
+            selectedTextColor = Color.Black,
+            selectedIconColor = Color.Black
         ),
         icon = {
             Icon(

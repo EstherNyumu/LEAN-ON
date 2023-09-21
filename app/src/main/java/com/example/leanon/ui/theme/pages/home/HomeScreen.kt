@@ -1,6 +1,7 @@
 package com.example.leanon.ui.theme.pages.home
 
 import android.content.Intent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -26,18 +28,24 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import coil.compose.rememberAsyncImagePainter
 import com.example.leanon.data.AuthRepository
 import com.example.leanon.data.PostsRepository
 import com.example.leanon.models.Posts
@@ -76,49 +84,42 @@ fun HomeScreen(navController:NavHostController) {
     var context = LocalContext.current
     var postsRepository = PostsRepository(navController, context)
 
-
-    val emptyPostState = remember { mutableStateOf(Posts("","","")) }
+    val emptyPostState = remember { mutableStateOf(Posts("","","","")) }
     var emptyPostsListState = remember { mutableStateListOf<Posts>() }
 
-
-
-
-    var posts = postsRepository.viewPosts(emptyPostState, emptyPostsListState)
-
-
+    var posts = postsRepository.viewUploads(emptyPostState, emptyPostsListState)
 
     Column(
         modifier = Modifier
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = "My Posts",
+            style = TextStyle(Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0)))),
             fontSize = 30.sp,
-            fontFamily = FontFamily.Monospace,
-            color = PrimePink
+            fontFamily = FontFamily.Monospace
         )
 
         Spacer(modifier = Modifier.height(20.dp))
-
         LazyColumn {
             items(posts) {
                 PostItem(
                     anonymousName = it.anonymousName,
                     postText = it.postText,
+                    imageUrl = it.imageUrl,
                     postId = it.postId,
                     navController = navController,
                     postsRepository = postsRepository
                 )
             }
         }
-
-
     }
     Column {
         Spacer(modifier = Modifier.weight(1f))
         Row {
-            Spacer(modifier = Modifier.weight(1f))
+//            Spacer(modifier = Modifier.weight(1f))
             FloatingActionButton(
                 onClick = {
                     var authRepository = AuthRepository(navController, context)
@@ -131,22 +132,22 @@ fun HomeScreen(navController:NavHostController) {
                 containerColor = PrimePink,
                 contentColor = Color.White,
                 shape = CircleShape,
+                modifier = Modifier.padding(10.dp)
             ) {
                 Icon(Icons.Filled.Add, contentDescription = "Add")
             }
         }
     }
-
 }
 
 
 @Composable
-fun PostItem(anonymousName:String,postText:String,postId:String,navController:NavHostController,
+fun PostItem(anonymousName:String,postText:String,imageUrl:String,postId:String,navController:NavHostController,
              postsRepository: PostsRepository
 ) {
     Column(modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally) {
-        var count:Int = 0
+        var count by remember { mutableStateOf(0) }
         var  context = LocalContext.current
         ElevatedCard(
             colors = CardDefaults.cardColors(
@@ -154,32 +155,52 @@ fun PostItem(anonymousName:String,postText:String,postId:String,navController:Na
             ),
             elevation = CardDefaults.elevatedCardElevation(4.dp),
             modifier = Modifier
-                .width(240.dp)
+                .width(300.dp)
         ){
-            Text(text ="@" + anonymousName,
-                modifier = Modifier.padding(10.dp),
+            Text(text ="@ " + anonymousName,
+                modifier = Modifier
+                    .padding(10.dp)
+                    .align(CenterHorizontally),
                 color = PrimePink,
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.SemiBold)
+            if (imageUrl == ""){
+            }
+            else{
+                Image(painter = rememberAsyncImagePainter(imageUrl),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(300.dp)
+                        .align(CenterHorizontally))
+            }
             Text(text = postText,
-                modifier = Modifier.padding(10.dp),
+                modifier = Modifier
+                    .padding(10.dp)
+                    .align(CenterHorizontally),
                 color = Color.DarkGray)
-            Row{
+            Row(modifier = Modifier
+                .align(CenterHorizontally)){
+                Column {
+                    IconButton(
+                        onClick = {
+                            count++
+                        },
+                        colors = IconButtonDefaults.iconButtonColors(
+                            containerColor = Color.Transparent,
+                            contentColor = PrimePink
+                        )
+                    ) {
+                        Icon(imageVector = Icons.Outlined.ThumbUp, contentDescription = "ThumbUp Icon")
+                    }
+                    Text(text = "$count likes",color = Color.DarkGray)
+                }
+
                 IconButton(
                     onClick = {
-                        count = count+1
+                              count--
                     },
                     colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = Color.White,
-                        contentColor = PrimePink
-                    )
-                ) {
-                    Icon(imageVector = Icons.Outlined.ThumbUp, contentDescription = "ThumbUp Icon")
-                }
-                IconButton(
-                    onClick = { /*TODO*/ },
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = Color.White,
+                        containerColor = Color.Transparent,
                         contentColor = PrimePink
                     )
                 ) {
@@ -197,7 +218,7 @@ fun PostItem(anonymousName:String,postText:String,postId:String,navController:Na
                         context.startActivity(shareIntent)
                     },
                     colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = Color.White,
+                        containerColor = Color.Transparent,
                         contentColor = PrimePink
                     )
                 ) {
@@ -214,7 +235,7 @@ fun PostItem(anonymousName:String,postText:String,postId:String,navController:Na
                         }
 
                     }, colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = Color.White,
+                        containerColor = Color.Transparent,
                         contentColor = PrimePink
                     )
                 ) {
@@ -224,9 +245,7 @@ fun PostItem(anonymousName:String,postText:String,postId:String,navController:Na
                     )
                 }
             }
-            Text(text = count.toString() + " likes",
-                Modifier.padding(10.dp),
-                color = Color.Black)
+
         }
         Spacer(modifier = Modifier.height(20.dp))
 

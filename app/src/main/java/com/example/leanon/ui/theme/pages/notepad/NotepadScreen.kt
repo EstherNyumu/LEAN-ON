@@ -1,7 +1,6 @@
 package com.example.leanon.ui.theme.pages.notepad
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
@@ -35,19 +35,19 @@ import com.example.leanon.navigation.ROUTE_PRAYER_NOTEPAD
 import com.example.leanon.navigation.ROUTE_SERMON_NOTEPAD
 import com.example.leanon.ui.theme.LeanOnTheme
 import com.example.leanon.ui.theme.PrimePink
+import com.example.leanon.ui.theme.PrimePurple
 
 @Composable
 fun NotepadScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White),
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         var context = LocalContext.current
         IconButton(onClick = { /*TODO*/ },
-            colors = IconButtonDefaults.filledIconButtonColors(containerColor = Color.White,
+            colors = IconButtonDefaults.filledIconButtonColors(containerColor = Color.Transparent,
                 contentColor = PrimePink)) {
             Icon(Icons.Outlined.Padding,
                 contentDescription ="",
@@ -74,11 +74,12 @@ fun NotepadScreen(navController: NavHostController) {
 
 
             },
-            colors = ButtonDefaults.buttonColors(Color.White),
+            colors = ButtonDefaults.buttonColors(Color.Transparent),
             shape = RoundedCornerShape(20.dp),
-            border = BorderStroke(2.dp, color = PrimePink)
+//            border = BorderStroke(2.dp, color = PrimePink)
+            border = BorderStroke(3.dp, Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0))))
         ) {
-            Text(text = "A prayer", color = PrimePink)
+            Text(text = "A prayer", color = PrimePurple)
         }
         Spacer(modifier = Modifier.height(20.dp))
         Button(
@@ -92,10 +93,12 @@ fun NotepadScreen(navController: NavHostController) {
                 }
 
             },
-            colors = ButtonDefaults.buttonColors(Color.White),
+            colors = ButtonDefaults.buttonColors(Color.Transparent),
             shape = RoundedCornerShape(20.dp),
-            border = BorderStroke(2.dp, color = PrimePink)) {
-            Text(text = "Today's Sermon",color = PrimePink)
+//            border = BorderStroke(2.dp, color = PrimePink)
+            border = BorderStroke(3.dp, Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0))))
+        ) {
+            Text(text = "Today's Sermon",color = PrimePurple)
         }
         Spacer(modifier = Modifier.height(20.dp))
         Button(
@@ -109,10 +112,12 @@ fun NotepadScreen(navController: NavHostController) {
                 }
 
             },
-            colors = ButtonDefaults.buttonColors(Color.White),
+            colors = ButtonDefaults.buttonColors(Color.Transparent),
             shape = RoundedCornerShape(20.dp),
-            border = BorderStroke(2.dp, color = PrimePink)) {
-            Text(text = "A Bible Study Session", color = PrimePink)
+//            border = BorderStroke(2.dp, color = PrimePink)
+            border = BorderStroke(3.dp, Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0))))
+        ) {
+            Text(text = "A Bible Study Session", color = PrimePurple)
         }
     }
 }

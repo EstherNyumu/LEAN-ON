@@ -19,7 +19,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -43,7 +46,7 @@ fun LoginScreen(navController: NavHostController) {
         var context = LocalContext.current
         Text(text = "Login Here",
             fontSize = 30.sp,
-            color = PrimePink,
+            style = TextStyle(Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0)))),
             modifier = Modifier.padding(20.dp),
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Monospace

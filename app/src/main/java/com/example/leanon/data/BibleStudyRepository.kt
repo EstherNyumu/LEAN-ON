@@ -7,8 +7,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation.NavHostController
 import com.example.leanon.models.BibleStudy
-import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.navigation.ROUTE_ADD_BIBLE_STUDY
+import com.example.leanon.navigation.ROUTE_BIBLE_STUDY_NOTEPAD
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -38,7 +38,7 @@ class BibleStudyRepository(var navController: NavHostController,var context: Con
             progress.dismiss()
             if (it.isSuccessful){
                 Toast.makeText(context,"Study Done!", Toast.LENGTH_SHORT).show()
-                navController.navigate(BottomBarScreen.Home.route)
+                navController.navigate(ROUTE_BIBLE_STUDY_NOTEPAD)
             }
             else {
                 Toast.makeText(context, "ERROR: ${it.exception!!.message}", Toast.LENGTH_SHORT)
