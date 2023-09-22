@@ -119,7 +119,6 @@ fun AddPostsScreen(navController: NavHostController) {
                 .clip(RoundedCornerShape(10.dp))
                 .background(brush = verticalGradient)
                 .padding(12.dp),
-//                .width(1,
             color = Color.White
         )
     }

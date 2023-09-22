@@ -76,4 +76,7 @@ dependencies {
     implementation("com.google.firebase:firebase-storage:20.2.1")
     implementation("androidx.compose.material3:material3-android:1.2.0-alpha06")
     implementation("io.coil-kt:coil-compose:2.0.0-rc01")
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.5.0")
 }

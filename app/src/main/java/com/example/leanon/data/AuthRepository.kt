@@ -37,7 +37,7 @@ class AuthRepository(var navController: NavHostController, var context: Context)
                     .child("Users" + mAuth.currentUser!!.uid)
                 regRef.setValue(userData).addOnCompleteListener {
                     if (it.isSuccessful) {
-                        Toast.makeText(context, "Signup Successful", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Thank you $username for joining us!", Toast.LENGTH_SHORT).show()
                         navController.navigate(BottomBarScreen.Home.route)
                     } else {
                         Toast.makeText(context, "Error: ${it.exception!!.message}", Toast.LENGTH_SHORT)

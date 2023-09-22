@@ -28,45 +28,7 @@ class PostsRepository(var navController: NavHostController, var context: Context
         progress.setMessage("Please wait...")
 //        posts = mutableListOf<Posts>()as ArrayList<Posts>
     }
-//    fun savePosts(anonymousName:String,postText: String){
-//        var id = System.currentTimeMillis().toString()
-//        var postData = Posts(anonymousName,postText,id)
-//        var postRef = FirebaseDatabase.getInstance().getReference().child("Posts/$id")
-//        progress.show()
-//
-//        postRef.setValue(postData).addOnCompleteListener{
-//            progress.dismiss()
-//            if (it.isSuccessful){
-//                Toast.makeText(context,"Your post has been added", Toast.LENGTH_SHORT).show()
-//                navController.navigate(BottomBarScreen.Home.route)
-//            }
-//            else {
-//                Toast.makeText(context, "ERROR: ${it.exception!!.message}", Toast.LENGTH_SHORT)
-//                navController.navigate(ROUTE_ADD_POST)
-//            }
-//        }
-//    }
-    fun viewPosts(post: MutableState<Posts>, myPosts: SnapshotStateList<Posts>): SnapshotStateList<Posts> {
-        var ref = FirebaseDatabase.getInstance().getReference().child("Posts")
 
-        progress.show()
-        ref.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                progress.dismiss()
-                myPosts.clear()
-                for (snap in snapshot.children){
-                    val value = snap.getValue(Posts::class.java)
-                    post.value = value!!
-                    myPosts.add(value)
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
-            }
-        })
-        return myPosts
-    }
 
     fun deletePost(id:String){
         var delRef = FirebaseDatabase.getInstance().getReference().child("Posts/$id")
@@ -81,11 +43,10 @@ class PostsRepository(var navController: NavHostController, var context: Context
             }
         }
     }
-    fun editPost(){
+    fun editPost() {
 
     }
-    // OPEN GALLERY TO PICK IMAGE
-    fun savePostWithImage(anonymousName: String, postText:String, filePath: Uri){
+    fun savePostWithImage(anonymousName: String, postText:String,filePath: Uri){
         var id = System.currentTimeMillis().toString()
         var storageReference = FirebaseStorage.getInstance().getReference().child("Posts/$id")
         progress.show()
@@ -109,18 +70,18 @@ class PostsRepository(var navController: NavHostController, var context: Context
     }
 
 
-    fun viewUploads(upload:MutableState<Posts>, uploads:SnapshotStateList<Posts>): SnapshotStateList<Posts> {
+    fun viewPosts(post:MutableState<Posts>, myPosts:SnapshotStateList<Posts>): SnapshotStateList<Posts> {
         var ref = FirebaseDatabase.getInstance().getReference().child("Posts")
 
         progress.show()
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 progress.dismiss()
-                uploads.clear()
+                myPosts.clear()
                 for (snap in snapshot.children){
                     val value = snap.getValue(Posts::class.java)
-                    upload.value = value!!
-                    uploads.add(value)
+                    post.value = value!!
+                    myPosts.add(value)
                 }
             }
 
@@ -128,6 +89,6 @@ class PostsRepository(var navController: NavHostController, var context: Context
                 Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
             }
         })
-        return uploads
+        return myPosts
     }
 }

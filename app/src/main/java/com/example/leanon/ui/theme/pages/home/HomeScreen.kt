@@ -29,6 +29,7 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,31 +54,6 @@ import com.example.leanon.navigation.ROUTE_ADD_POST
 import com.example.leanon.navigation.ROUTE_LOGIN
 import com.example.leanon.ui.theme.PrimePink
 
-
-//@Composable
-//fun HomeScreen(navController: NavHostController) {
-//    Column(modifier = Modifier
-//        .fillMaxSize(),
-//        horizontalAlignment = Alignment.CenterHorizontally) {
-//        var context = LocalContext.current
-//        Spacer(modifier = Modifier.weight(1f))
-//        FloatingActionButton(onClick = {
-//            var authRepository = AuthRepository(navController,context)
-//            if(!(authRepository.isLoggedIn())){
-//                navController.navigate(ROUTE_LOGIN)
-//            }
-//            else{
-//                navController.navigate(ROUTE_ADD_POST)
-//            }
-//        },
-//            containerColor = PrimePink,
-//            contentColor = Color.White,
-//            shape = CircleShape
-//        ){
-//            Icon(Icons.Filled.Add, contentDescription ="Add")
-//        }
-//    }
-//}
 @Composable
 fun HomeScreen(navController:NavHostController) {
 
@@ -87,7 +63,7 @@ fun HomeScreen(navController:NavHostController) {
     val emptyPostState = remember { mutableStateOf(Posts("","","","")) }
     var emptyPostsListState = remember { mutableStateListOf<Posts>() }
 
-    var posts = postsRepository.viewUploads(emptyPostState, emptyPostsListState)
+    var posts = postsRepository.viewPosts(emptyPostState, emptyPostsListState)
 
     Column(
         modifier = Modifier
@@ -146,8 +122,9 @@ fun PostItem(anonymousName:String,postText:String,imageUrl:String,postId:String,
              postsRepository: PostsRepository
 ) {
     Column(modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        var count by remember { mutableStateOf(0) }
+        horizontalAlignment = CenterHorizontally
+    ) {
+        var count by remember { mutableIntStateOf(0) }
         var  context = LocalContext.current
         ElevatedCard(
             colors = CardDefaults.cardColors(
@@ -157,7 +134,7 @@ fun PostItem(anonymousName:String,postText:String,imageUrl:String,postId:String,
             modifier = Modifier
                 .width(300.dp)
         ){
-            Text(text ="@ " + anonymousName,
+            Text(text = "@ $anonymousName",
                 modifier = Modifier
                     .padding(10.dp)
                     .align(CenterHorizontally),
@@ -197,7 +174,9 @@ fun PostItem(anonymousName:String,postText:String,imageUrl:String,postId:String,
 
                 IconButton(
                     onClick = {
-                              count--
+                        if (count!=0) {
+                            count--
+                        }
                     },
                     colors = IconButtonDefaults.iconButtonColors(
                         containerColor = Color.Transparent,
@@ -248,12 +227,6 @@ fun PostItem(anonymousName:String,postText:String,imageUrl:String,postId:String,
 
         }
         Spacer(modifier = Modifier.height(20.dp))
-
-//        Button(onClick = {
-//            navController.navigate(ROUTE_UPDATE_PRODUCTS+"/$id")
-//        }) {
-//            Text(text = "Update")
-//        }
     }
 }
 
