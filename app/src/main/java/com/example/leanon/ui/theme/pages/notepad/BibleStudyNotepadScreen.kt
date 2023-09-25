@@ -82,11 +82,13 @@ fun BibleStudyNotepadScreen(navController:NavHostController) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(modifier = Modifier.height(20.dp))
             Text(
                 text = "Bible Study Sessions",
-                fontSize = 30.sp,
                 style = TextStyle(Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0)))),
-                fontFamily = FontFamily.Monospace
+                fontSize = 30.sp,
+                fontFamily = FontFamily.Monospace,
+                fontWeight = FontWeight.Bold
             )
 
             Spacer(modifier = Modifier.height(20.dp))

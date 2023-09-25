@@ -22,9 +22,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,6 +46,15 @@ fun ChurchScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var context = LocalContext.current
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(
+            text = "Churches",
+            style = TextStyle(Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0)))),
+            fontSize = 30.sp,
+            fontFamily = FontFamily.Monospace,
+            fontWeight = FontWeight.Bold
+        )
+
         Spacer(modifier = Modifier.height(20.dp))
         ElevatedCard(
             colors = CardDefaults.cardColors(

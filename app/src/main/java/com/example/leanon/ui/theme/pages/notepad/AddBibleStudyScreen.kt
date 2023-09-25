@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -38,7 +39,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.leanon.data.BibleStudyRepository
 import com.example.leanon.navigation.ROUTE_BIBLE_STUDY_NOTEPAD
 import com.example.leanon.ui.theme.LeanOnTheme
-import com.example.leanon.ui.theme.PrimePink
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,11 +55,12 @@ fun AddBibleStudyScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = "Bible Study",
+            style = TextStyle(Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0)))),
             fontSize = 30.sp,
-            color = PrimePink,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Monospace
+            fontFamily = FontFamily.Monospace,
+            fontWeight = FontWeight.Bold
         )
+
         Spacer(modifier = Modifier.height(10.dp))
         var studyDate by remember { mutableStateOf("") }
         var studyScripture by remember { mutableStateOf("") }

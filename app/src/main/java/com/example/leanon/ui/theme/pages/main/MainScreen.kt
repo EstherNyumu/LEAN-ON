@@ -50,6 +50,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.leanon.data.AuthRepository
 import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.navigation.AppNavHost
+import com.example.leanon.navigation.ROUTE_LOGIN
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -147,15 +148,19 @@ fun TopAppBar( modifier:Modifier,navController: NavHostController) {
         },
         actions = {
             var authRepository = AuthRepository(navController,context)
-            if(authRepository.isLoggedIn()){
-                IconButton(onClick = {
+
+            IconButton(onClick = {
+                if(authRepository.isLoggedIn()){
                     authRepository.logout()
-                },
-                    colors = IconButtonDefaults.iconButtonColors( contentColor = Color.White)
-                ) {
-                    Icon(imageVector = Icons.Default.Logout, contentDescription = "logout")
                 }
+                else{
+                    navController.navigate(ROUTE_LOGIN)
+                }},
+                colors = IconButtonDefaults.iconButtonColors( contentColor = Color.White)
+            ) {
+                Icon(imageVector = Icons.Default.Logout, contentDescription = "logout")
             }
+
 
 
 

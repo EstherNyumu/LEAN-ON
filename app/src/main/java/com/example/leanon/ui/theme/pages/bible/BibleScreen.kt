@@ -2,27 +2,34 @@ package com.example.leanon.ui.theme.pages.bible
 
 import android.content.res.Configuration
 import android.util.Log
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,7 +50,8 @@ import java.util.Objects
 fun BibleScreen(navController: NavHostController) {
     var context = LocalContext.current
     Column(modifier = Modifier
-        .fillMaxSize(),
+        .fillMaxSize()
+        .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center) {
       /*  IconButton(onClick = { *//*TODO*//* },
@@ -127,35 +135,58 @@ fun BibleCode() {
         }
 
         Text(
-            text="API Sample",
-            style= TextStyle(
-                fontSize = 40.sp,
-                fontFamily = FontFamily.Cursive
-            )
+            text="Bible Verses",
+            fontSize = 30.sp,
+            style = TextStyle(Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0)))),
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Monospace
         )
 
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
-        TextField(
-            label = { Text(text = "User ID")},
+        OutlinedTextField(
+            label = { Text(text = "Book")},
             value = book.value,
             onValueChange = { book.value = it }
         )
-        TextField(
-            label = { Text(text = "User ID")},
+        Spacer(modifier = Modifier.height(20.dp))
+        OutlinedTextField(
+            label = { Text(text = "Chapter")},
             value = chapter.value,
             onValueChange = {chapter.value = it }
         )
-
-        TextField(
-            label = { Text(text = "User ID")},
+        Spacer(modifier = Modifier.height(20.dp))
+        OutlinedTextField(
+            label = { Text(text = "Verse")},
             value = verse.value,
             onValueChange = { verse.value = it }
         )
 
         Spacer(modifier = Modifier.height(15.dp))
+        val verticalGradient = Brush.verticalGradient(
+            colors = listOf(Color(0xFFFF0078), Color(0xFF9C27B0)),
+            startY = 0f,
+            endY = 100f
+        )
+        Text(text = "Get Verse",
+            modifier = Modifier
+//                .padding(10.dp)
+                .clickable(onClick = {
+                    val data = sendRequest(
+                        book = book.value.text,
+                        chapter = chapter.value.text,
+                        verse = verse.value.text,
+                        bibleState = profile
+                    )
 
-        Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
+                    Log.d("Main Activity", profile.toString())
+                })
+                .clip(RoundedCornerShape(10.dp))
+                .background(brush = verticalGradient)
+                .padding(12.dp),
+            color = Color.White
+        )
+       /* Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
             Button(
                 onClick = {
                     val data = sendRequest(
@@ -170,7 +201,7 @@ fun BibleCode() {
             ) {
                 Text(text = "Get Data")
             }
-        }
+        }*/
 
         Spacer(modifier = Modifier.height(15.dp))
 

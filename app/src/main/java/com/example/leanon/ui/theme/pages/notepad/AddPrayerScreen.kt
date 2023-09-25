@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -38,7 +39,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.leanon.data.PrayersRepository
 import com.example.leanon.navigation.ROUTE_PRAYER_NOTEPAD
 import com.example.leanon.ui.theme.LeanOnTheme
-import com.example.leanon.ui.theme.PrimePink
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,15 +52,15 @@ fun AddPrayerScreen(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = "My Prayer",
+            style = TextStyle(Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0)))),
             fontSize = 30.sp,
-            color = PrimePink,
-            modifier = Modifier.padding(20.dp),
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Monospace
+            fontFamily = FontFamily.Monospace,
+            fontWeight = FontWeight.Bold
         )
+
         Spacer(modifier = Modifier.height(20.dp))
         var prayerDate by remember { mutableStateOf("") }
         var prayerText by remember { mutableStateOf("") }

@@ -64,6 +64,7 @@ class AuthRepository(var navController: NavHostController, var context: Context)
     }
     fun logout(){
         mAuth.signOut()
+        Toast.makeText(context, "You've been logged out", Toast.LENGTH_SHORT).show()
         navController.navigate(ROUTE_LOGIN)
     }
     fun isLoggedIn():Boolean = mAuth.currentUser != null
