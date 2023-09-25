@@ -57,11 +57,20 @@ class PostsRepository(var navController: NavHostController, var context: Context
                 // Proceed to store other data into the db
                 storageReference.downloadUrl.addOnSuccessListener {
                     var imageUrl = it.toString()
-                    var houseData = Posts(anonymousName,postText,imageUrl,id)
-                    var dbRef = FirebaseDatabase.getInstance()
-                        .getReference().child("Posts/$id")
-                    dbRef.setValue(houseData)
-                    Toast.makeText(context, "Upload successful", Toast.LENGTH_SHORT).show()
+                    if (imageUrl==null){
+                        var houseData = Posts(anonymousName,postText,"",id)
+                        var dbRef = FirebaseDatabase.getInstance()
+                            .getReference().child("Posts/$id")
+                        dbRef.setValue(houseData)
+                        Toast.makeText(context, "Upload successful", Toast.LENGTH_SHORT).show()
+                    }
+                    else {
+                        var houseData = Posts(anonymousName, postText, imageUrl, id)
+                        var dbRef = FirebaseDatabase.getInstance()
+                            .getReference().child("Posts/$id")
+                        dbRef.setValue(houseData)
+                        Toast.makeText(context, "Upload successful", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }else{
                 Toast.makeText(context, it.exception!!.message, Toast.LENGTH_SHORT).show()

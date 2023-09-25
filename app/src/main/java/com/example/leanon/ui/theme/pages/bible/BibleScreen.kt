@@ -174,12 +174,11 @@ fun BibleCode() {
                 .clickable(onClick = {
                     val data = sendRequest(
                         book = book.value.text,
-                        chapter = chapter.value.text,
+                        chapter = "0",
                         verse = verse.value.text,
                         bibleState = profile
                     )
-
-                    Log.d("Main Activity", profile.toString())
+                    Log.d("this_pro_data", data.toString())
                 })
                 .clip(RoundedCornerShape(10.dp))
                 .background(brush = verticalGradient)
@@ -205,7 +204,8 @@ fun BibleCode() {
 
         Spacer(modifier = Modifier.height(15.dp))
 
-        Text(text = profile.component1().toString(), fontSize = 40.sp)
+
+        Text(text = profile.value.text, fontSize = 20.sp)
     }
 }
 
@@ -216,7 +216,7 @@ fun sendRequest(
     bibleState: MutableState<BibleModel>
 ) {
     val retrofit = Retrofit.Builder()
-        .baseUrl("https://bible-api.com")
+        .baseUrl("https://bible-api.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -227,7 +227,7 @@ fun sendRequest(
     call!!.enqueue(object: Callback<BibleModel?> {
         override fun onResponse(call: Call<BibleModel?>, response: Response<BibleModel?>) {
             if(response.isSuccessful) {
-                Log.d("Main", "my_response_from_api!" + response.body().toString())
+                Log.d("my_response_from_api", "my_response_from_api!" + response.body().toString())
                 bibleState.value = BibleModel(
                     response.body()!!.reference,
                     response.body()!!.verses,
@@ -240,7 +240,7 @@ fun sendRequest(
         }
 
         override fun onFailure(call: Call<BibleModel?>, t: Throwable) {
-            Log.e("Main", "Failed mate " + t.message.toString())
+            Log.d("error_my_response", "Failed mate " + t.message.toString())
         }
     })
 }

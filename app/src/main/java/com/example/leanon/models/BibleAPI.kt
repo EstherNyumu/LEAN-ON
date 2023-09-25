@@ -10,8 +10,8 @@ public interface UserApi {
     @Headers(
         "Accept: application/json"
     )
-    @GET("{book}{chapter}:{verse}")
-    abstract fun getUserById(@Path("book") book: String,@Path("chapter") chapter: String, @Path("verse") verse: String): Call<BibleModel?>?
+    @GET("{book}{chapter}{verse}")
+    fun getUserById(@Path("book") book: String,@Path("chapter") chapter: String, @Path("verse") verse: String): Call<BibleModel?>?
 }
 
 
