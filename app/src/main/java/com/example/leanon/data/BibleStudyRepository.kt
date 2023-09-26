@@ -15,19 +15,13 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class BibleStudyRepository(var navController: NavHostController,var context: Context){
-//    var authRepository:AuthRepository
     var progress: ProgressDialog
-//    var bibleStudy:ArrayList<BibleStudy>
     init {
-//        authRepository = AuthRepository(navController,context)
-//        if(!authRepository.isLoggedIn()){
-//            navController.navigate(ROUTE_LOGIN)
-//        }
         progress= ProgressDialog(context)
         progress.setTitle("Loading")
         progress.setMessage("Please wait...")
-//        bibleStudy = mutableListOf<BibleStudy>()as ArrayList<BibleStudy>
     }
+    /*----Saving Data Logic---*/
     fun saveStudy(studyDate:String,studyScripture:String,observation:String,application:String,studyPrayer:String){
         var id = System.currentTimeMillis().toString()
         var studyData = BibleStudy(studyDate,studyScripture,observation,application,studyPrayer,id)
@@ -46,6 +40,7 @@ class BibleStudyRepository(var navController: NavHostController,var context: Con
             }
         }
     }
+    /*----Viewing Data Logic---*/
     fun viewStudy(study: MutableState<BibleStudy>, studies: SnapshotStateList<BibleStudy>): SnapshotStateList<BibleStudy> {
         var ref = FirebaseDatabase.getInstance().getReference().child("Bible Study")
 
@@ -67,7 +62,7 @@ class BibleStudyRepository(var navController: NavHostController,var context: Con
         })
         return studies
     }
-
+    /*----Deleting Data Logic---*/
     fun deleteStudy(id:String){
         var delRef = FirebaseDatabase.getInstance().getReference().child("Bible Study/$id")
         progress.show()
@@ -80,8 +75,5 @@ class BibleStudyRepository(var navController: NavHostController,var context: Con
                 Toast.makeText(context, it.exception!!.message, Toast.LENGTH_SHORT).show()
             }
         }
-    }
-    fun editPost(){
-
     }
 }

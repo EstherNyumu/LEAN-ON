@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation.NavHostController
-import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.models.Prayers
 import com.example.leanon.navigation.ROUTE_ADD_PRAYER
 import com.example.leanon.navigation.ROUTE_PRAYER_NOTEPAD
@@ -16,19 +15,13 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class PrayersRepository(var navController: NavHostController, var context: Context) {
-//    var authRepository:AuthRepository
     var progress: ProgressDialog
-//    var prayers:ArrayList<Prayers>
     init {
-//        authRepository = AuthRepository(navController,context)
-//        if(!authRepository.isLoggedIn()){
-//            navController.navigate(ROUTE_LOGIN)
-//        }
         progress= ProgressDialog(context)
         progress.setTitle("Loading")
         progress.setMessage("Please wait...")
-//        prayers = mutableListOf<Prayers>()as ArrayList<Prayers>
     }
+    /*----Saving Data Logic---*/
     fun savePrayer(prayerDate: String,prayerText:String){
         var id = System.currentTimeMillis().toString()
         var prayerData = Prayers(prayerDate,prayerText,id)
@@ -47,6 +40,7 @@ class PrayersRepository(var navController: NavHostController, var context: Conte
             }
         }
     }
+    /*----Viewing Data Logic---*/
     fun viewPrayers(prayer: MutableState<Prayers>, myPrayers: SnapshotStateList<Prayers>): SnapshotStateList<Prayers> {
         var ref = FirebaseDatabase.getInstance().getReference().child("Prayers")
 
@@ -68,7 +62,7 @@ class PrayersRepository(var navController: NavHostController, var context: Conte
         })
         return myPrayers
     }
-
+    /*----Deleting Data Logic---*/
     fun deletePrayer(id:String){
         var delRef = FirebaseDatabase.getInstance().getReference().child("Prayers/$id")
         progress.show()
@@ -82,7 +76,5 @@ class PrayersRepository(var navController: NavHostController, var context: Conte
             }
         }
     }
-    fun editPrayer(){
 
-    }
 }

@@ -15,19 +15,13 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class SermonsRepository(var navController: NavHostController,var context: Context) {
-//    var authRepository:AuthRepository
     var progress: ProgressDialog
-//    var sermons:ArrayList<Sermons>
     init {
-//        authRepository = AuthRepository(navController,context)
-//        if(!authRepository.isLoggedIn()){
-//            navController.navigate(ROUTE_LOGIN)
-//        }
         progress= ProgressDialog(context)
         progress.setTitle("Loading")
         progress.setMessage("Please wait...")
-//        sermons = mutableListOf<Sermons>()as ArrayList<Sermons>
     }
+    /*----Saving Data Up Logic---*/
     fun saveSermon(sermonDate:String,preacher:String,sermonScripture:String,sermonTopic:String,sermonNotes:String){
         var id = System.currentTimeMillis().toString()
         var sermonData = Sermons(sermonDate,preacher,sermonScripture,sermonTopic,sermonNotes,id)
@@ -46,6 +40,7 @@ class SermonsRepository(var navController: NavHostController,var context: Contex
             }
         }
     }
+    /*----Viewing Data Logic---*/
     fun viewSermon(sermon: MutableState<Sermons>, mySermons: SnapshotStateList<Sermons>): SnapshotStateList<Sermons> {
         var ref = FirebaseDatabase.getInstance().getReference().child("Sermons")
 
@@ -67,8 +62,7 @@ class SermonsRepository(var navController: NavHostController,var context: Contex
         })
         return mySermons
     }
-
-
+    /*----Deleting Data Logic---*/
     fun deleteSermon(id:String){
         var delRef = FirebaseDatabase.getInstance().getReference().child("Sermons/$id")
         progress.show()
@@ -81,8 +75,5 @@ class SermonsRepository(var navController: NavHostController,var context: Contex
                 Toast.makeText(context, it.exception!!.message, Toast.LENGTH_SHORT).show()
             }
         }
-    }
-    fun editSermon(){
-
     }
 }

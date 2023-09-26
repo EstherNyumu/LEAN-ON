@@ -43,33 +43,10 @@ import com.example.leanon.navigation.ROUTE_ADD_BIBLE_STUDY
 import com.example.leanon.navigation.ROUTE_LOGIN
 import com.example.leanon.ui.theme.PrimePink
 
-//@Composable
-//fun BibleStudyNotepadScreen(navController: NavHostController) {
-//    Column(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .background(Color.White)
-//            .verticalScroll(rememberScrollState()),
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//            Text(text = "Bible Study Sessions")
-//            Spacer(modifier = Modifier.weight(1f))
-//            ExtendedFloatingActionButton(
-//                onClick = {
-//                    navController.navigate(ROUTE_ADD_BIBLE_STUDY)
-//                },
-//                containerColor = PrimePink,
-//                contentColor = Color.White,
-//                icon = { Icon(Icons.Filled.Edit, "Extended floating action button.") },
-//                text = { Text(text = "Add Bible Study") }
-//            )
-//    }
-//}
 @Composable
 fun BibleStudyNotepadScreen(navController:NavHostController) {
         var context = LocalContext.current
         var bibleStudyRepository = BibleStudyRepository(navController, context)
-
 
         val emptyStudyState = remember { mutableStateOf(BibleStudy("","","","","","")) }
         var emptyStudiesListState = remember { mutableStateListOf<BibleStudy>() }
@@ -171,21 +148,6 @@ fun StudyItem(studyDate:String, studyScripture:String, observation:String, appli
                 Text(text = studyPrayer, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
             }
             Row {
-//                IconButton(
-//                    onClick = {
-//                        val shareIntent = Intent(Intent.ACTION_SEND)
-//                        shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-//                        shareIntent.type = "text/plain"
-//                        shareIntent.putExtra(Intent.EXTRA_TEXT, "Hey download this app from...")
-//                        context.startActivity(shareIntent)
-//                    },
-//                    colors = IconButtonDefaults.iconButtonColors(
-//                        containerColor = Color.White,
-//                        contentColor = PrimePink
-//                    )
-//                ) {
-//                    Icon(imageVector = Icons.Default.Share, contentDescription = "Share Icon")
-//                }
                 IconButton(
                     onClick = {
                         bibleStudyRepository.deleteStudy(studyId)
@@ -202,25 +164,6 @@ fun StudyItem(studyDate:String, studyScripture:String, observation:String, appli
             }
         }
         Spacer(modifier = Modifier.height(20.dp))
-//        Button(onClick = {
-//            bibleStudyRepository.deleteStudy(studyId)
-//        }) {
-//            Text(text = "Delete")
-//        }
-//        Button(onClick = {
-//            navController.navigate(ROUTE_UPDATE_PRODUCTS+"/$id")
-//        }) {
-//            Text(text = "Update")
-//        }
     }
 }
 
-//@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
-//@Composable
-//fun BibleStudyNotepadScreenPreview() {
-//    LeanOnTheme {
-//        BibleStudyNotepadScreen(rememberNavController())
-//
-//
-//    }
-//}

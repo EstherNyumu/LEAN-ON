@@ -6,8 +6,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.ui.theme.pages.bible.BibleScreen
-import com.example.leanon.ui.theme.pages.bible.NewTestamentScreen
-import com.example.leanon.ui.theme.pages.bible.OldTestamentScreen
 import com.example.leanon.ui.theme.pages.church.ChurchScreen
 import com.example.leanon.ui.theme.pages.home.AddPostsScreen
 import com.example.leanon.ui.theme.pages.home.HomeScreen
@@ -63,12 +61,6 @@ fun AppNavHost(navController: NavHostController) {
         }
         composable(route = ROUTE_SIGNUP){
             SignUpScreen(navController)
-        }
-        composable(route = ROUTE_OLD_TESTAMENT){
-            OldTestamentScreen(navController)
-        }
-        composable(route = ROUTE_NEW_TESTAMENT){
-            NewTestamentScreen(navController)
         }
     }
 }

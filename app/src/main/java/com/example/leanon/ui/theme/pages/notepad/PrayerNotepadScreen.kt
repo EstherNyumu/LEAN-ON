@@ -45,28 +45,6 @@ import com.example.leanon.navigation.ROUTE_ADD_PRAYER
 import com.example.leanon.navigation.ROUTE_LOGIN
 import com.example.leanon.ui.theme.PrimePink
 
-//@Composable
-//fun PrayerNotepadScreen(navController: NavHostController) {
-//    Column(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .background(Color.White)
-//            .verticalScroll(rememberScrollState()),
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//            Text(text = "My pleads to God")
-//            Spacer(modifier = Modifier.weight(1f))
-//            ExtendedFloatingActionButton(
-//                onClick = {
-//                    navController.navigate(ROUTE_ADD_PRAYER)
-//                },
-//                containerColor = PrimePink,
-//                contentColor = Color.White,
-//                icon = { Icon(Icons.Filled.Edit, "Extended floating action button.") },
-//                text = { Text(text = "Add Prayer")}
-//            )
-//    }
-//}
 @Composable
 fun PrayerNotepadScreen(navController:NavHostController) {
 
@@ -189,25 +167,8 @@ fun PrayerItem(prayerDate:String,prayerText:String, prayerId:String,
                     )
                 }
             }
-//        Button(onClick = {
-//            prayersRepository.deletePrayer(prayerId)
-//        }) {
-//            Text(text = "Delete")
-//        }
-//        Button(onClick = {
-//            navController.navigate(ROUTE_UPDATE_PRODUCTS+"/$id")
-//        }) {
-//            Text(text = "Update")
-//        }
         }
         Spacer(modifier = Modifier.height(20.dp))
     }
 }
 
-//@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
-//@Composable
-//fun PrayerNotepadScreenPreview() {
-//    LeanOnTheme {
-//        PrayerNotepadScreen(rememberNavController())
-//    }
-//}

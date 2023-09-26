@@ -105,14 +105,6 @@ fun AddBibleStudyScreen(navController: NavHostController) {
             modifier = Modifier.height(150.dp)
         )
         Spacer(modifier = Modifier.height(15.dp))
-//        Button(onClick = {
-//            var bibleStudyRepository = BibleStudyRepository(navController,context)
-//            bibleStudyRepository.saveStudy(studyDate,studyScripture,observation,application, studyPrayer)
-//            navController.navigate(ROUTE_BIBLE_STUDY_NOTEPAD)
-//        },
-//            colors = ButtonDefaults.buttonColors(PrimePink)) {
-//            Text(text = "Amen!")
-//        }
         val verticalGradient = Brush.verticalGradient(
             colors = listOf(Color(0xFFFF0078), Color(0xFF9C27B0)),
             startY = 0f,
@@ -120,7 +112,6 @@ fun AddBibleStudyScreen(navController: NavHostController) {
         )
         Text(text = "Amen!",
             modifier = Modifier
-//                .padding(10.dp)
                 .clickable(onClick = {
                     var bibleStudyRepository = BibleStudyRepository(navController,context)
                     bibleStudyRepository.saveStudy(studyDate,studyScripture,observation,application, studyPrayer)
@@ -129,7 +120,6 @@ fun AddBibleStudyScreen(navController: NavHostController) {
                 .clip(RoundedCornerShape(10.dp))
                 .background(brush = verticalGradient)
                 .padding(12.dp),
-//                .width(1,
             color = Color.White
         )
 

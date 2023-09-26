@@ -13,7 +13,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,7 +39,6 @@ import com.example.leanon.data.SermonsRepository
 import com.example.leanon.navigation.ROUTE_SERMON_NOTEPAD
 import com.example.leanon.ui.theme.LeanOnTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddSermonScreen(navController: NavHostController) {
     Column(
@@ -104,14 +102,6 @@ fun AddSermonScreen(navController: NavHostController) {
             modifier = Modifier.height(300.dp)
         )
         Spacer(modifier = Modifier.height(20.dp))
-//        Button(onClick = {
-//            var sermonsRepository = SermonsRepository(navController, context)
-//            sermonsRepository.saveSermon(sermonDate, preacher, sermonScripture, sermonTopic, sermonNotes)
-//            navController.navigate(ROUTE_SERMON_NOTEPAD)
-//        },
-//            colors = ButtonDefaults.buttonColors(PrimePink)) {
-//            Text(text = "Done!")
-//        }
         val verticalGradient = Brush.verticalGradient(
             colors = listOf(Color(0xFFFF0078), Color(0xFF9C27B0)),
             startY = 0f,
@@ -119,7 +109,6 @@ fun AddSermonScreen(navController: NavHostController) {
         )
         Text(text = "Done",
             modifier = Modifier
-//                .padding(10.dp)
                 .clickable(onClick = {
                     var sermonsRepository = SermonsRepository(navController, context)
                     sermonsRepository.saveSermon(sermonDate, preacher, sermonScripture, sermonTopic, sermonNotes)
@@ -128,7 +117,6 @@ fun AddSermonScreen(navController: NavHostController) {
                 .clip(RoundedCornerShape(10.dp))
                 .background(brush = verticalGradient)
                 .padding(12.dp),
-//                .width(1,
             color = Color.White
         )
 

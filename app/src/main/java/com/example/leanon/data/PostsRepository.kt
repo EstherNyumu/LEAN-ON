@@ -15,21 +15,14 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 
 class PostsRepository(var navController: NavHostController, var context: Context) {
-//    var authRepository:AuthRepository
     var progress:ProgressDialog
-//    var posts:ArrayList<Posts>
     init {
-//        authRepository = AuthRepository(navController,context)
-//        if(!authRepository.isLoggedIn()){
-//            navController.navigate(ROUTE_LOGIN)
-//        }
         progress= ProgressDialog(context)
         progress.setTitle("Loading")
         progress.setMessage("Please wait...")
-//        posts = mutableListOf<Posts>()as ArrayList<Posts>
     }
 
-
+    /*----Deleting Data Logic---*/
     fun deletePost(id:String){
         var delRef = FirebaseDatabase.getInstance().getReference().child("Posts/$id")
         progress.show()
@@ -43,9 +36,7 @@ class PostsRepository(var navController: NavHostController, var context: Context
             }
         }
     }
-    fun editPost() {
-
-    }
+    /*----Saving Data Logic---*/
     fun savePostWithImage(anonymousName: String, postText:String,filePath: Uri){
         var id = System.currentTimeMillis().toString()
         var storageReference = FirebaseStorage.getInstance().getReference().child("Posts/$id")
@@ -57,20 +48,11 @@ class PostsRepository(var navController: NavHostController, var context: Context
                 // Proceed to store other data into the db
                 storageReference.downloadUrl.addOnSuccessListener {
                     var imageUrl = it.toString()
-                    if (imageUrl==null){
-                        var houseData = Posts(anonymousName,postText,"",id)
-                        var dbRef = FirebaseDatabase.getInstance()
-                            .getReference().child("Posts/$id")
-                        dbRef.setValue(houseData)
-                        Toast.makeText(context, "Upload successful", Toast.LENGTH_SHORT).show()
-                    }
-                    else {
-                        var houseData = Posts(anonymousName, postText, imageUrl, id)
-                        var dbRef = FirebaseDatabase.getInstance()
-                            .getReference().child("Posts/$id")
-                        dbRef.setValue(houseData)
-                        Toast.makeText(context, "Upload successful", Toast.LENGTH_SHORT).show()
-                    }
+                    var houseData = Posts(anonymousName,postText,imageUrl,id)
+                    var dbRef = FirebaseDatabase.getInstance()
+                        .getReference().child("Posts/$id")
+                    dbRef.setValue(houseData)
+                    Toast.makeText(context, "Upload successful", Toast.LENGTH_SHORT).show()
                 }
             }else{
                 Toast.makeText(context, it.exception!!.message, Toast.LENGTH_SHORT).show()
@@ -78,7 +60,7 @@ class PostsRepository(var navController: NavHostController, var context: Context
         }
     }
 
-
+    /*----Viewing Data Logic---*/
     fun viewPosts(post:MutableState<Posts>, myPosts:SnapshotStateList<Posts>): SnapshotStateList<Posts> {
         var ref = FirebaseDatabase.getInstance().getReference().child("Posts")
 

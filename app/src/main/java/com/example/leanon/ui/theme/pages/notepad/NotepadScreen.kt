@@ -76,7 +76,6 @@ fun NotepadScreen(navController: NavHostController) {
             },
             colors = ButtonDefaults.buttonColors(Color.Transparent),
             shape = RoundedCornerShape(20.dp),
-//            border = BorderStroke(2.dp, color = PrimePink)
             border = BorderStroke(3.dp, Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0))))
         ) {
             Text(text = "A prayer", color = PrimePurple)
@@ -95,7 +94,6 @@ fun NotepadScreen(navController: NavHostController) {
             },
             colors = ButtonDefaults.buttonColors(Color.Transparent),
             shape = RoundedCornerShape(20.dp),
-//            border = BorderStroke(2.dp, color = PrimePink)
             border = BorderStroke(3.dp, Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0))))
         ) {
             Text(text = "Today's Sermon",color = PrimePurple)
@@ -114,7 +112,6 @@ fun NotepadScreen(navController: NavHostController) {
             },
             colors = ButtonDefaults.buttonColors(Color.Transparent),
             shape = RoundedCornerShape(20.dp),
-//            border = BorderStroke(2.dp, color = PrimePink)
             border = BorderStroke(3.dp, Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0))))
         ) {
             Text(text = "A Bible Study Session", color = PrimePurple)

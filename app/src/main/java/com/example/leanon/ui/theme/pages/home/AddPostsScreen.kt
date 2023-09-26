@@ -20,7 +20,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddAPhoto
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -50,7 +49,6 @@ import com.example.leanon.data.PostsRepository
 import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.ui.theme.LeanOnTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddPostsScreen(navController: NavHostController) {
     Column(modifier = Modifier
@@ -91,6 +89,7 @@ fun AddPostsScreen(navController: NavHostController) {
             onResult = { uri ->
                 hasImage = uri != null
                 imageUri = uri
+
             }
         )
         if (hasImage && imageUri != null) {
@@ -98,6 +97,7 @@ fun AddPostsScreen(navController: NavHostController) {
             getBitmap(context.contentResolver,imageUri)
             Image(bitmap = bitmap.asImageBitmap(), contentDescription = "Selected image")
         }
+
         IconButton(onClick = {
             imagePicker.launch("image/*")
         }) {
@@ -110,8 +110,8 @@ fun AddPostsScreen(navController: NavHostController) {
         )
         Text(text = "Post",
             modifier = Modifier
-//                .padding(10.dp)
                 .clickable(onClick = {
+                    /*----Saving Data to Database Logic---*/
                     var postsRepository = PostsRepository(navController, context)
                     postsRepository.savePostWithImage(anonymousName,postText,imageUri!!)
                     navController.navigate(BottomBarScreen.Home.route)
@@ -123,51 +123,7 @@ fun AddPostsScreen(navController: NavHostController) {
         )
     }
 }
-//@Composable
-//fun ImagePicker(modifier: Modifier = Modifier, context: Context, navController: NavHostController, name:String, quantity:String, price:String) {
-//    var hasImage by remember { mutableStateOf(false) }
-//    var imageUri by remember { mutableStateOf<Uri?>(null) }
-//
-//    val imagePicker = rememberLauncherForActivityResult(
-//        contract = ActivityResultContracts.GetContent(),
-//        onResult = { uri ->
-//            hasImage = uri != null
-//            imageUri = uri
-//        }
-//    )
 
-//    Column(modifier = modifier,) {
-//        if (hasImage && imageUri != null) {
-//            val bitmap = MediaStore.Images.Media.
-//            getBitmap(context.contentResolver,imageUri)
-//            Image(bitmap = bitmap.asImageBitmap(), contentDescription = "Selected image")
-//        }
-//        Column(
-//            modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp), horizontalAlignment = Alignment.CenterHorizontally,) {
-//            Button(
-//                onClick = {
-//                    imagePicker.launch("image/*")
-//                },
-//            ) {
-//                Text(
-//                    text = "Select Image"
-//                )
-//            }
-//
-//            Spacer(modifier = Modifier.height(20.dp))
-//
-//            Button(onClick = {
-//                //-----------WRITE THE UPLOAD LOGIC HERE---------------//
-//                var productRepository = ProductRepository(navController,context)
-//                productRepository.saveProductWithImage(name, quantity, price,imageUri!!)
-//
-//
-//            }) {
-//                Text(text = "Upload")
-//            }
-//        }
-//    }
-//}
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable

@@ -26,7 +26,7 @@ class AuthRepository(var navController: NavHostController, var context: Context)
         progress.setTitle("Loading...")
         progress.setMessage("Please wait...")
     }
-
+    /*----Sign Up Logic---*/
     fun signup(username: String, email: String, password: String) {
         progress.show()
         progress.dismiss()
@@ -50,6 +50,8 @@ class AuthRepository(var navController: NavHostController, var context: Context)
             }
         }
     }
+
+    /*----Log in logic---*/
     fun login(email: String,password: String){
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful){
@@ -62,11 +64,14 @@ class AuthRepository(var navController: NavHostController, var context: Context)
             }
         }
     }
+    /*----Log Out Logic---*/
     fun logout(){
         mAuth.signOut()
         Toast.makeText(context, "You've been logged out", Toast.LENGTH_SHORT).show()
         navController.navigate(ROUTE_LOGIN)
     }
+
+    /*----Log in Restriction Logic---*/
     fun isLoggedIn():Boolean = mAuth.currentUser != null
     fun viewAuth(auth: MutableState<User>, auths: SnapshotStateList<User>): SnapshotStateList<User> {
         var ref = FirebaseDatabase.getInstance().getReference().child("Users")

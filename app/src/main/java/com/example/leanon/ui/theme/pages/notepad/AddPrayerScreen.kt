@@ -79,14 +79,6 @@ fun AddPrayerScreen(navController: NavHostController) {
             modifier = Modifier.height(300.dp)
         )
         Spacer(modifier = Modifier.height(20.dp))
-//        Button(onClick = {
-//            var prayersRepository = PrayersRepository(navController,context)
-//            prayersRepository.savePrayer(prayerDate,prayerText)
-//            navController.navigate(ROUTE_PRAYER_NOTEPAD)
-//        },
-//            colors = ButtonDefaults.buttonColors(PrimePink)) {
-//            Text(text = "Amen!")
-//        }
         val verticalGradient = Brush.verticalGradient(
             colors = listOf(Color(0xFFFF0078), Color(0xFF9C27B0)),
             startY = 0f,
@@ -94,7 +86,6 @@ fun AddPrayerScreen(navController: NavHostController) {
         )
         Text(text = "Amen!",
             modifier = Modifier
-//                .padding(10.dp)
                 .clickable(onClick = {
                     var prayersRepository = PrayersRepository(navController,context)
                     prayersRepository.savePrayer(prayerDate,prayerText)
@@ -103,7 +94,6 @@ fun AddPrayerScreen(navController: NavHostController) {
                 .clip(RoundedCornerShape(10.dp))
                 .background(brush = verticalGradient)
                 .padding(12.dp),
-//                .width(1,
             color = Color.White
         )
     }

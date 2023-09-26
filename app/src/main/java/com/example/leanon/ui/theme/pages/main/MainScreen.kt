@@ -105,8 +105,6 @@ fun Modifier.bottomBarAnimatedScroll(
 @Composable
 fun TopAppBar( modifier:Modifier,navController: NavHostController) {
     var context = LocalContext.current
-//    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
-//      Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
     CenterAlignedTopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = Color.Transparent,
@@ -122,22 +120,6 @@ fun TopAppBar( modifier:Modifier,navController: NavHostController) {
         ),
         title = {
             Text(
-//                "LEAN ON",
-//                modifier = Modifier
-//                    .drawWithCache {
-//                        val brush = Brush.linearGradient(
-//                            listOf(
-//                                Color(0xFFFFA7CB),
-//                                Color(0xFFBFA1F9)
-//                            )
-//                        )
-//                        onDrawBehind {
-//                            drawRoundRect(
-//                                brush,
-//                                cornerRadius = CornerRadius(10.dp.toPx())
-//                            )
-//                        }
-//                    }
                 text = "LEAN ON",
                 fontSize = 30.sp,
                 modifier = Modifier.padding(20.dp),
@@ -165,7 +147,6 @@ fun TopAppBar( modifier:Modifier,navController: NavHostController) {
 
 
         }
-//        scrollBehavior = scrollBehavior
     )
 
 }
@@ -221,10 +202,8 @@ fun RowScope.AddItem(
         onClick = {
             navController.navigate(screen.route){
                 popUpTo(navController.graph.findStartDestination().id){
-//                    saveState = true
                 }
                 launchSingleTop = true
-//                restoreState = true
             }
         },
         colors = NavigationBarItemDefaults.colors(

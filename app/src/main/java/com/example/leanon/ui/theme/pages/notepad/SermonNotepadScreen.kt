@@ -1,6 +1,5 @@
 package com.example.leanon.ui.theme.pages.notepad
 
-import android.content.Intent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,7 +14,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DeleteForever
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FloatingActionButton
@@ -44,31 +42,6 @@ import com.example.leanon.models.Sermons
 import com.example.leanon.navigation.ROUTE_ADD_SERMON
 import com.example.leanon.navigation.ROUTE_LOGIN
 import com.example.leanon.ui.theme.PrimePink
-
-//@Composable
-//fun SermonNotepadScreen(navController: NavHostController) {
-//    Column(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .background(Color.White)
-//            .verticalScroll(rememberScrollState()),
-//        horizontalAlignment = Alignment.CenterHorizontally
-//    ) {
-//
-//           Text(text = "My Sermons")
-//           Spacer(modifier = Modifier.weight(1f))
-//           ExtendedFloatingActionButton(
-//               onClick = {
-//                   navController.navigate(ROUTE_ADD_SERMON)
-//               },
-//               containerColor = PrimePink,
-//               contentColor = Color.White,
-//               icon = { Icon(Icons.Filled.Edit, "Extended floating action button.") },
-//               text = { Text(text = "Add Sermon")}
-//           )
-//
-//    }
-//}
 @Composable
 fun SermonNotepadScreen(navController:NavHostController) {
         var context = LocalContext.current
@@ -178,21 +151,6 @@ fun SermonsItem(sermonDate:String,preacher:String, sermonScripture:String,sermon
             Row {
                 IconButton(
                     onClick = {
-                        val shareIntent = Intent(Intent.ACTION_SEND)
-                        shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        shareIntent.type = "text/plain"
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, "Hey download this app from...")
-                        context.startActivity(shareIntent)
-                    },
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = Color.White,
-                        contentColor = PrimePink
-                    )
-                ) {
-                    Icon(imageVector = Icons.Default.Share, contentDescription = "Share Icon")
-                }
-                IconButton(
-                    onClick = {
                         sermonsRepository.deleteSermon(sermonId)
                     }, colors = IconButtonDefaults.iconButtonColors(
                         containerColor = Color.White,
@@ -205,25 +163,7 @@ fun SermonsItem(sermonDate:String,preacher:String, sermonScripture:String,sermon
                     )
                 }
             }
-//        Button(onClick = {
-//            sermonsRepository.deleteSermon(sermonId)
-//        }) {
-//            Text(text = "Delete")
-//        }
-//        Button(onClick = {
-//            navController.navigate(ROUTE_UPDATE_PRODUCTS+"/$id")
-//        }) {
-//            Text(text = "Update")
-//        }
         }
         Spacer(modifier = Modifier.height(20.dp))
     }
 }
-
-//@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
-//@Composable
-//fun SermonNotepadScreenPreview() {
-//    LeanOnTheme {
-//        SermonNotepadScreen(rememberNavController())
-//    }
-//}
