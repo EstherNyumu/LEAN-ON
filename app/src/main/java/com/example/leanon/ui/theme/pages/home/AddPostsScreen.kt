@@ -65,6 +65,8 @@ fun AddPostsScreen(navController: NavHostController) {
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily.Monospace
         )
+        Text(text = "Make sure you add an image when adding your post!!"
+        , fontSize = 12.sp, color = Color.Gray)
 
         var anonymousName by remember { mutableStateOf("") }
         var postText by remember { mutableStateOf("") }
@@ -113,7 +115,7 @@ fun AddPostsScreen(navController: NavHostController) {
                 .clickable(onClick = {
                     /*----Saving Data to Database Logic---*/
                     var postsRepository = PostsRepository(navController, context)
-                    postsRepository.savePostWithImage(anonymousName,postText,imageUri!!)
+                    postsRepository.savePostWithImage(anonymousName, postText, imageUri!!)
                     navController.navigate(BottomBarScreen.Home.route)
                 })
                 .clip(RoundedCornerShape(10.dp))
