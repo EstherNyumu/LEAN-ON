@@ -34,6 +34,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -61,13 +62,13 @@ import com.example.leanon.ui.theme.PrimePink
 @Composable
 fun HomeScreen(navController:NavHostController) {
 
-    var context = LocalContext.current
-    var postsRepository = PostsRepository(navController, context)
+    val context = LocalContext.current
+    val postsRepository = PostsRepository(navController, context)
 
     val emptyPostState = remember { mutableStateOf(Posts("","","","")) }
-    var emptyPostsListState = remember { mutableStateListOf<Posts>() }
+    val emptyPostsListState = remember { mutableStateListOf<Posts>() }
 
-    var posts = postsRepository.viewPosts(emptyPostState, emptyPostsListState)
+    val posts = postsRepository.viewPosts(emptyPostState, emptyPostsListState)
 
     Column(
         modifier = Modifier
@@ -103,7 +104,7 @@ fun HomeScreen(navController:NavHostController) {
 //            Spacer(modifier = Modifier.weight(1f))
             FloatingActionButton(
                 onClick = {
-                    var authRepository = AuthRepository(navController, context)
+                    val authRepository = AuthRepository(navController, context)
                     if (!(authRepository.isLoggedIn())) {
                         navController.navigate(ROUTE_LOGIN)
                     } else {
@@ -129,8 +130,8 @@ fun PostItem(anonymousName:String,postText:String,imageUrl:String,postId:String,
     Column(modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = CenterHorizontally
     ) {
-        var count by remember { mutableIntStateOf(0) }
-        var  context = LocalContext.current
+        var count by rememberSaveable { mutableIntStateOf(0) }
+        val context = LocalContext.current
         ElevatedCard(
             colors = CardDefaults.cardColors(
                 containerColor = Color.White
@@ -147,8 +148,7 @@ fun PostItem(anonymousName:String,postText:String,imageUrl:String,postId:String,
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.SemiBold)
             if (imageUrl == ""){
-            }
-            else{
+            } else{
                 Image(painter = rememberAsyncImagePainter(imageUrl),
                     contentDescription = null,
                     modifier = Modifier

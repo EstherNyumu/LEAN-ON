@@ -8,9 +8,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,11 +28,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.TransformedText
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,6 +48,19 @@ import com.example.leanon.ui.theme.LeanOnTheme
 import com.example.leanon.ui.theme.PrimePink
 
 @OptIn(ExperimentalMaterial3Api::class)
+private class PasswordVisualTransformation : VisualTransformation {
+    override fun filter(text: AnnotatedString): TransformedText {
+        return TransformedText(
+            AnnotatedString("*".repeat(text.text.length)),
+
+            /**
+             * [OffsetMapping.Identity] is a predefined [OffsetMapping] that can be used for the
+             * transformation that does not change the character count.
+             */
+            OffsetMapping.Identity
+        )
+    }
+}
 @Composable
 fun SignUpScreen(navController: NavHostController) {
     Column (modifier = Modifier.fillMaxSize(),
@@ -56,6 +78,7 @@ fun SignUpScreen(navController: NavHostController) {
         var username by remember { mutableStateOf(TextFieldValue("")) }
         var email by remember { mutableStateOf(TextFieldValue("")) }
         var password by remember { mutableStateOf(TextFieldValue("")) }
+        var showPassword by remember { mutableStateOf(false) }
 
         OutlinedTextField(value = username,
             onValueChange = {username = it},
@@ -76,7 +99,26 @@ fun SignUpScreen(navController: NavHostController) {
         OutlinedTextField(value = password,
             onValueChange = {password = it},
             label = { Text(text = "Password..") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            visualTransformation = if(showPassword){
+                VisualTransformation.None
+            }else{
+                PasswordVisualTransformation()
+            },
+            trailingIcon = {
+                if (showPassword){
+                    IconButton(onClick = { showPassword = false}) {
+                        Icon(
+                            imageVector = Icons.Filled.Visibility ,
+                            contentDescription = "hide_password")
+                    }
+                } else{
+                    IconButton(onClick = { showPassword = true }) {
+                        Icon(imageVector = Icons.Filled.VisibilityOff,
+                            contentDescription = "show_password" )
+                    }
+                }
+            }
         )
 
         Spacer(modifier = Modifier.height(20.dp))

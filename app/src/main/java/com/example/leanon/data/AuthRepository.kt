@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class AuthRepository(var navController: NavHostController, var context: Context) {
+class  AuthRepository(var navController: NavHostController, var context: Context) {
     var mAuth: FirebaseAuth
     val progress: ProgressDialog
 
