@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -17,11 +16,11 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DeleteForever
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
@@ -48,14 +47,14 @@ import com.example.leanon.ui.theme.PrimePink
 @Composable
 fun PrayerNotepadScreen(navController:NavHostController) {
 
-    var context = LocalContext.current
-    var prayersRepository = PrayersRepository(navController, context)
+    val context = LocalContext.current
+    val prayersRepository = PrayersRepository(navController, context)
 
 
     val emptyPrayerState = remember { mutableStateOf(Prayers("","","")) }
-    var emptyPrayersListState = remember { mutableStateListOf<Prayers>() }
+    val emptyPrayersListState = remember { mutableStateListOf<Prayers>() }
 
-    var prayers = prayersRepository.viewPrayers(emptyPrayerState, emptyPrayersListState)
+    val prayers = prayersRepository.viewPrayers(emptyPrayerState, emptyPrayersListState)
 
 
     Column(
@@ -74,13 +73,12 @@ fun PrayerNotepadScreen(navController:NavHostController) {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        LazyColumn() {
+        LazyColumn {
             items(prayers) {
                 PrayerItem(
                     prayerDate = it.prayerDate,
                     prayerText = it.prayerText,
                     prayerId = it.prayerId,
-                    navController = navController,
                     prayersRepository = prayersRepository
                 )
             }
@@ -92,7 +90,7 @@ fun PrayerNotepadScreen(navController:NavHostController) {
             Spacer(modifier = Modifier.weight(1f))
             FloatingActionButton(
                 onClick = {
-                    var authRepository = AuthRepository(navController, context)
+                    val authRepository = AuthRepository(navController, context)
                     if (!(authRepository.isLoggedIn())) {
                         navController.navigate(ROUTE_LOGIN)
                     } else {
@@ -115,29 +113,32 @@ fun PrayerNotepadScreen(navController:NavHostController) {
 
 
 @Composable
-fun PrayerItem(prayerDate:String,prayerText:String, prayerId:String,
-               navController:NavHostController, prayersRepository:PrayersRepository) {
+fun PrayerItem(
+    prayerDate: String, prayerText: String, prayerId: String,
+    prayersRepository: PrayersRepository
+) {
 
     Column(modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally) {
-        var context = LocalContext.current
-        ElevatedCard (
+        val context = LocalContext.current
+        OutlinedCard (
             colors = CardDefaults.cardColors(
-                containerColor = Color.White
+                containerColor = Color.Transparent
             ),
-            elevation = CardDefaults.elevatedCardElevation(4.dp),
-            modifier = Modifier.width(240.dp)
+//            elevation = CardDefaults.elevatedCardElevation(4.dp),
+            modifier = Modifier.fillMaxWidth(0.9f)
         ){
             Row {
                 Text(text = "Date:", color = PrimePink, modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
-                Text(text = prayerDate, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
+                Text(text = prayerDate, modifier = Modifier.padding(5.dp))
             }
             Row {
                 Text(text = "Prayer:", color = PrimePink, modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
-                Text(text = prayerText, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
+                Text(text = prayerText, modifier = Modifier.padding(5.dp))
             }
 
             Row {
+                Spacer(modifier = Modifier.weight(1f))
                 IconButton(
                     onClick = {
                         val shareIntent = Intent(Intent.ACTION_SEND)
@@ -147,7 +148,7 @@ fun PrayerItem(prayerDate:String,prayerText:String, prayerId:String,
                         context.startActivity(shareIntent)
                     },
                     colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = Color.White,
+                        containerColor = Color.Transparent,
                         contentColor = PrimePink
                     )
                 ) {
@@ -157,7 +158,7 @@ fun PrayerItem(prayerDate:String,prayerText:String, prayerId:String,
                     onClick = {
                         prayersRepository.deletePrayer(prayerId)
                     }, colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = Color.White,
+                        containerColor = Color.Transparent,
                         contentColor = PrimePink
                     )
                 ) {

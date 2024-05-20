@@ -7,13 +7,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,10 +40,9 @@ import com.example.leanon.data.BibleStudyRepository
 import com.example.leanon.navigation.ROUTE_BIBLE_STUDY_NOTEPAD
 import com.example.leanon.ui.theme.LeanOnTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddBibleStudyScreen(navController: NavHostController) {
-    var context = LocalContext.current
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .height(1000.dp)
@@ -71,14 +70,16 @@ fun AddBibleStudyScreen(navController: NavHostController) {
             value = studyDate,
             onValueChange = {studyDate=it},
             label = { Text(text = "Date...")},
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            modifier = Modifier.fillMaxWidth(0.8f)
         )
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedTextField(
             value = studyScripture,
             onValueChange = {studyScripture=it},
             label = { Text(text = "Scripture...")},
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            modifier = Modifier.fillMaxWidth(0.8f)
         )
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedTextField(
@@ -87,6 +88,7 @@ fun AddBibleStudyScreen(navController: NavHostController) {
             label = { Text(text = "Observation...")},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier.height(150.dp)
+                .fillMaxWidth(0.8f)
         )
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedTextField(
@@ -95,6 +97,7 @@ fun AddBibleStudyScreen(navController: NavHostController) {
             label = { Text(text = "Application...")},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier.height(150.dp)
+                .fillMaxWidth(0.8f)
         )
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedTextField(
@@ -103,6 +106,7 @@ fun AddBibleStudyScreen(navController: NavHostController) {
             label = { Text(text = "Prayer...")},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier.height(150.dp)
+                .fillMaxWidth(0.8f)
         )
         Spacer(modifier = Modifier.height(15.dp))
         val verticalGradient = Brush.verticalGradient(
@@ -113,7 +117,7 @@ fun AddBibleStudyScreen(navController: NavHostController) {
         Text(text = "Amen!",
             modifier = Modifier
                 .clickable(onClick = {
-                    var bibleStudyRepository = BibleStudyRepository(navController,context)
+                    val bibleStudyRepository = BibleStudyRepository(navController,context)
                     bibleStudyRepository.saveStudy(studyDate,studyScripture,observation,application, studyPrayer)
                     navController.navigate(ROUTE_BIBLE_STUDY_NOTEPAD)
                 })

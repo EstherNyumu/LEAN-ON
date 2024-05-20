@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -74,13 +75,15 @@ fun AddPostsScreen(navController: NavHostController) {
         OutlinedTextField(value = anonymousName,
             onValueChange = {anonymousName=it},
             label = { Text(text = "Anonymous Name")},
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            modifier = Modifier.fillMaxWidth(0.8f)
         )
         OutlinedTextField(value = postText,
             onValueChange = {postText=it},
             label = { Text(text = "What's on your mind today..")},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier.height(300.dp)
+                .fillMaxWidth(0.8f)
         )
         Spacer(modifier = Modifier.height(20.dp))
         var hasImage by remember { mutableStateOf(false) }

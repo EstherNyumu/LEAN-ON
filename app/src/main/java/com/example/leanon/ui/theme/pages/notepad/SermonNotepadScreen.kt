@@ -7,19 +7,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DeleteForever
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
@@ -42,16 +42,17 @@ import com.example.leanon.models.Sermons
 import com.example.leanon.navigation.ROUTE_ADD_SERMON
 import com.example.leanon.navigation.ROUTE_LOGIN
 import com.example.leanon.ui.theme.PrimePink
+
 @Composable
 fun SermonNotepadScreen(navController:NavHostController) {
-        var context = LocalContext.current
-        var sermonsRepository = SermonsRepository(navController, context)
+        val context = LocalContext.current
+        val sermonsRepository = SermonsRepository(navController, context)
 
 
         val emptySermonState = remember { mutableStateOf(Sermons("","","","","","")) }
-        var emptySermonsListState = remember { mutableStateListOf<Sermons>() }
+        val emptySermonsListState = remember { mutableStateListOf<Sermons>() }
 
-        var sermons = sermonsRepository.viewSermon(emptySermonState, emptySermonsListState)
+        val sermons = sermonsRepository.viewSermon(emptySermonState, emptySermonsListState)
 
 
         Column(
@@ -70,7 +71,7 @@ fun SermonNotepadScreen(navController:NavHostController) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            LazyColumn() {
+            LazyColumn {
                 items(sermons) {
                     SermonsItem(
                         sermonDate = it.sermonDate,
@@ -79,7 +80,6 @@ fun SermonNotepadScreen(navController:NavHostController) {
                         sermonTopic = it.sermonTopic,
                         sermonNotes = it.sermonNotes,
                         sermonId = it.sermonId,
-                        navController = navController,
                         sermonsRepository = sermonsRepository
                     )
                 }
@@ -91,7 +91,7 @@ fun SermonNotepadScreen(navController:NavHostController) {
             Spacer(modifier = Modifier.weight(1f))
             FloatingActionButton(
                 onClick = {
-                    var authRepository = AuthRepository(navController, context)
+                    val authRepository = AuthRepository(navController, context)
                     if (!(authRepository.isLoggedIn())) {
                         navController.navigate(ROUTE_LOGIN)
                     } else {
@@ -114,46 +114,61 @@ fun SermonNotepadScreen(navController:NavHostController) {
 
 
 @Composable
-fun SermonsItem(sermonDate:String,preacher:String, sermonScripture:String,sermonTopic:String,sermonNotes:String,
-                sermonId:String,navController:NavHostController, sermonsRepository: SermonsRepository
+fun SermonsItem(
+    sermonDate: String,
+    preacher: String,
+    sermonScripture: String,
+    sermonTopic: String,
+    sermonNotes: String,
+    sermonId: String,
+    sermonsRepository: SermonsRepository
 ) {
 
     Column(modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally) {
-        var context = LocalContext.current
-        ElevatedCard(
+        OutlinedCard(
             colors = CardDefaults.cardColors(
-                containerColor = Color.White
+                containerColor = Color.Transparent
             ),
-            elevation = CardDefaults.elevatedCardElevation(4.dp),
-            modifier = Modifier.width(240.dp)
+//            elevation = CardDefaults.elevatedCardElevation(4.dp),
+            modifier = Modifier.fillMaxWidth(0.9f)
         ){
             Row {
                 Text(text = "Date:",modifier = Modifier.padding(5.dp), color = PrimePink, fontWeight = FontWeight.SemiBold)
-                Text(text = sermonDate, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
+                Text(text = sermonDate, modifier = Modifier.padding(5.dp))
             }
             Row {
                 Text(text = "Preacher:",modifier = Modifier.padding(5.dp),color = PrimePink,fontWeight = FontWeight.SemiBold)
-                Text(text = preacher, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
+                Text(text = preacher, modifier = Modifier.padding(5.dp))
             }
             Row {
                 Text(text = "Scripture:",modifier = Modifier.padding(5.dp),color = PrimePink,fontWeight = FontWeight.SemiBold)
-                Text(text = sermonScripture, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
+                Text(text = sermonScripture, modifier = Modifier.padding(5.dp))
             }
             Row {
                 Text(text = "Topic:",modifier = Modifier.padding(5.dp),color = PrimePink,fontWeight = FontWeight.SemiBold)
-                Text(text = sermonTopic, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
+                Text(text = sermonTopic, modifier = Modifier.padding(5.dp))
             }
             Row {
                 Text(text = "Notes:",modifier = Modifier.padding(5.dp),color = PrimePink,fontWeight = FontWeight.SemiBold)
-                Text(text = sermonNotes, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
+                Text(text = sermonNotes, modifier = Modifier.padding(5.dp))
             }
             Row {
+                Spacer(modifier = Modifier.weight(1f))
+                IconButton(
+                    onClick = {},
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = Color.Transparent,
+                        contentColor = PrimePink
+                    )
+                ) {
+                    Icon(imageVector = Icons.Default.Share, contentDescription = "Share Icon")
+                }
                 IconButton(
                     onClick = {
                         sermonsRepository.deleteSermon(sermonId)
                     }, colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = Color.White,
+                        containerColor = Color.Transparent,
                         contentColor = PrimePink
                     )
                 ) {

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -85,7 +86,8 @@ fun LoginScreen(navController: NavHostController) {
         OutlinedTextField(value = email,
             onValueChange = {email = it},
             label = { Text(text = "Email..") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            modifier =  Modifier.fillMaxWidth(0.8f)
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -114,7 +116,8 @@ fun LoginScreen(navController: NavHostController) {
                     }
                 }
 
-            }
+            },
+            modifier =  Modifier.fillMaxWidth(0.8f)
         )
 
         Spacer(modifier = Modifier.height(20.dp))

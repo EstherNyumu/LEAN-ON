@@ -45,7 +45,7 @@ fun NotepadScreen(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        var context = LocalContext.current
+        val context = LocalContext.current
         IconButton(onClick = { /*TODO*/ },
             colors = IconButtonDefaults.filledIconButtonColors(containerColor = Color.Transparent,
                 contentColor = PrimePink)) {
@@ -64,7 +64,7 @@ fun NotepadScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
-                var authRepository = AuthRepository(navController,context)
+                val authRepository = AuthRepository(navController,context)
                 if(!(authRepository.isLoggedIn())){
                     navController.navigate(ROUTE_LOGIN)
                 }
@@ -83,7 +83,7 @@ fun NotepadScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
-                var authRepository = AuthRepository(navController,context)
+                val authRepository = AuthRepository(navController,context)
                 if(!(authRepository.isLoggedIn())){
                     navController.navigate(ROUTE_LOGIN)
                 }
@@ -101,7 +101,7 @@ fun NotepadScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(20.dp))
         Button(
             onClick = {
-                var authRepository = AuthRepository(navController,context)
+                val authRepository = AuthRepository(navController,context)
                 if(!(authRepository.isLoggedIn())){
                     navController.navigate(ROUTE_LOGIN)
                 }

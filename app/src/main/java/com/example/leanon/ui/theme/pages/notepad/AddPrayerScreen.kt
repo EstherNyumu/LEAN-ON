@@ -7,13 +7,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,10 +40,9 @@ import com.example.leanon.data.PrayersRepository
 import com.example.leanon.navigation.ROUTE_PRAYER_NOTEPAD
 import com.example.leanon.ui.theme.LeanOnTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddPrayerScreen(navController: NavHostController) {
-    var context = LocalContext.current
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -68,7 +67,9 @@ fun AddPrayerScreen(navController: NavHostController) {
             value = prayerDate,
             onValueChange = {prayerDate=it},
             label = { Text(text = "Date...")},
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            modifier = Modifier.fillMaxWidth(0.8f)
+
         )
         Spacer(modifier = Modifier.height(20.dp))
         OutlinedTextField(
@@ -77,6 +78,7 @@ fun AddPrayerScreen(navController: NavHostController) {
             label = { Text(text = "Dear God...")},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text) ,
             modifier = Modifier.height(300.dp)
+                .fillMaxWidth(0.8f)
         )
         Spacer(modifier = Modifier.height(20.dp))
         val verticalGradient = Brush.verticalGradient(
@@ -87,7 +89,7 @@ fun AddPrayerScreen(navController: NavHostController) {
         Text(text = "Amen!",
             modifier = Modifier
                 .clickable(onClick = {
-                    var prayersRepository = PrayersRepository(navController,context)
+                    val prayersRepository = PrayersRepository(navController,context)
                     prayersRepository.savePrayer(prayerDate,prayerText)
                     navController.navigate(ROUTE_PRAYER_NOTEPAD)
                 })

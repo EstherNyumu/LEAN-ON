@@ -7,19 +7,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DeleteForever
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
@@ -45,13 +45,13 @@ import com.example.leanon.ui.theme.PrimePink
 
 @Composable
 fun BibleStudyNotepadScreen(navController:NavHostController) {
-        var context = LocalContext.current
-        var bibleStudyRepository = BibleStudyRepository(navController, context)
+        val context = LocalContext.current
+        val bibleStudyRepository = BibleStudyRepository(navController, context)
 
         val emptyStudyState = remember { mutableStateOf(BibleStudy("","","","","","")) }
-        var emptyStudiesListState = remember { mutableStateListOf<BibleStudy>() }
+        val emptyStudiesListState = remember { mutableStateListOf<BibleStudy>() }
 
-        var studies = bibleStudyRepository.viewStudy(emptyStudyState, emptyStudiesListState)
+        val studies = bibleStudyRepository.viewStudy(emptyStudyState, emptyStudiesListState)
 
 
         Column(
@@ -70,7 +70,7 @@ fun BibleStudyNotepadScreen(navController:NavHostController) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            LazyColumn() {
+            LazyColumn {
                 items(studies) {
                     StudyItem(
                         studyDate = it.studyDate,
@@ -79,7 +79,6 @@ fun BibleStudyNotepadScreen(navController:NavHostController) {
                         application = it.application,
                         studyPrayer = it.studyPrayer,
                         studyId = it.studyId,
-                        navController = navController,
                         bibleStudyRepository = bibleStudyRepository
                     )
                 }
@@ -91,7 +90,7 @@ fun BibleStudyNotepadScreen(navController:NavHostController) {
                 Spacer(modifier = Modifier.weight(1f))
                 FloatingActionButton(
                     onClick = {
-                        var authRepository = AuthRepository(navController, context)
+                        val authRepository = AuthRepository(navController, context)
                         if (!(authRepository.isLoggedIn())) {
                             navController.navigate(ROUTE_LOGIN)
                         } else {
@@ -114,45 +113,61 @@ fun BibleStudyNotepadScreen(navController:NavHostController) {
 
 
 @Composable
-fun StudyItem(studyDate:String, studyScripture:String, observation:String, application:String,studyPrayer:String,
-              studyId:String,navController:NavHostController,bibleStudyRepository:BibleStudyRepository) {
+fun StudyItem(
+    studyDate: String,
+    studyScripture: String,
+    observation: String,
+    application: String,
+    studyPrayer: String,
+    studyId: String,
+    bibleStudyRepository: BibleStudyRepository
+) {
 
     Column(modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally) {
-        var context = LocalContext.current
-        ElevatedCard (
+        OutlinedCard (
             colors = CardDefaults.cardColors(
-                containerColor = Color.White
+                containerColor = Color.Transparent
             ),
-            elevation = CardDefaults.elevatedCardElevation(4.dp),
-            modifier = Modifier.width(300.dp)
+//            elevation = CardDefaults.elevatedCardElevation(4.dp),
+            modifier = Modifier.fillMaxWidth(0.9f)
         ){
             Row {
                 Text(text = "Date:", color = PrimePink,modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
-                Text(text = studyDate, modifier = Modifier.padding(5.dp), color = Color.DarkGray)
+                Text(text = studyDate, modifier = Modifier.padding(5.dp))
             }
             Row {
                 Text(text = "Scripture:",color = PrimePink,modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
-                Text(text = studyScripture, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
+                Text(text = studyScripture, modifier = Modifier.padding(5.dp))
             }
             Row {
                 Text(text = "Observation:",color = PrimePink,modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
-                Text(text = observation, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
+                Text(text = observation, modifier = Modifier.padding(5.dp))
             }
             Row {
                 Text(text = "Application:",color = PrimePink,modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
-                Text(text = application, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
+                Text(text = application, modifier = Modifier.padding(5.dp))
             }
             Row {
                 Text(text = "Prayer:",color = PrimePink,modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
-                Text(text = studyPrayer, modifier = Modifier.padding(5.dp),color = Color.DarkGray)
+                Text(text = studyPrayer, modifier = Modifier.padding(5.dp))
             }
             Row {
+                Spacer(modifier = Modifier.weight(1f))
+                IconButton(
+                    onClick = {},
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = Color.Transparent,
+                        contentColor = PrimePink
+                    )
+                ) {
+                    Icon(imageVector = Icons.Default.Share, contentDescription = "Share Icon")
+                }
                 IconButton(
                     onClick = {
                         bibleStudyRepository.deleteStudy(studyId)
                     }, colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = Color.White,
+                        containerColor = Color.Transparent,
                         contentColor = PrimePink
                     )
                 ) {

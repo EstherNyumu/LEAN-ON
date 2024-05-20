@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -83,7 +84,8 @@ fun SignUpScreen(navController: NavHostController) {
         OutlinedTextField(value = username,
             onValueChange = {username = it},
             label = { Text(text = "UserName..") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            modifier =  Modifier.fillMaxWidth(0.8f)
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -91,7 +93,8 @@ fun SignUpScreen(navController: NavHostController) {
         OutlinedTextField(value = email,
             onValueChange = {email = it},
             label = { Text(text = "Email..") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+            modifier =  Modifier.fillMaxWidth(0.8f)
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -118,7 +121,8 @@ fun SignUpScreen(navController: NavHostController) {
                             contentDescription = "show_password" )
                     }
                 }
-            }
+            },
+            modifier =  Modifier.fillMaxWidth(0.8f)
         )
 
         Spacer(modifier = Modifier.height(20.dp))

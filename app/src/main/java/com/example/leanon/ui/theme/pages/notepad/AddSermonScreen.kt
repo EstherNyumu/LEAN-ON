@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -49,7 +50,7 @@ fun AddSermonScreen(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        var context = LocalContext.current
+        val context = LocalContext.current
         Spacer(modifier = Modifier.height(20.dp))
         Text(
             text = "Sermon of the Day",
@@ -69,29 +70,33 @@ fun AddSermonScreen(navController: NavHostController) {
             value = sermonDate,
             onValueChange = {sermonDate=it},
             label = { Text(text = "Date...")},
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            modifier = Modifier.fillMaxWidth(0.8f)
+
         )
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedTextField(
             value = preacher,
             onValueChange = {preacher=it},
             label = { Text(text = "Preacher...")},
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            modifier = Modifier.fillMaxWidth(0.8f)
         )
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedTextField(
             value = sermonScripture,
             onValueChange = {sermonScripture=it},
             label = { Text(text = "Scripture...")},
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            modifier = Modifier.fillMaxWidth(0.8f)
         )
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedTextField(
             value = sermonTopic,
             onValueChange = {sermonTopic=it},
             label = { Text(text = "Topic...")},
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            modifier = Modifier.fillMaxWidth(0.8f)
         )
         Spacer(modifier = Modifier.height(10.dp))
         OutlinedTextField(
@@ -100,6 +105,7 @@ fun AddSermonScreen(navController: NavHostController) {
             label = { Text(text = "Note to take home...")},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             modifier = Modifier.height(300.dp)
+                .fillMaxWidth(0.8f)
         )
         Spacer(modifier = Modifier.height(20.dp))
         val verticalGradient = Brush.verticalGradient(
@@ -110,7 +116,7 @@ fun AddSermonScreen(navController: NavHostController) {
         Text(text = "Done",
             modifier = Modifier
                 .clickable(onClick = {
-                    var sermonsRepository = SermonsRepository(navController, context)
+                    val sermonsRepository = SermonsRepository(navController, context)
                     sermonsRepository.saveSermon(sermonDate, preacher, sermonScripture, sermonTopic, sermonNotes)
                     navController.navigate(ROUTE_SERMON_NOTEPAD)
                 })

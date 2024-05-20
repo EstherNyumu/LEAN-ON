@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -19,24 +18,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DeleteForever
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.outlined.ThumbDown
-import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -73,7 +65,7 @@ fun HomeScreen(navController:NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(20.dp))
         Text(
@@ -130,16 +122,16 @@ fun PostItem(anonymousName:String,postText:String,imageUrl:String,postId:String,
     Column(modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = CenterHorizontally
     ) {
-        var count by rememberSaveable { mutableIntStateOf(0) }
         val context = LocalContext.current
-        ElevatedCard(
+        OutlinedCard(
             colors = CardDefaults.cardColors(
-                containerColor = Color.White
+                containerColor = Color.Transparent
             ),
-            elevation = CardDefaults.elevatedCardElevation(4.dp),
+//            elevation = CardDefaults.elevatedCardElevation(7.dp),
             modifier = Modifier
-                .width(300.dp)
+                .fillMaxWidth(0.9f)
         ){
+            Spacer(modifier = Modifier.height(10.dp))
             Text(text = "@ $anonymousName",
                 modifier = Modifier
                     .padding(10.dp)
@@ -147,8 +139,7 @@ fun PostItem(anonymousName:String,postText:String,imageUrl:String,postId:String,
                 color = PrimePink,
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.SemiBold)
-            if (imageUrl == ""){
-            } else{
+            if (imageUrl == ""){ /*TODO*/} else{
                 Image(painter = rememberAsyncImagePainter(imageUrl),
                     contentDescription = null,
                     modifier = Modifier
@@ -158,41 +149,41 @@ fun PostItem(anonymousName:String,postText:String,imageUrl:String,postId:String,
             Text(text = postText,
                 modifier = Modifier
                     .padding(10.dp)
-                    .align(CenterHorizontally),
-                color = Color.DarkGray)
+                    .align(CenterHorizontally))
             Row(modifier = Modifier
                 .align(CenterHorizontally)){
+                Spacer(modifier = Modifier.weight(1f))
                 Column {
-                    IconButton(
-                        onClick = {
-                            count++
-                        },
-                        colors = IconButtonDefaults.iconButtonColors(
-                            containerColor = Color.Transparent,
-                            contentColor = PrimePink
-                        )
-                    ) {
-                        Icon(imageVector = Icons.Outlined.ThumbUp, contentDescription = "ThumbUp Icon")
-                    }
-                    Text(text = "$count likes",color = Color.DarkGray)
+//                    IconButton(
+//                        onClick = {
+//                            count++
+//                        },
+//                        colors = IconButtonDefaults.iconButtonColors(
+//                            containerColor = Color.Transparent,
+//                            contentColor = PrimePink
+//                        )
+//                    ) {
+//                        Icon(imageVector = Icons.Outlined.ThumbUp, contentDescription = "ThumbUp Icon")
+//                    }
+//                    Text(text = "$count likes",color = Color.DarkGray)
                 }
 
-                IconButton(
-                    onClick = {
-                        if (count!=0) {
-                            count--
-                        }
-                    },
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = Color.Transparent,
-                        contentColor = PrimePink
-                    )
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.ThumbDown,
-                        contentDescription = "ThumbDown Icon"
-                    )
-                }
+//                IconButton(
+//                    onClick = {
+//                        if (count!=0) {
+//                            count--
+//                        }
+//                    },
+//                    colors = IconButtonDefaults.iconButtonColors(
+//                        containerColor = Color.Transparent,
+//                        contentColor = PrimePink
+//                    )
+//                ) {
+//                    Icon(
+//                        imageVector = Icons.Outlined.ThumbDown,
+//                        contentDescription = "ThumbDown Icon"
+//                    )
+//                }
                 IconButton(
                     onClick = {
                         val shareIntent = Intent(Intent.ACTION_SEND)
@@ -210,7 +201,7 @@ fun PostItem(anonymousName:String,postText:String,imageUrl:String,postId:String,
                 }
                 IconButton(
                     onClick = {
-                        var authRepository = AuthRepository(navController,context)
+                        val authRepository = AuthRepository(navController,context)
                         if(!(authRepository.isLoggedIn())){
                             navController.navigate(ROUTE_LOGIN)
                         }
@@ -231,6 +222,7 @@ fun PostItem(anonymousName:String,postText:String,imageUrl:String,postId:String,
             }
 
         }
+
         Spacer(modifier = Modifier.height(20.dp))
     }
 }
