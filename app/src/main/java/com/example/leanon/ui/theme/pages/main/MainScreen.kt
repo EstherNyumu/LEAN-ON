@@ -74,8 +74,6 @@ fun MainScreen() {
         Box(modifier = Modifier.padding(paddingValues)){
             AppNavHost(navController = navController)
         }
-
-
     }
 
 }

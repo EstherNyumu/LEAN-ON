@@ -45,7 +45,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.leanon.data.AuthRepository
 import com.example.leanon.data.PostsRepository
-import com.example.leanon.models.Posts
+import com.example.leanon.models.PostsWithImage
 import com.example.leanon.navigation.ROUTE_ADD_POST
 import com.example.leanon.navigation.ROUTE_LOGIN
 import com.example.leanon.ui.theme.LeanOnTheme
@@ -57,8 +57,8 @@ fun HomeScreen(navController:NavHostController) {
     val context = LocalContext.current
     val postsRepository = PostsRepository(navController, context)
 
-    val emptyPostState = remember { mutableStateOf(Posts("","","","")) }
-    val emptyPostsListState = remember { mutableStateListOf<Posts>() }
+    val emptyPostState = remember { mutableStateOf(PostsWithImage("","","","")) }
+    val emptyPostsListState = remember { mutableStateListOf<PostsWithImage>() }
 
     val posts = postsRepository.viewPosts(emptyPostState, emptyPostsListState)
 

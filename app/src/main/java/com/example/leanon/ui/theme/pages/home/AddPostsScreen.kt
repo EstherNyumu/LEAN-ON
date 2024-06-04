@@ -116,10 +116,17 @@ fun AddPostsScreen(navController: NavHostController) {
         Text(text = "Post",
             modifier = Modifier
                 .clickable(onClick = {
-                    /*----Saving Data to Database Logic---*/
-                    var postsRepository = PostsRepository(navController, context)
-                    postsRepository.savePostWithImage(anonymousName, postText, imageUri!!)
-                    navController.navigate(BottomBarScreen.Home.route)
+                    val postsRepository = PostsRepository(navController, context)
+                    if(imageUri != null){
+                        /*----Saving Data to Database Logic---*/
+                        postsRepository.savePostWithImage(anonymousName, postText, imageUri!!)
+                        navController.navigate(BottomBarScreen.Home.route)
+                    }
+                    else{
+                        postsRepository.savePostWithoutImage(anonymousName,postText)
+
+                    }
+
                 })
                 .clip(RoundedCornerShape(10.dp))
                 .background(brush = verticalGradient)

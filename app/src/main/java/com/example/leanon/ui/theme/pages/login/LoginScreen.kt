@@ -47,6 +47,7 @@ import com.example.leanon.navigation.ROUTE_SIGNUP
 import com.example.leanon.ui.theme.LeanOnTheme
 import com.example.leanon.ui.theme.PrimePink
 
+
 private class PasswordVisualTransformation : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
         return TransformedText(
