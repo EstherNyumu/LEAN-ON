@@ -69,7 +69,7 @@ fun HomeScreen(navController:NavHostController) {
     ) {
         Spacer(modifier = Modifier.height(20.dp))
         Text(
-            text = "My Posts",
+            text = "Posts",
             style = TextStyle(Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0)))),
             fontSize = 30.sp,
             fontFamily = FontFamily.Monospace,

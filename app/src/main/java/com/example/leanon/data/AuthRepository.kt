@@ -28,40 +28,70 @@ class  AuthRepository(var navController: NavHostController, var context: Context
     }
     /*----Sign Up Logic---*/
     fun signup(username: String, email: String, password: String) {
-        progress.show()
-        progress.dismiss()
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
-            if (it.isSuccessful) {
-                var userData = User(username, email, password, mAuth.currentUser!!.uid)
-                var regRef = FirebaseDatabase.getInstance().getReference()
-                    .child("Users" + mAuth.currentUser!!.uid)
-                regRef.setValue(userData).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        Toast.makeText(context, "Thank you $username for joining us!", Toast.LENGTH_SHORT).show()
-                        navController.navigate(BottomBarScreen.Home.route)
-                    } else {
-                        Toast.makeText(context, "Error: ${it.exception!!.message}", Toast.LENGTH_SHORT)
-                        navController.navigate(ROUTE_LOGIN)
+        try {
+            progress.show()
+            progress.dismiss()
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    var userData = User(username, email, password, mAuth.currentUser!!.uid)
+                    var regRef = FirebaseDatabase.getInstance().getReference()
+                        .child("Users" + mAuth.currentUser!!.uid)
+                    regRef.setValue(userData).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            Toast.makeText(
+                                context,
+                                "Thank you $username for joining us!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            navController.navigate(BottomBarScreen.Home.route)
+//                        } else {
+////                            Toast.makeText(
+////                                context,
+////                                "Error: Not successful or the user already exists",
+////                                Toast.LENGTH_SHORT
+////                            ).show()
+//                            navController.navigate(ROUTE_LOGIN)
+                        }
                     }
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Error: Not successful or the user already exists",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    navController.navigate(ROUTE_SIGNUP)
                 }
             }
-            else{
-                navController.navigate(ROUTE_SIGNUP)
-            }
+        }
+        catch (e:Exception){
+            Toast.makeText(
+                context,
+                "Kindly add all your details to signup.",
+                Toast.LENGTH_LONG).show()
         }
     }
 
     /*----Log in logic---*/
     fun login(email: String,password: String){
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-            if (it.isSuccessful){
-                Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT).show()
-                navController.navigate(BottomBarScreen.Home.route)
+        try {
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT).show()
+                    navController.navigate(BottomBarScreen.Home.route)
+                } else {
+                    Toast.makeText(
+                        context,
+                        "The account doesn't exist or the details entered are wrong.",
+                        Toast.LENGTH_LONG).show()
+                    navController.navigate(ROUTE_LOGIN)
+                }
             }
-            else{
-                Toast.makeText(context, "Error: ${it.exception!!.message}", Toast.LENGTH_SHORT)
-                navController.navigate(ROUTE_LOGIN)
-            }
+        }
+        catch (e:Exception){
+            Toast.makeText(
+                context,
+                "Kindly add your details to login.",
+                Toast.LENGTH_LONG).show()
         }
     }
     /*----Log Out Logic---*/
@@ -91,5 +121,19 @@ class  AuthRepository(var navController: NavHostController, var context: Context
             }
         })
         return auths
+    }
+    fun viewProfile(){
+        var username: String
+        var email: String
+        val user = mAuth.currentUser
+        if (user != null){
+            user.let {
+                username = it.displayName.toString()
+                email = it.email.toString()
+            }
+        }
+        else{
+            navController.navigate(ROUTE_LOGIN)
+        }
     }
 }

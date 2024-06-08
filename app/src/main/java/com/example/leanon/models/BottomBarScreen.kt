@@ -36,6 +36,4 @@ sealed class BottomBarScreen(
         icon = Icons.Default.Church
 
     )
-
-
 }

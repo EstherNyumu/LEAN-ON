@@ -103,6 +103,7 @@ class PostsRepository(var navController: NavHostController, var context: Context
                 Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
             }
         })
-        return myPosts.sortedByDescending { it.postId }
+//        return myPosts.sortedByDescending { it.postId }
+        return myPosts
     }
 }

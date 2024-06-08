@@ -1,5 +1,6 @@
 package com.example.leanon.ui.theme.pages.main
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
@@ -8,7 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Logout
+import androidx.compose.material.icons.filled.Person2
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -51,6 +52,7 @@ import com.example.leanon.data.AuthRepository
 import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.navigation.AppNavHost
 import com.example.leanon.navigation.ROUTE_LOGIN
+import com.example.leanon.navigation.ROUTE_PROFILE
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -129,18 +131,30 @@ fun TopAppBar( modifier:Modifier,navController: NavHostController) {
         actions = {
             var authRepository = AuthRepository(navController,context)
 
+//            IconButton(onClick = {
+//                if(authRepository.isLoggedIn()){
+//                    authRepository.logout()
+//                }
+//                else{
+//                    navController.navigate(ROUTE_LOGIN)
+//                }},
+//                colors = IconButtonDefaults.iconButtonColors( contentColor = Color.White)
+//            ) {
+//                Icon(imageVector = Icons.Default.Logout, contentDescription = "logout")
+//            }
+
             IconButton(onClick = {
                 if(authRepository.isLoggedIn()){
-                    authRepository.logout()
+                    navController.navigate(ROUTE_PROFILE)
                 }
                 else{
+                    Toast.makeText(context, "You need to login first.", Toast.LENGTH_SHORT).show()
                     navController.navigate(ROUTE_LOGIN)
-                }},
-                colors = IconButtonDefaults.iconButtonColors( contentColor = Color.White)
+                }
+            }, colors = IconButtonDefaults.iconButtonColors( contentColor = Color.White)
             ) {
-                Icon(imageVector = Icons.Default.Logout, contentDescription = "logout")
+                Icon(imageVector = Icons.Default.Person2, contentDescription = "profile")
             }
-
 
 
 
