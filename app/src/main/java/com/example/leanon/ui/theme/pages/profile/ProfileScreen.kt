@@ -1,35 +1,20 @@
 package com.example.leanon.ui.theme.pages.profile
 
-import android.content.Intent
 import android.content.res.Configuration
-import android.provider.ContactsContract.CommonDataKinds.Email
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.DeleteForever
-import androidx.compose.material.icons.filled.Share
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -43,196 +28,70 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import coil.compose.rememberAsyncImagePainter
 import com.example.leanon.data.AuthRepository
-import com.example.leanon.data.PostsRepository
-import com.example.leanon.models.PostsWithImage
-import com.example.leanon.models.User
-import com.example.leanon.navigation.ROUTE_ADD_POST
-import com.example.leanon.navigation.ROUTE_LOGIN
 import com.example.leanon.ui.theme.LeanOnTheme
-import com.example.leanon.ui.theme.PrimePink
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
-fun ProfileScreen(navController: NavHostController) {
+fun ProfileScreen(mAuth: FirebaseAuth,navController: NavHostController) {
+    val user = mAuth.currentUser
+    var userName by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
     val context = LocalContext.current
-    val authRepository = AuthRepository(navController, context)
-
-//    val emptyAuthState = remember { mutableStateOf(User("","","","")) }
-//    val emptyAuthListState = remember { mutableStateListOf<User>() }
-
-    val user = authRepository.viewProfile()
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(
-            text = "Profile",
-            style = TextStyle(Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0)))),
-            fontSize = 30.sp,
-            fontFamily = FontFamily.Monospace,
-            fontWeight = FontWeight.Bold
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-        Text(text = )
-        LazyColumn {
-            items(posts) {
-                PostItem(
-                    anonymousName = it.anonymousName,
-                    postText = it.postText,
-                    imageUrl = it.imageUrl,
-                    postId = it.postId,
-                    navController = navController,
-                    postsRepository = postsRepository
-                )
-            }
+    LaunchedEffect(user) {
+        user?.let {
+            userName = it.displayName ?: "N/A"
+            email= it.email ?: "N/A"
         }
     }
-//    Column {
-//        Spacer(modifier = Modifier.weight(1f))
-//        Row {
-////            Spacer(modifier = Modifier.weight(1f))
-//            FloatingActionButton(
-//                onClick = {
-//                    val authRepository = AuthRepository(navController, context)
-//                    if (!(authRepository.isLoggedIn())) {
-//                        navController.navigate(ROUTE_LOGIN)
-//                    } else {
-//                        navController.navigate(ROUTE_ADD_POST)
-//                    }
-//                },
-//                containerColor = PrimePink,
-//                contentColor = Color.White,
-//                shape = CircleShape,
-//                modifier = Modifier.padding(10.dp)
-//            ) {
-//                Icon(Icons.Filled.Add, contentDescription = "Add")
-//            }
-//        }
-//    }
-}
+   Column(modifier = Modifier.fillMaxSize(),
+       horizontalAlignment = Alignment.CenterHorizontally) {
 
-
-@Composable
-fun profileDetails(username:String,email: String) {
-    Column(modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        val context = LocalContext.current
-        OutlinedCard(
-            colors = CardDefaults.cardColors(
-                containerColor = Color.Transparent
-            ),
-//            elevation = CardDefaults.elevatedCardElevation(7.dp),
-            modifier = Modifier
-                .fillMaxWidth(0.9f)
-        ){
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "@ $anonymousName",
-                modifier = Modifier
-                    .padding(10.dp)
-                    .align(Alignment.CenterHorizontally),
-                color = PrimePink,
-                fontFamily = FontFamily.Monospace,
-                fontWeight = FontWeight.SemiBold)
-            if (imageUrl == ""){ /*TODO*/} else{
-                Image(painter = rememberAsyncImagePainter(imageUrl),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(300.dp)
-                        .align(Alignment.CenterHorizontally))
-            }
-            Text(text = postText,
-                modifier = Modifier
-                    .padding(10.dp)
-                    .align(Alignment.CenterHorizontally))
-            Row(modifier = Modifier
-                .align(Alignment.CenterHorizontally)){
-                Spacer(modifier = Modifier.weight(1f))
-                Column {
-//                    IconButton(
-//                        onClick = {
-//                            count++
-//                        },
-//                        colors = IconButtonDefaults.iconButtonColors(
-//                            containerColor = Color.Transparent,
-//                            contentColor = PrimePink
-//                        )
-//                    ) {
-//                        Icon(imageVector = Icons.Outlined.ThumbUp, contentDescription = "ThumbUp Icon")
-//                    }
-//                    Text(text = "$count likes",color = Color.DarkGray)
-                }
-
-//                IconButton(
-//                    onClick = {
-//                        if (count!=0) {
-//                            count--
-//                        }
-//                    },
-//                    colors = IconButtonDefaults.iconButtonColors(
-//                        containerColor = Color.Transparent,
-//                        contentColor = PrimePink
-//                    )
-//                ) {
-//                    Icon(
-//                        imageVector = Icons.Outlined.ThumbDown,
-//                        contentDescription = "ThumbDown Icon"
-//                    )
-//                }
-                IconButton(
-                    onClick = {
-                        val shareIntent = Intent(Intent.ACTION_SEND)
-                        shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        shareIntent.type = "text/plain"
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, postText)
-                        context.startActivity(shareIntent)
-                    },
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = Color.Transparent,
-                        contentColor = PrimePink
-                    )
-                ) {
-                    Icon(imageVector = Icons.Default.Share, contentDescription = "Share Icon")
-                }
-                IconButton(
-                    onClick = {
-                        val authRepository = AuthRepository(navController,context)
-                        if(!(authRepository.isLoggedIn())){
-                            navController.navigate(ROUTE_LOGIN)
-                        }
-                        else{
-                            postsRepository.deletePost(postId)
-                        }
-
-                    }, colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = Color.Transparent,
-                        contentColor = PrimePink
-                    )
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.DeleteForever,
-                        contentDescription = "Delete Icon"
-                    )
-                }
-            }
-
+       Spacer(modifier = Modifier.height(50.dp))
+       Text(
+           text = "Profile",
+           style = TextStyle(
+               Brush.horizontalGradient(
+                   listOf(
+                       Color(0xFFFF0078),
+                       Color(0xFF9C27B0)
+                   )
+               )
+           ),
+           fontSize = 30.sp,
+           fontFamily = FontFamily.Monospace,
+           fontWeight = FontWeight.Bold
+       )
+       Spacer(modifier = Modifier.height(20.dp))
+       Text(text = "Username: ${userName}")
+       Spacer(modifier = Modifier.height(20.dp))
+       Text(text = "Email: ${email}")
+       Spacer(modifier = Modifier.height(20.dp))
+       Button(onClick = {
+           var authRepository = AuthRepository(navController,context)
+           authRepository.logout()
+       }) {
+           Text(text = "Sign Out")
+       }
+       Spacer(modifier = Modifier.height(20.dp))
+   }
+    Column {
+        Spacer(modifier = Modifier.weight(1f))
+        Row {
+            Text(text = "Help?",
+                modifier = Modifier.padding(20.dp)
+            )
         }
-
-        Spacer(modifier = Modifier.height(20.dp))
     }
-}
 
+   }
 
 
 @Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun ProfileScreenPreview() {
     LeanOnTheme {
-        ProfileScreen(rememberNavController())
+        val auth = FirebaseAuth.getInstance()
+        ProfileScreen(mAuth = auth,rememberNavController())
     }
 }

@@ -194,8 +194,6 @@ fun BottomBar(navController: NavHostController,state:MutableState<Boolean>, modi
             }
         }
     }
-
-
 }
 
 @Composable
@@ -206,7 +204,7 @@ fun RowScope.AddItem(
 ) {
     NavigationBarItem(
         label = {
-            Text(text = screen.title!!)
+            Text(text = screen.title)
         },
         selected = currentDestination?.hierarchy?.any {
             it.route == screen.route
@@ -226,7 +224,7 @@ fun RowScope.AddItem(
         ),
         icon = {
             Icon(
-                imageVector = screen.icon!!,
+                imageVector = screen.icon,
                 contentDescription = ""
             )
         },

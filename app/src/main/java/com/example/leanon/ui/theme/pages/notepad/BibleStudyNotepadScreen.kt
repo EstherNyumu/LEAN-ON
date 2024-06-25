@@ -14,6 +14,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DeleteForever
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -22,9 +25,11 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -106,8 +111,6 @@ fun BibleStudyNotepadScreen(navController:NavHostController) {
                 }
             }
         }
-
-
     }
 
 
@@ -125,6 +128,7 @@ fun StudyItem(
 
     Column(modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally) {
+        var showDialog by remember { mutableStateOf(false) }
         OutlinedCard (
             colors = CardDefaults.cardColors(
                 containerColor = Color.Transparent
@@ -165,7 +169,7 @@ fun StudyItem(
                 }
                 IconButton(
                     onClick = {
-                        bibleStudyRepository.deleteStudy(studyId)
+                        showDialog = true
                     }, colors = IconButtonDefaults.iconButtonColors(
                         containerColor = Color.Transparent,
                         contentColor = PrimePink
@@ -178,6 +182,27 @@ fun StudyItem(
                 }
             }
         }
+        if (showDialog){
+            AlertDialog(
+                onDismissRequest = { showDialog = false },
+                text = { Text("Are you sure you want to delete?") },
+                confirmButton = {
+                    Button(onClick = {
+                        bibleStudyRepository.deleteStudy(studyId)
+                        showDialog = false
+                    },colors = ButtonDefaults.buttonColors(PrimePink)) {
+                        Text("Yes")
+                    }
+                },
+                dismissButton = {
+                    Button(onClick = { showDialog = false },
+                        colors = ButtonDefaults.buttonColors(PrimePink)) {
+                        Text("No")
+                    }
+                }
+            )
+        }
+
         Spacer(modifier = Modifier.height(20.dp))
     }
 }

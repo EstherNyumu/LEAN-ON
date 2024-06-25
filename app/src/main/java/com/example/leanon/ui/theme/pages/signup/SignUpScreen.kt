@@ -76,9 +76,9 @@ fun SignUpScreen(navController: NavHostController) {
             fontWeight = FontWeight.Bold,
         )
 
-        var username by remember { mutableStateOf(TextFieldValue("")) }
-        var email by remember { mutableStateOf(TextFieldValue("")) }
-        var password by remember { mutableStateOf(TextFieldValue("")) }
+            var username by remember { mutableStateOf(TextFieldValue("")) }
+            var email by remember { mutableStateOf(TextFieldValue("")) }
+            var password by remember { mutableStateOf(TextFieldValue("")) }
         var showPassword by remember { mutableStateOf(false) }
 
         OutlinedTextField(value = username,

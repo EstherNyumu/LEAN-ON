@@ -27,13 +27,13 @@ class  AuthRepository(var navController: NavHostController, var context: Context
         progress.setMessage("Please wait...")
     }
     /*----Sign Up Logic---*/
-    fun signup(username: String, email: String, password: String) {
+    fun signup(username: String,email: String,password: String) {
         try {
             progress.show()
             progress.dismiss()
-            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    var userData = User(username, email, password, mAuth.currentUser!!.uid)
+                    var userData = User(email,password,mAuth.currentUser!!.uid,username)
                     var regRef = FirebaseDatabase.getInstance().getReference()
                         .child("Users" + mAuth.currentUser!!.uid)
                     regRef.setValue(userData).addOnCompleteListener {

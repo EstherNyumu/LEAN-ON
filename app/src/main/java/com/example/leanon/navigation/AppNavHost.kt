@@ -19,9 +19,11 @@ import com.example.leanon.ui.theme.pages.notepad.PrayerNotepadScreen
 import com.example.leanon.ui.theme.pages.notepad.SermonNotepadScreen
 import com.example.leanon.ui.theme.pages.profile.ProfileScreen
 import com.example.leanon.ui.theme.pages.signup.SignUpScreen
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun AppNavHost(navController: NavHostController) {
+    val auth = FirebaseAuth.getInstance()
     NavHost(navController = navController,
         startDestination = BottomBarScreen.Home.route){
         composable(route = BottomBarScreen.Home.route){
@@ -64,7 +66,7 @@ fun AppNavHost(navController: NavHostController) {
             SignUpScreen(navController)
         }
         composable(route = ROUTE_PROFILE){
-            ProfileScreen(navController)
+            ProfileScreen(mAuth=auth,navController)
         }
     }
 }
