@@ -1,6 +1,7 @@
 package com.example.leanon.ui.theme.pages.profile
 
 import android.content.res.Configuration
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,8 +30,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.leanon.data.AuthRepository
+import com.example.leanon.models.UserDets
 import com.example.leanon.ui.theme.LeanOnTheme
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 @Composable
 fun ProfileScreen(mAuth: FirebaseAuth,navController: NavHostController) {
@@ -38,13 +44,34 @@ fun ProfileScreen(mAuth: FirebaseAuth,navController: NavHostController) {
     var userName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     val context = LocalContext.current
+    val authRepository = AuthRepository(navController, context)
+    val uid = user?.uid
+
     LaunchedEffect(user) {
         user?.let {
-            userName = it.displayName ?: "N/A"
             email= it.email ?: "N/A"
         }
     }
-   Column(modifier = Modifier.fillMaxSize(),
+    LaunchedEffect(uid) {
+        if (uid != null) {
+            val database = FirebaseDatabase.getInstance()
+            val userRef = database.getReference("User Details").child(uid)
+            userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val userDets = snapshot.getValue(UserDets::class.java)
+                    userName = userDets?.username ?: "N/A" // Access username from UserDets object
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle potential errors
+                    Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+    }
+
+
+    Column(modifier = Modifier.fillMaxSize(),
        horizontalAlignment = Alignment.CenterHorizontally) {
 
        Spacer(modifier = Modifier.height(50.dp))
@@ -63,12 +90,11 @@ fun ProfileScreen(mAuth: FirebaseAuth,navController: NavHostController) {
            fontWeight = FontWeight.Bold
        )
        Spacer(modifier = Modifier.height(20.dp))
-       Text(text = "Username: ${userName}")
+       Text(text = "Username: $userName")
        Spacer(modifier = Modifier.height(20.dp))
-       Text(text = "Email: ${email}")
+       Text(text = "Email: $email")
        Spacer(modifier = Modifier.height(20.dp))
        Button(onClick = {
-           var authRepository = AuthRepository(navController,context)
            authRepository.logout()
        }) {
            Text(text = "Sign Out")

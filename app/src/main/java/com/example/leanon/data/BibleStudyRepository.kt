@@ -15,9 +15,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class BibleStudyRepository(var navController: NavHostController,var context: Context){
-    var progress: ProgressDialog
+    var progress: ProgressDialog = ProgressDialog(context)
+
     init {
-        progress= ProgressDialog(context)
         progress.setTitle("Loading")
         progress.setMessage("Please wait...")
     }

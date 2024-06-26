@@ -58,6 +58,28 @@ fun AddPostsScreen(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center) {
         var context = LocalContext.current
+        var userName by remember { mutableStateOf("") }
+        var postText by remember { mutableStateOf("") }
+//        val mAuth = FirebaseAuth.getInstance()
+//        val user = mAuth.currentUser
+//        val uid = user?.uid
+//        LaunchedEffect(uid) {
+//            if (uid != null) {
+//                val database = FirebaseDatabase.getInstance()
+//                val userRef = database.getReference("User Details").child(uid)
+//                userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+//                    override fun onDataChange(snapshot: DataSnapshot) {
+//                        val userDets = snapshot.getValue(UserDets::class.java)
+//                        userName = userDets?.username ?: "N/A" // Access username from UserDets object
+//                    }
+//
+//                    override fun onCancelled(error: DatabaseError) {
+//                        // Handle potential errors
+//                        Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+//                    }
+//                })
+//            }
+//        }
         Text(
             text = "New Post",
             fontSize = 30.sp,
@@ -69,15 +91,15 @@ fun AddPostsScreen(navController: NavHostController) {
         Text(text = "Make sure you add an image when adding your post!!"
         , fontSize = 12.sp, color = Color.Gray)
 
-        var anonymousName by remember { mutableStateOf("") }
-        var postText by remember { mutableStateOf("") }
+
         Spacer(modifier = Modifier.height(20.dp))
-        OutlinedTextField(value = anonymousName,
-            onValueChange = {anonymousName=it},
-            label = { Text(text = "Anonymous Name")},
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            modifier = Modifier.fillMaxWidth(0.8f)
-        )
+//        OutlinedTextField(value = userName,
+//            onValueChange = {userName=it},
+//            label = { Text(text = "Anonymous Name")},
+//            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+//            modifier = Modifier.fillMaxWidth(0.8f),
+//            enabled = false
+//        )
         OutlinedTextField(value = postText,
             onValueChange = {postText=it},
             label = { Text(text = "What's on your mind today..")},
@@ -119,11 +141,11 @@ fun AddPostsScreen(navController: NavHostController) {
                     val postsRepository = PostsRepository(navController, context)
                     if(imageUri != null){
                         /*----Saving Data to Database Logic---*/
-                        postsRepository.savePostWithImage(anonymousName, postText, imageUri!!)
+                        postsRepository.savePostWithImage(userName, postText, imageUri!!)
                         navController.navigate(BottomBarScreen.Home.route)
                     }
                     else{
-                        postsRepository.savePostWithoutImage(anonymousName,postText)
+                        postsRepository.savePostWithoutImage(userName,postText)
 
                     }
 
