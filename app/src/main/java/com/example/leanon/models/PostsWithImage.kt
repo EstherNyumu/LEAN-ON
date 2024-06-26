@@ -1,13 +1,13 @@
 package com.example.leanon.models
 
 class PostsWithImage {
-    var anonymousName:String=""
+    var userName:String=""
     var postText:String = ""
     var imageUrl:String =""
     var postId:String = ""
 
-    constructor(anonymousName:String,postText: String,imageUrl:String,postId:String) {
-        this.anonymousName = anonymousName
+    constructor(userName:String,postText: String,imageUrl:String,postId:String) {
+        this.userName = userName
         this.postText = postText
         this.imageUrl = imageUrl
         this.postId = postId

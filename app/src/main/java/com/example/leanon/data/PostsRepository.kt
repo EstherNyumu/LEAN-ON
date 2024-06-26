@@ -39,7 +39,7 @@ class PostsRepository(var navController: NavHostController, var context: Context
         }
     }
     /*----Saving Data Logic---*/
-    fun savePostWithImage(anonymousName: String, postText:String,filePath: Uri){
+    fun savePostWithImage(userName: String, postText:String,filePath: Uri){
         var id = System.currentTimeMillis().toString()
         var storageReference = FirebaseStorage.getInstance().getReference().child("Posts/$id")
         progress.show()
@@ -50,7 +50,7 @@ class PostsRepository(var navController: NavHostController, var context: Context
                 // Proceed to store other data into the db
                 storageReference.downloadUrl.addOnSuccessListener {
                     var imageUrl = it.toString()
-                    var houseData = PostsWithImage(anonymousName,postText,imageUrl,id)
+                    var houseData = PostsWithImage(userName,postText,imageUrl,id)
                     var dbRef = FirebaseDatabase.getInstance()
                         .getReference().child("Posts/$id")
                     dbRef.setValue(houseData)
@@ -62,9 +62,9 @@ class PostsRepository(var navController: NavHostController, var context: Context
             }
         }
     }
-    fun savePostWithoutImage(anonymousName: String, postText:String){
+    fun savePostWithoutImage(userName: String, postText:String){
         var id = System.currentTimeMillis().toString()
-        var postData = PostsWithoutImage(anonymousName,postText,id)
+        var postData = PostsWithoutImage(userName,postText,id)
         var postRef = FirebaseDatabase.getInstance().getReference().child("Posts/$id")
         progress.show()
 
@@ -75,7 +75,7 @@ class PostsRepository(var navController: NavHostController, var context: Context
                 navController.navigate(BottomBarScreen.Home.route)
             }
             else {
-                Toast.makeText(context, "ERROR: ${it.exception!!.message}", Toast.LENGTH_SHORT)
+                Toast.makeText(context, "ERROR: ${it.exception!!.message}", Toast.LENGTH_SHORT).show()
                 navController.navigate(BottomBarScreen.Home.route)
             }
         }

@@ -3,6 +3,7 @@ package com.example.leanon.ui.theme.pages.home
 import android.content.res.Configuration
 import android.net.Uri
 import android.provider.MediaStore
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -26,6 +27,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,7 +50,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.leanon.data.PostsRepository
 import com.example.leanon.models.BottomBarScreen
+import com.example.leanon.models.UserDets
 import com.example.leanon.ui.theme.LeanOnTheme
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 @Composable
 fun AddPostsScreen(navController: NavHostController) {
@@ -60,26 +68,26 @@ fun AddPostsScreen(navController: NavHostController) {
         var context = LocalContext.current
         var userName by remember { mutableStateOf("") }
         var postText by remember { mutableStateOf("") }
-//        val mAuth = FirebaseAuth.getInstance()
-//        val user = mAuth.currentUser
-//        val uid = user?.uid
-//        LaunchedEffect(uid) {
-//            if (uid != null) {
-//                val database = FirebaseDatabase.getInstance()
-//                val userRef = database.getReference("User Details").child(uid)
-//                userRef.addListenerForSingleValueEvent(object : ValueEventListener {
-//                    override fun onDataChange(snapshot: DataSnapshot) {
-//                        val userDets = snapshot.getValue(UserDets::class.java)
-//                        userName = userDets?.username ?: "N/A" // Access username from UserDets object
-//                    }
-//
-//                    override fun onCancelled(error: DatabaseError) {
-//                        // Handle potential errors
-//                        Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
-//                    }
-//                })
-//            }
-//        }
+        val mAuth = FirebaseAuth.getInstance()
+        val user = mAuth.currentUser
+        val uid = user?.uid
+        LaunchedEffect(uid) {
+            if (uid != null) {
+                val database = FirebaseDatabase.getInstance()
+                val userRef = database.getReference("User Details").child(uid)
+                userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val userDets = snapshot.getValue(UserDets::class.java)
+                        userName = userDets?.username ?: "N/A" // Access username from UserDets object
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        // Handle potential errors
+                        Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+        }
         Text(
             text = "New Post",
             fontSize = 30.sp,
@@ -91,6 +99,14 @@ fun AddPostsScreen(navController: NavHostController) {
         Text(text = "Make sure you add an image when adding your post!!"
         , fontSize = 12.sp, color = Color.Gray)
 
+        Text(
+            text = userName,
+            fontSize = 15.sp,
+            style = TextStyle(Brush.horizontalGradient(listOf(Color(0xFFFF0078), Color(0xFF9C27B0)))),
+            modifier = Modifier.padding(20.dp),
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Monospace
+        )
 
         Spacer(modifier = Modifier.height(20.dp))
 //        OutlinedTextField(value = userName,

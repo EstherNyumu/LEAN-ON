@@ -55,6 +55,7 @@ import com.example.leanon.navigation.ROUTE_ADD_POST
 import com.example.leanon.navigation.ROUTE_LOGIN
 import com.example.leanon.ui.theme.LeanOnTheme
 import com.example.leanon.ui.theme.PrimePink
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun HomeScreen(navController:NavHostController) {
@@ -85,7 +86,7 @@ fun HomeScreen(navController:NavHostController) {
         LazyColumn {
             items(posts) {
                 PostItem(
-                    anonymousName = it.anonymousName,
+                    userName = it.userName,
                     postText = it.postText,
                     imageUrl = it.imageUrl,
                     postId = it.postId,
@@ -121,14 +122,17 @@ fun HomeScreen(navController:NavHostController) {
 
 
 @Composable
-fun PostItem(anonymousName:String,postText:String,imageUrl:String,postId:String,navController:NavHostController,
+fun PostItem(userName:String,postText:String,imageUrl:String,postId:String,navController:NavHostController,
              postsRepository: PostsRepository
 ) {
+
     Column(modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = CenterHorizontally
     ) {
         var showDialog by remember { mutableStateOf(false) }
         val context = LocalContext.current
+        val mAuth = FirebaseAuth.getInstance()
+        val user = mAuth.currentUser
         OutlinedCard(
             colors = CardDefaults.cardColors(
                 containerColor = Color.Transparent
@@ -138,7 +142,7 @@ fun PostItem(anonymousName:String,postText:String,imageUrl:String,postId:String,
                 .fillMaxWidth(0.9f)
         ){
             Spacer(modifier = Modifier.height(10.dp))
-            Text(text = "@ $anonymousName",
+            Text(text = "@ $userName",
                 modifier = Modifier
                     .padding(10.dp)
                     .align(CenterHorizontally),
