@@ -8,6 +8,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.navigation.NavHostController
 import com.example.leanon.models.BottomBarScreen
 import com.example.leanon.models.User
+import com.example.leanon.models.UserDets
 import com.example.leanon.navigation.ROUTE_LOGIN
 import com.example.leanon.navigation.ROUTE_SIGNUP
 import com.google.firebase.auth.FirebaseAuth
@@ -33,10 +34,14 @@ class  AuthRepository(var navController: NavHostController, var context: Context
             progress.dismiss()
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    var userData = User(email,password,mAuth.currentUser!!.uid,username)
+                    var userData = User(email,password,mAuth.currentUser!!.uid)
                     var regRef = FirebaseDatabase.getInstance().getReference()
                         .child("Users" + mAuth.currentUser!!.uid)
                     regRef.setValue(userData).addOnCompleteListener {
+
+                        var userDets = UserDets(username)
+                        FirebaseDatabase.getInstance().getReference().child("User Details")
+                            .child(mAuth.currentUser!!.uid).setValue(userDets)
                         if (it.isSuccessful) {
                             Toast.makeText(
                                 context,
