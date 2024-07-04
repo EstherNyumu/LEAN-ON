@@ -22,9 +22,9 @@ class PrayersRepository(var navController: NavHostController, var context: Conte
         progress.setMessage("Please wait...")
     }
     /*----Saving Data Logic---*/
-    fun savePrayer(prayerDate: String,prayerText:String){
+    fun savePrayer(prayerDate: String,prayerTime:String,prayerText:String){
         var id = System.currentTimeMillis().toString()
-        var prayerData = Prayers(prayerDate,prayerText,id)
+        var prayerData = Prayers(prayerDate,prayerTime,prayerText,id)
         var prayerRef = FirebaseDatabase.getInstance().getReference().child("Prayers/$id")
         progress.show()
 

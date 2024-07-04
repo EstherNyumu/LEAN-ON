@@ -32,6 +32,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -56,7 +57,7 @@ fun PrayerNotepadScreen(navController:NavHostController) {
     val prayersRepository = PrayersRepository(navController, context)
 
 
-    val emptyPrayerState = remember { mutableStateOf(Prayers("","","")) }
+    val emptyPrayerState = remember { mutableStateOf(Prayers("","","","")) }
     val emptyPrayersListState = remember { mutableStateListOf<Prayers>() }
 
     val prayers = prayersRepository.viewPrayers(emptyPrayerState, emptyPrayersListState)
@@ -82,6 +83,7 @@ fun PrayerNotepadScreen(navController:NavHostController) {
             items(prayers) {
                 PrayerItem(
                     prayerDate = it.prayerDate,
+                    prayerTime = it.prayerTime,
                     prayerText = it.prayerText,
                     prayerId = it.prayerId,
                     prayersRepository = prayersRepository
@@ -119,7 +121,7 @@ fun PrayerNotepadScreen(navController:NavHostController) {
 
 @Composable
 fun PrayerItem(
-    prayerDate: String, prayerText: String, prayerId: String,
+    prayerDate: String, prayerTime:String, prayerText: String, prayerId: String,
     prayersRepository: PrayersRepository
 ) {
 
@@ -135,15 +137,19 @@ fun PrayerItem(
             modifier = Modifier.fillMaxWidth(0.9f)
         ){
             Row {
-                Text(text = "Date:", color = PrimePink, modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
-                Text(text = prayerDate, modifier = Modifier.padding(5.dp))
+                Spacer(modifier = Modifier.weight(1f))
+                Text(text = "$prayerDate,", modifier = Modifier.padding(5.dp))
+                Text(text = prayerTime, modifier = Modifier.padding(5.dp))
+//                Text(text = "Date:", color = PrimePink, modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
+//                    Text(text = prayerDate, modifier = Modifier.padding(5.dp))
             }
-            Row {
-                Text(text = "Prayer:", color = PrimePink, modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
-                Text(text = prayerText, modifier = Modifier.padding(5.dp))
+            Row(modifier = Modifier.align(CenterHorizontally)) {
+//                Text(text = "Prayer:", color = PrimePink, modifier = Modifier.padding(5.dp),fontWeight = FontWeight.SemiBold)
+                Text(text = prayerText, modifier = Modifier.padding(15.dp))
             }
 
             Row {
+
                 Spacer(modifier = Modifier.weight(1f))
                 IconButton(
                     onClick = {

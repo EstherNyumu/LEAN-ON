@@ -2,6 +2,7 @@ package com.example.leanon.ui.theme.pages.home
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,6 +30,7 @@ import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -51,11 +53,16 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.leanon.data.AuthRepository
 import com.example.leanon.data.PostsRepository
 import com.example.leanon.models.PostsWithImage
+import com.example.leanon.models.UserDets
 import com.example.leanon.navigation.ROUTE_ADD_POST
 import com.example.leanon.navigation.ROUTE_LOGIN
 import com.example.leanon.ui.theme.LeanOnTheme
 import com.example.leanon.ui.theme.PrimePink
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 @Composable
 fun HomeScreen(navController:NavHostController) {
@@ -99,7 +106,6 @@ fun HomeScreen(navController:NavHostController) {
     Column {
         Spacer(modifier = Modifier.weight(1f))
         Row {
-//            Spacer(modifier = Modifier.weight(1f))
             FloatingActionButton(
                 onClick = {
                     val authRepository = AuthRepository(navController, context)
@@ -133,11 +139,29 @@ fun PostItem(userName:String,postText:String,imageUrl:String,postId:String,navCo
         val context = LocalContext.current
         val mAuth = FirebaseAuth.getInstance()
         val user = mAuth.currentUser
+        val uid = user?.uid
+        var userName1 by remember { mutableStateOf("") }
+        LaunchedEffect(uid) {
+            if (uid != null) {
+                val database = FirebaseDatabase.getInstance()
+                val userRef = database.getReference("User Details").child(uid)
+                userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val userDets = snapshot.getValue(UserDets::class.java)
+                        userName1 = userDets?.username ?: "N/A" // Access username from UserDets object
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        // Handle potential errors
+                        Toast.makeText(context, error.message, Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+        }
         OutlinedCard(
             colors = CardDefaults.cardColors(
                 containerColor = Color.Transparent
             ),
-//            elevation = CardDefaults.elevatedCardElevation(7.dp),
             modifier = Modifier
                 .fillMaxWidth(0.9f)
         ){
@@ -163,37 +187,6 @@ fun PostItem(userName:String,postText:String,imageUrl:String,postId:String,navCo
             Row(modifier = Modifier
                 .align(CenterHorizontally)){
                 Spacer(modifier = Modifier.weight(1f))
-                Column {
-//                    IconButton(
-//                        onClick = {
-//                            count++
-//                        },
-//                        colors = IconButtonDefaults.iconButtonColors(
-//                            containerColor = Color.Transparent,
-//                            contentColor = PrimePink
-//                        )
-//                    ) {
-//                        Icon(imageVector = Icons.Outlined.ThumbUp, contentDescription = "ThumbUp Icon")
-//                    }
-//                    Text(text = "$count likes",color = Color.DarkGray)
-                }
-
-//                IconButton(
-//                    onClick = {
-//                        if (count!=0) {
-//                            count--
-//                        }
-//                    },
-//                    colors = IconButtonDefaults.iconButtonColors(
-//                        containerColor = Color.Transparent,
-//                        contentColor = PrimePink
-//                    )
-//                ) {
-//                    Icon(
-//                        imageVector = Icons.Outlined.ThumbDown,
-//                        contentDescription = "ThumbDown Icon"
-//                    )
-//                }
                 IconButton(
                     onClick = {
                         val shareIntent = Intent(Intent.ACTION_SEND)
@@ -215,7 +208,8 @@ fun PostItem(userName:String,postText:String,imageUrl:String,postId:String,navCo
                     }, colors = IconButtonDefaults.iconButtonColors(
                         containerColor = Color.Transparent,
                         contentColor = PrimePink
-                    )
+                    ),
+                    enabled = userName == userName1
                 ) {
                     Icon(
                         imageVector = Icons.Default.DeleteForever,
@@ -228,7 +222,6 @@ fun PostItem(userName:String,postText:String,imageUrl:String,postId:String,navCo
         if (showDialog){
             AlertDialog(
                 onDismissRequest = { showDialog = false },
-//                title = { Text("Confirm Termination") },
                 text = { Text("Are you sure you want to delete?") },
                 confirmButton = {
                     Button(onClick = {
@@ -252,7 +245,6 @@ fun PostItem(userName:String,postText:String,imageUrl:String,postId:String,navCo
                 }
             )
         }
-
         Spacer(modifier = Modifier.height(20.dp))
     }
 }

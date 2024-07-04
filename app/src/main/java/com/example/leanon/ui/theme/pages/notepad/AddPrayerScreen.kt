@@ -39,6 +39,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.leanon.data.PrayersRepository
 import com.example.leanon.navigation.ROUTE_PRAYER_NOTEPAD
 import com.example.leanon.ui.theme.LeanOnTheme
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun AddPrayerScreen(navController: NavHostController) {
@@ -61,21 +63,22 @@ fun AddPrayerScreen(navController: NavHostController) {
         )
 
         Spacer(modifier = Modifier.height(20.dp))
-        var prayerDate by remember { mutableStateOf("") }
+        var prayerDate by remember { mutableStateOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))) }
+        var prayerTime by remember { mutableStateOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))) }
         var prayerText by remember { mutableStateOf("") }
-        OutlinedTextField(
-            value = prayerDate,
-            onValueChange = {prayerDate=it},
-            label = { Text(text = "Date...")},
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            modifier = Modifier.fillMaxWidth(0.8f)
-
-        )
+//        OutlinedTextField(
+//            value = prayerDate,
+//            onValueChange = {prayerDate=it},
+//            label = { Text(text = "Date...")},
+//            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+//            modifier = Modifier.fillMaxWidth(0.8f)
+//
+//        )
         Spacer(modifier = Modifier.height(20.dp))
         OutlinedTextField(
             value = prayerText,
             onValueChange = {prayerText=it},
-            label = { Text(text = "Dear God...")},
+            label = { Text(text = "Talk to God...")},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text) ,
             modifier = Modifier.height(300.dp)
                 .fillMaxWidth(0.8f)
@@ -90,7 +93,7 @@ fun AddPrayerScreen(navController: NavHostController) {
             modifier = Modifier
                 .clickable(onClick = {
                     val prayersRepository = PrayersRepository(navController,context)
-                    prayersRepository.savePrayer(prayerDate,prayerText)
+                    prayersRepository.savePrayer(prayerDate,prayerTime,prayerText)
                     navController.navigate(ROUTE_PRAYER_NOTEPAD)
                 })
                 .clip(RoundedCornerShape(10.dp))
